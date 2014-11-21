@@ -1,0 +1,45 @@
+= Špecifikácia zápočtového programu: Learnr
+Ondrej Škopek <oskopek@matfyz.cz>
+
+== Stručne
+
+Mojim cieľom je vytvoriť program, ktorý bude pomáhať študentom pri učení, resp. zefektívňovať ho --
+konkrétne zjednodušiť učenie faktov a údajov.
+Rýchly a pohodlný spôsob učenia slovíčok cudzích jazykov, vzorcov a iných faktografických vedomostí.
+
+
+== Podrobne
+
+Program bude zo vstupného datasetu bude na základe algoritmu predkladať študentovi otázky, overovať odpovede,
+vyhodnocovať ich štatisticky a cieľavedome (na základe štatistík z odpovedí) zlepšovať študentove vedomosti
+predkladaním vhodne zvolených ďalších otázok.
+
+Bude pozostávať z dvoch častí:
+grafické používatelske rozhranie a
+jadro (algoritmus na výber otázok + ukladanie údajov o odpovediach používateľa -- štatistický vyhodnocovací systém).
+
+Grafické prostredie bude študentovi zobrazovať otázky, poprípade výsledky a štatistiky. Algoritmus bude náhodným váženým výberom
+predkladať otázky podľa nastavených denných/"session" limitov, úspešnosti predchádzajúcich odpovedí na danú otázku, a všetky získané
+údaje ukladať a zatrieďovať.
+
+=== Ciele
+
+* Systém na zapamätanie štatistických údajov
+* Algoritmus na ich vyhodnocovanie (na základe predchádzajúcich odpovedí na danú otázku, pridávanie doposial nezodpovedaných (nových) otázok, ...)
+* Modulárny formát datasetu
+* Denné a "session" limity na nové/celkové/... otázky
+
+== Programovací jazyk
+
+Java, vrátane GUI vo Swing
+
+== Bonus
+
+Ak zostane čas, program rozšírim o jednu/viacero z nasledujúcich funkcií:
+
+* Štatistické vyhodnocovanie odpovedí (tabuľkový prehľad v menu)
+* Vyhodnocovanie "reakčného času" na otázku + štatistiky "najrýchlejsie/najpomalšie odpovedáš dobre/zle na ..."
+* Prekladateľnosť rozhrania + podpora základných jazykov (EN, SK, CZ, DE)
+* Funkcia "testu" vedomostí -- otázky sa vyhodnotia až po N otázkach alebo po uplynutí času
+* Čiastkové správne odpovede -- kategorizácia otázok a odpovedí v datasete + štatistiky "najviac sa mýliš v úlohách typu ..."
+* Profily -- podpora viacerých užívateľov
