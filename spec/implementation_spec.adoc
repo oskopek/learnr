@@ -5,6 +5,6 @@ Ondrej Skopek <oskopek@matfyz.cz>
 
 * Autosave a backup in case of CTRL+C
 * Modular dataset & human readable
-* Prekladateľnosť do iných jazykov (aj user interface, aj datasets)
 * Dokumentácia (aj dataset formátu) + dev doc
+* LaTeX in dataset
 
