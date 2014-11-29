@@ -10,11 +10,33 @@ import java.util.List;
 @XStreamAlias("Statistics")
 public class Statistics extends AbstractPersistable {
 
-    public Statistics(Long id, long lastAsked) {
-        super(id);
+    private long lastAsked;
+
+    private List<Answer> answeredList;
+
+    private int goodAnswerCount;
+
+    public long getLastAsked() {
+        return lastAsked;
+    }
+
+    public void setLastAsked(long lastAsked) {
         this.lastAsked = lastAsked;
     }
 
-    private long lastAsked;
-    private List<Answer> answeredList;
+    public List<Answer> getAnsweredList() {
+        return answeredList;
+    }
+
+    public void setAnsweredList(List<Answer> answeredList) {
+        this.answeredList = answeredList;
+    }
+
+    public int getGoodAnswerCount() {
+        return goodAnswerCount;
+    }
+
+    public void setGoodAnswerCount(int goodAnswerCount) {
+        this.goodAnswerCount = goodAnswerCount;
+    }
 }

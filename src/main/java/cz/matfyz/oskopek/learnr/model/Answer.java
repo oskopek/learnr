@@ -1,8 +1,6 @@
 package cz.matfyz.oskopek.learnr.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -13,11 +11,6 @@ public class Answer extends AbstractPersistable {
 
     private String value;
 
-    public Answer(Long id, String value) {
-        super(id);
-        this.value = value;
-    }
-
     public String getValue() {
         return value;
     }
@@ -26,19 +19,8 @@ public class Answer extends AbstractPersistable {
         this.value = value;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Answer answer = (Answer) o;
-
-        return new EqualsBuilder().append(getValue(), answer.getValue()).isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(value).toHashCode();
+    public static boolean checkAnswer() {
+        return false;
     }
 
     @Override

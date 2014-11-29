@@ -9,6 +9,10 @@ public abstract class AbstractPersistable implements Serializable/*, Comparable<
 
     protected Long id;
 
+    protected AbstractPersistable() {
+        //intentionally empty
+    }
+
     protected AbstractPersistable(Long id) {
         this.id = id;
     }
