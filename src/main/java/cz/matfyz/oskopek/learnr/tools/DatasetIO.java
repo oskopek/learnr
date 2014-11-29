@@ -2,19 +2,27 @@ package cz.matfyz.oskopek.learnr.tools;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
+import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Limits;
+import cz.matfyz.oskopek.learnr.model.Question;
+import cz.matfyz.oskopek.learnr.model.Statistics;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by oskopek on 11/29/14.
  */
-public class DatasetExporter {
+public class DatasetIO {
 
     public static void saveDataset(Dataset dataset, String filename) throws IOException {
         File outFile = new File(filename);
@@ -49,14 +57,27 @@ public class DatasetExporter {
     }
 
     public static void exportTXTDataset(Dataset dataset, String filename) throws IOException {
-
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
+        pw.printf("PREAMBLE:\n");
+        pw.printf("Name: %s", dataset.getName());
+        pw.printf("Description: %s\n", dataset.getDescription());
+        pw.printf("Author: %s\n", dataset.getAuthor());
+        pw.printf("CreatedDate: %l\n" + dataset.getCreatedDate());
+        pw.printf("Limits: %d/%d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession(), dataset.getLimits().getSessionTimeout());
+        pw.printf("QUESTIONS:\n");
+        for (Question q : dataset.getQuestionList()) {
+            pw.printf("%s; %s; %s", q.getName(), q.getDescription(), q.getAnswerCheckType()); //skips statistics
+            for (Answer a : q.getAnswerList()) {
+                pw.printf("; %s", a.getValue());
+            }
+            pw.printf("\n");
+        }
     }
 
     public static Dataset importTXTDataset(String filename) throws IOException {
         Dataset dataset = new Dataset();
         BufferedReader br = new BufferedReader(new FileReader(filename));
 
-        String dummy;
         br.readLine(); // PREAMBLE
         dataset.setName(br.readLine());
         dataset.setDescription(br.readLine());
@@ -67,9 +88,29 @@ public class DatasetExporter {
         limits.setDaily(Integer.parseInt(limitsStr[0]));
         limits.setSession(Integer.parseInt(limitsStr[1]));
         limits.setSessionTimeout(Integer.parseInt(limitsStr[2]));
-        br.readLine(); // QUESTIONS
-        
 
+        String buffer;
+        br.readLine(); // QUESTIONS
+        List<Question> questionList = new ArrayList<Question>();
+        while ((buffer = br.readLine()) != null) {
+            String[] split = buffer.split(";");
+            Question q = new Question();
+            q.setName(split[0]);
+            q.setDescription(split[1]);
+            q.setAnswerCheckType(Question.AnswerCheckType.valueOf(split[2]));
+            q.setStatistics(new Statistics());
+
+            List<Answer> answerList = new ArrayList<Answer>();
+            for(int i = 3; i < split.length; i++) {
+                Answer answer = new Answer();
+                answer.setValue(split[i]);
+                answerList.add(answer);
+            }
+            q.setAnswerList(answerList);
+
+            questionList.add(q);
+        }
+        dataset.setQuestionList(questionList);
 
         br.close();
         return dataset;

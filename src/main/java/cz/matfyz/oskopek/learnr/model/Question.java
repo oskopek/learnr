@@ -19,6 +19,10 @@ public class Question extends AbstractPersistable {
 
     private Statistics statistics;
 
+    public enum AnswerCheckType {ALL, LOWERCASE, UPPERCASE, EXACT};
+
+    private AnswerCheckType answerCheckType;
+
     public String getName() {
         return name;
     }
@@ -51,8 +55,16 @@ public class Question extends AbstractPersistable {
         this.statistics = statistics;
     }
 
+    public AnswerCheckType getAnswerCheckType() {
+        return answerCheckType;
+    }
+
+    public void setAnswerCheckType(AnswerCheckType answerCheckType) {
+        this.answerCheckType = answerCheckType;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append(name).append(description).append(statistics).append(answerList).build();
+        return new ToStringBuilder(this).append(name).append(description).append(answerCheckType).append(statistics).append(answerList).build();
     }
 }

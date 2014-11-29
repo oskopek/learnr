@@ -6,5 +6,5 @@ CreatedDate: 56832129249418
 Limits: 20/10/0
 QUESTIONS:
 Feeling; How are you?; ALL; Good; Great; Fine
-Kofola; Do you like kofola?; ALL; Yes;
-Days in a week; How many days are there in a week?; 7; Seven;
+Kofola; Do you like kofola?; ALL; Yes
+Days in a week; How many days are there in a week?; ALL; 7; Seven
