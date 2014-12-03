@@ -2,6 +2,7 @@ package cz.matfyz.oskopek.learnr.app;
 
 import com.thoughtworks.xstream.XStream;
 import cz.matfyz.oskopek.learnr.model.Profile;
+import cz.matfyz.oskopek.learnr.ui.LearnrUI;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +18,9 @@ public class LearnrApp {
 
     public void saveProfile(Profile profile) throws IOException {
         File outFile = new File(profile.getSettings().getFilename());
-        outFile.createNewFile();
+        if(!outFile.createNewFile()) {
+            // TODO Are you sure you want to overwrite?
+        }
         FileOutputStream fileOutputStream = new FileOutputStream(outFile);
 
         XStream xstream = new XStream();
@@ -34,6 +37,11 @@ public class LearnrApp {
     public void loadProfile(String filename) {
         XStream xstream = new XStream();
         Profile profile = (Profile) xstream.fromXML(new File(filename));
+    }
+
+    public static void main(String[] args) {
+        LearnrUI learnrUI = new LearnrUI();
+        learnrUI.startUI();
     }
 
 }
