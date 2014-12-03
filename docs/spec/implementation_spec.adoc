@@ -1,10 +1,35 @@
 = Learnr: implementation
 Ondrej Skopek <oskopek@matfyz.cz>
 
-== Implementačné poznámky
+== TODO
+* Finish UI
+* Write algorithm for questions + Write statistics collection
+* Implement limits
+* Write documentation (aj dataset formátu) + dev doc
+* Create model unit tests
+* Check I/O for bugs -- write unit tests -- check for modularity
+* Check everything
+* _Implement bonus features_
 
-* Autosave a backup in case of CTRL+C
-* Modular dataset & human readable
-* Dokumentácia (aj dataset formátu) + dev doc
+=== ToDo Goals
+
+* *Modulárny formát datasetu*
+* GUI vo Swing
+* Systém na zapamätanie štatistických údajov
+* Algoritmus na ich vyhodnocovanie (na základe predchádzajúcich odpovedí na danú otázku, pridávanie doposial nezodpovedaných (nových) otázok, ...)
+* Denné a "session" limity na nové/celkové/... otázky
+
+==== Implementačné poznámky
+
+* Guess and Answer levels of answering?
+* Autosave a backup in case of ALT+F4?
+
+=== ToDo Bonus
+
+* Štatistické vyhodnocovanie odpovedí (tabuľkový prehľad v menu)
+* Vyhodnocovanie "reakčného času" na otázku + štatistiky "najrýchlejsie/najpomalšie odpovedáš dobre/zle na ..."
+* Prekladateľnosť rozhrania + podpora základných jazykov (EN, SK, CZ, DE)
+* Funkcia "testu" vedomostí -- otázky sa vyhodnotia až po N otázkach alebo po uplynutí času
+* Čiastkové správne odpovede -- kategorizácia otázok a odpovedí v datasete + štatistiky "najviac sa mýliš v úlohách typu ..."
+* Profily -- podpora viacerých užívateľov
 * LaTeX in dataset
-
