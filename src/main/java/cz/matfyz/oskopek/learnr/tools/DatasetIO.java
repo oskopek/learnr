@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class DatasetIO {
 
+    // TODO create nonthrowing wrapper functions and privatize these
+
     public static void saveDataset(Dataset dataset, String filename) throws IOException {
         File outFile = new File(filename);
         outFile.createNewFile();

@@ -20,7 +20,6 @@ public class LearnrPane extends JPanel {
         setLayout(new GridLayout(1, 2));
         mainPanel = new MainPanel(this);
         menuPanel = new MenuPanel(this);
-        // TODO menuPanel.addListener
         add(menuPanel);
         add(mainPanel);
     }
