@@ -12,19 +12,23 @@ public class MainPanel extends JPanel implements ActionListener {
 
     private QuestionAnswerPanel qaPanel;
     private DatasetPanel dataPanel;
+    private LearnrPane parentPane;
 
-    public MainPanel() {
+    public MainPanel(LearnrPane parentPane) {
+        this.parentPane = parentPane;
         init();
     }
 
     public void viewQA() {
         remove(dataPanel);
         add(qaPanel);
+        updateUI();
     }
 
     public void viewDataset() {
         remove(qaPanel);
         add(dataPanel);
+        updateUI();
     }
 
     private void init() {

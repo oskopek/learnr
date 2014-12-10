@@ -1,6 +1,8 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.model.Answer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,32 +15,41 @@ import java.awt.event.ActionListener;
 public class AnswerPanel extends JPanel {
 
     private Answer answer;
+    private SubmitAnswerListener answerListener;
+
+    final protected JTextField textField;
 
     public AnswerPanel() {
-        init();
-    }
+        answerListener = new SubmitAnswerListener(this);
 
-    private void init() {
         setLayout(new GridLayout(1, 2));
-        final JTextField textField = new JTextField();
-        textField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("TF: " + textField.getText()); // TODO LOGGING & PUT INTO ONE ACTIONLISTENER
-                answer = new Answer();
-                answer.setValue(textField.getText());
-                // TODO SUBMIT ANSWER SOMEWHERE (QuestionIteratorManager)
-            }
-        });
+        textField = new JTextField();
+        textField.addActionListener(answerListener);
         add(textField);
 
         JButton submitBtt = new JButton("Submit");
-        submitBtt.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("BTT:" + textField.getText()); // TODO LOGGING
-            }
-        });
+        submitBtt.addActionListener(answerListener);
+        add(submitBtt);
+    }
+
+    private class SubmitAnswerListener implements ActionListener {
+
+        private AnswerPanel parentPanel;
+
+        final private Logger LOGGER = LoggerFactory.getLogger(AnswerPanel.class);
+
+        private SubmitAnswerListener(AnswerPanel parentPanel) {
+            this.parentPanel = parentPanel;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            LOGGER.debug("Submitted \'{}\' in answer text field.", parentPanel.textField.getText());
+
+            answer = new Answer();
+            answer.setValue(parentPanel.textField.getText());
+            // TODO SUBMIT ANSWER SOMEWHERE (QuestionIteratorManager)
+        }
     }
 
 }

@@ -8,6 +8,9 @@ import java.awt.*;
  */
 public class LearnrPane extends JPanel {
 
+    protected MainPanel mainPanel;
+    protected MenuPanel menuPanel;
+
     public LearnrPane() {
         init();
     }
@@ -15,8 +18,8 @@ public class LearnrPane extends JPanel {
     private void init() {
         // TODO use a splitpane?
         setLayout(new GridLayout(1, 2));
-        MainPanel mainPanel = new MainPanel();
-        MenuPanel menuPanel = new MenuPanel();
+        mainPanel = new MainPanel(this);
+        menuPanel = new MenuPanel(this);
         // TODO menuPanel.addListener
         add(menuPanel);
         add(mainPanel);
