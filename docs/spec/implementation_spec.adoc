@@ -3,7 +3,8 @@ Ondrej Skopek <oskopek@matfyz.cz>
 
 == ToDo
 * *Finish UI*
-* Write algorithm for questions + Write statistics collection
+* Write algorithm for questions
+* *Write statistics collection*
 * Implement limits
 * Write documentation (aj dataset formátu) + dev doc
 * Create model unit tests
