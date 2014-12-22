@@ -20,11 +20,13 @@ public class QuestionPanel extends JPanel {
     }
 
     private void init() {
-        setLayout(new GridLayout(2, 1));
+        setLayout(new BorderLayout());
         JLabel name = new JLabel(question.getName());
+        name.setHorizontalAlignment(JLabel.CENTER);
         JLabel text = new JLabel(question.getDescription());
-        add(name);
-        add(text);
+        text.setHorizontalAlignment(JLabel.CENTER);
+        add(name, BorderLayout.PAGE_START);
+        add(text, BorderLayout.CENTER);
     }
 
     public void showQuestion(Question question) {

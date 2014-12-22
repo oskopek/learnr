@@ -17,11 +17,11 @@ public class LearnrPane extends JPanel {
 
     private void init() {
         // TODO use a splitpane?
-        setLayout(new GridLayout(1, 2));
+        setLayout(new BorderLayout());
         mainPanel = new MainPanel(this);
         menuPanel = new MenuPanel(this);
-        add(menuPanel);
-        add(mainPanel);
+        add(menuPanel, BorderLayout.LINE_START);
+        add(mainPanel, BorderLayout.CENTER);
     }
 
 }

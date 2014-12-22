@@ -18,7 +18,7 @@ public class MenuPanel extends JPanel {
     }
 
     private void init() {
-        setLayout(new GridLayout(3, 1));
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         JButton btt1 = new JButton("Show data");
         btt1.addMouseListener(new MouseAdapter() {
             @Override
@@ -27,6 +27,8 @@ public class MenuPanel extends JPanel {
                 parentPane.mainPanel.viewDataset();
             }
         });
+        btt1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btt1.setAlignmentY(Component.CENTER_ALIGNMENT);
         JButton btt2 = new JButton("Show QA");
         btt2.addMouseListener(new MouseAdapter() {
             @Override
@@ -35,6 +37,8 @@ public class MenuPanel extends JPanel {
                 parentPane.mainPanel.viewQA();
             }
         });
+        btt2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btt2.setAlignmentY(Component.CENTER_ALIGNMENT);
         JButton btt3 = new JButton("Exit");
         btt3.addMouseListener(new MouseAdapter() {
             @Override
@@ -43,6 +47,8 @@ public class MenuPanel extends JPanel {
                 System.exit(0);
             }
         });
+        btt3.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btt3.setAlignmentY(Component.CENTER_ALIGNMENT);
         add(btt1);
         add(btt2);
         add(btt3);

@@ -1,6 +1,5 @@
 package cz.matfyz.oskopek.learnr.ui;
 
-import cz.matfyz.oskopek.learnr.tools.DatasetIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +21,9 @@ public class DatasetPanel extends JPanel {
     }
 
     private void init() {
-        setLayout(new GridLayout(1, 4));
+        setLayout(new BorderLayout());
+        JPanel menuBar = new JPanel();
+        menuBar.setLayout(new FlowLayout());
         JButton openBtt = new JButton("Open");
         openBtt.addMouseListener(new MouseAdapter() {
             @Override
@@ -80,10 +81,11 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        add(openBtt);
-        add(saveBtt);
-        add(importBtt);
-        add(exportBtt);
+        menuBar.add(openBtt);
+        menuBar.add(saveBtt);
+        menuBar.add(importBtt);
+        menuBar.add(exportBtt);
+        add(menuBar, BorderLayout.PAGE_START);
     }
 
 }

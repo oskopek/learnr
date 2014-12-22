@@ -2,13 +2,11 @@ package cz.matfyz.oskopek.learnr.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by oskopek on 12/3/14.
  */
-public class MainPanel extends JPanel implements ActionListener {
+public class MainPanel extends JPanel {
 
     private QuestionAnswerPanel qaPanel;
     private DatasetPanel dataPanel;
@@ -32,20 +30,11 @@ public class MainPanel extends JPanel implements ActionListener {
     }
 
     private void init() {
-        setLayout(new GridLayout(1, 1));
+        setLayout(new BorderLayout());
 
         qaPanel = new QuestionAnswerPanel();
         dataPanel = new DatasetPanel();
 
         viewDataset();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("DATA")) {
-            viewDataset();
-        } else if(e.getActionCommand().equals("QA")) {
-            viewQA();
-        }
     }
 }

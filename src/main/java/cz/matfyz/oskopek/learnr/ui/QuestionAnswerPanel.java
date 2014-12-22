@@ -13,11 +13,11 @@ public class QuestionAnswerPanel extends JPanel {
     }
 
     private void init() {
-        setLayout(new GridLayout(2,1));
+        setLayout(new BorderLayout());
         QuestionPanel questionPanel = new QuestionPanel();
         AnswerPanel answerPanel = new AnswerPanel();
-        add(questionPanel);
-        add(answerPanel);
+        add(questionPanel, BorderLayout.CENTER);
+        add(answerPanel, BorderLayout.PAGE_END);
     }
 
 }

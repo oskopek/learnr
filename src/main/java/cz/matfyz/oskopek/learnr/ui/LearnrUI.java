@@ -1,6 +1,7 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by oskopek on 12/3/14.
@@ -21,6 +22,7 @@ public class LearnrUI {
         learnrFrame.setLocation(100, 100);
 
         learnrFrame.pack();
+        learnrFrame.setMinimumSize(new Dimension(500, 200));
         learnrFrame.setVisible(true);
     }
 

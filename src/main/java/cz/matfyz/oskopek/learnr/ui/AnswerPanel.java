@@ -22,14 +22,14 @@ public class AnswerPanel extends JPanel {
     public AnswerPanel() {
         answerListener = new SubmitAnswerListener(this);
 
-        setLayout(new GridLayout(1, 2));
+        setLayout(new BorderLayout());
         textField = new JTextField();
         textField.addActionListener(answerListener);
-        add(textField);
+        add(textField, BorderLayout.CENTER);
 
         JButton submitBtt = new JButton("Submit");
         submitBtt.addActionListener(answerListener);
-        add(submitBtt);
+        add(submitBtt, BorderLayout.LINE_END);
     }
 
     private class SubmitAnswerListener implements ActionListener {
