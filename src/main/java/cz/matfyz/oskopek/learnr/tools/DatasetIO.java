@@ -1,6 +1,7 @@
 package cz.matfyz.oskopek.learnr.tools;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
@@ -25,6 +26,7 @@ import java.util.List;
 public class DatasetIO {
 
     // TODO create nonthrowing wrapper functions and privatize these
+    // TODO Dataset limits aren't getting saved/exported
 
     public static void saveDataset(Dataset dataset, String filename) throws IOException {
         File outFile = new File(filename);
@@ -54,7 +56,7 @@ public class DatasetIO {
     }
 
     public static Dataset importJSONDataset(String filename) throws IOException {
-        XStream xstream = new XStream(new JsonHierarchicalStreamDriver());
+        XStream xstream = new XStream(new JettisonMappedXmlDriver());
         return (Dataset) xstream.fromXML(new File(filename));
     }
 
@@ -64,7 +66,7 @@ public class DatasetIO {
         pw.printf("Name: %s", dataset.getName());
         pw.printf("Description: %s\n", dataset.getDescription());
         pw.printf("Author: %s\n", dataset.getAuthor());
-        pw.printf("CreatedDate: %l\n" + dataset.getCreatedDate());
+        pw.printf("CreatedDate: %d\n", dataset.getCreatedDate());
         pw.printf("Limits: %d/%d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession(), dataset.getLimits().getSessionTimeout());
         pw.printf("QUESTIONS:\n");
         for (Question q : dataset.getQuestionList()) {
@@ -84,28 +86,28 @@ public class DatasetIO {
         dataset.setName(br.readLine());
         dataset.setDescription(br.readLine());
         dataset.setAuthor(br.readLine());
-        dataset.setCreatedDate(Long.parseLong(br.readLine()));
+        dataset.setCreatedDate(Long.parseLong(br.readLine().split(" ")[1]));
         String[] limitsStr = br.readLine().split("/");
         Limits limits = new Limits();
-        limits.setDaily(Integer.parseInt(limitsStr[0]));
+        limits.setDaily(Integer.parseInt(limitsStr[0].split(" ")[1]));
         limits.setSession(Integer.parseInt(limitsStr[1]));
         limits.setSessionTimeout(Integer.parseInt(limitsStr[2]));
 
         String buffer;
         br.readLine(); // QUESTIONS
-        List<Question> questionList = new ArrayList<Question>();
+        List<Question> questionList = new ArrayList<>();
         while ((buffer = br.readLine()) != null) {
             String[] split = buffer.split(";");
             Question q = new Question();
-            q.setName(split[0]);
-            q.setDescription(split[1]);
-            q.setAnswerCheckType(Question.AnswerCheckType.valueOf(split[2]));
+            q.setName(split[0].trim());
+            q.setDescription(split[1].trim());
+            q.setAnswerCheckType(Question.AnswerCheckType.valueOf(split[2].trim()));
             q.setStatistics(new Statistics());
 
-            List<Answer> answerList = new ArrayList<Answer>();
+            List<Answer> answerList = new ArrayList<>();
             for(int i = 3; i < split.length; i++) {
                 Answer answer = new Answer();
-                answer.setValue(split[i]);
+                answer.setValue(split[i].trim());
                 answerList.add(answer);
             }
             q.setAnswerList(answerList);

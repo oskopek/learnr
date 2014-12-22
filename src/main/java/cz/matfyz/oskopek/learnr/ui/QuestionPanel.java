@@ -11,8 +11,10 @@ import java.awt.*;
 public class QuestionPanel extends JPanel {
 
     private Question question;
+    protected QuestionAnswerPanel parentPane;
 
-    public QuestionPanel() {
+    public QuestionPanel(QuestionAnswerPanel parentPane) {
+        this.parentPane = parentPane;
         question = new Question();
         question.setName("QUESTION NAME");
         question.setDescription("QUESTION TEXT");

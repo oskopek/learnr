@@ -2,7 +2,7 @@
 Ondrej Skopek <oskopek@matfyz.cz>
 
 == ToDo
-* Finish UI
+* *Finish UI*
 * Write algorithm for questions + Write statistics collection
 * Implement limits
 * Write documentation (aj dataset formátu) + dev doc
@@ -15,7 +15,7 @@ Ondrej Skopek <oskopek@matfyz.cz>
 
 * *Modulárny formát datasetu*
 * *GUI vo Swing*
-* Systém na zapamätanie štatistických údajov
+* *Systém na zapamätanie štatistických údajov*
 * Algoritmus na ich vyhodnocovanie (na základe predchádzajúcich odpovedí na danú otázku, pridávanie doposial nezodpovedaných (nových) otázok, ...)
 * Denné a "session" limity na nové/celkové/... otázky
 

@@ -16,6 +16,10 @@ public class Statistics extends AbstractPersistable {
 
     private int goodAnswerCount;
 
+    public void submitAnswer(Answer answer) {
+        answeredList.add(answer);
+    }
+
     public long getLastAsked() {
         return lastAsked;
     }

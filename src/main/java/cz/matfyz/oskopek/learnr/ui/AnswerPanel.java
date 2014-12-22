@@ -13,13 +13,13 @@ import java.awt.event.ActionListener;
  * Created by oskopek on 12/3/14.
  */
 public class AnswerPanel extends JPanel {
-
-    private Answer answer;
     private SubmitAnswerListener answerListener;
 
+    protected QuestionAnswerPanel parentPane;
     final protected JTextField textField;
 
-    public AnswerPanel() {
+    public AnswerPanel(QuestionAnswerPanel parentPane) {
+        this.parentPane = parentPane;
         answerListener = new SubmitAnswerListener(this);
 
         setLayout(new BorderLayout());
@@ -46,9 +46,13 @@ public class AnswerPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             LOGGER.debug("Submitted \'{}\' in answer text field.", parentPanel.textField.getText());
 
-            answer = new Answer();
+            Answer answer = new Answer();
             answer.setValue(parentPanel.textField.getText());
-            // TODO SUBMIT ANSWER SOMEWHERE (QuestionIteratorManager)
+            if (parentPanel.parentPane.questionIteratorManager != null) {
+                parentPanel.parentPane.questionIteratorManager.submitAnswer(answer);
+            } else {
+                LOGGER.warn("Submitting answer to null questionIteratorManager.");
+            }
         }
     }
 

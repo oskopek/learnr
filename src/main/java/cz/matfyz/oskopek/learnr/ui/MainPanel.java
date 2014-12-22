@@ -8,9 +8,9 @@ import java.awt.*;
  */
 public class MainPanel extends JPanel {
 
-    private QuestionAnswerPanel qaPanel;
+    protected QuestionAnswerPanel qaPanel;
     private DatasetPanel dataPanel;
-    private LearnrPane parentPane;
+    protected LearnrPane parentPane;
 
     public MainPanel(LearnrPane parentPane) {
         this.parentPane = parentPane;
@@ -32,8 +32,8 @@ public class MainPanel extends JPanel {
     private void init() {
         setLayout(new BorderLayout());
 
-        qaPanel = new QuestionAnswerPanel();
-        dataPanel = new DatasetPanel();
+        qaPanel = new QuestionAnswerPanel(this);
+        dataPanel = new DatasetPanel(this);
 
         viewDataset();
     }
