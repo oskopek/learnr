@@ -48,8 +48,9 @@ public class AnswerPanel extends JPanel {
 
             Answer answer = new Answer();
             answer.setValue(parentPanel.textField.getText());
-            if (parentPanel.parentPane.questionIteratorManager != null) {
-                parentPanel.parentPane.questionIteratorManager.submitAnswer(answer);
+            if (parentPanel.parentPane.questionIterator != null) {
+                parentPanel.parentPane.questionIterator.submitAnswer(answer);
+                parentPanel.parentPane.nextQuestion();
             } else {
                 LOGGER.warn("Submitting answer to null questionIteratorManager.");
             }

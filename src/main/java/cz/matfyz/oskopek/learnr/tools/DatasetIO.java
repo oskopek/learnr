@@ -3,6 +3,7 @@ package cz.matfyz.oskopek.learnr.tools;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
+import cz.matfyz.oskopek.learnr.data.QuestionWeightComparator;
 import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Limits;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by oskopek on 11/29/14.
@@ -69,7 +71,7 @@ public class DatasetIO {
         pw.printf("CreatedDate: %d\n", dataset.getCreatedDate());
         pw.printf("Limits: %d/%d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession(), dataset.getLimits().getSessionTimeout());
         pw.printf("QUESTIONS:\n");
-        for (Question q : dataset.getQuestionList()) {
+        for (Question q : dataset.getQuestionSet()) {
             pw.printf("%s; %s; %s", q.getName(), q.getDescription(), q.getAnswerCheckType()); //skips statistics
             for (Answer a : q.getAnswerList()) {
                 pw.printf("; %s", a.getValue());
@@ -79,6 +81,7 @@ public class DatasetIO {
     }
 
     public static Dataset importTXTDataset(String filename) throws IOException {
+        //TODO fix limits, implement weights, implement finishedSet
         Dataset dataset = new Dataset();
         BufferedReader br = new BufferedReader(new FileReader(filename));
 
@@ -95,7 +98,7 @@ public class DatasetIO {
 
         String buffer;
         br.readLine(); // QUESTIONS
-        List<Question> questionList = new ArrayList<>();
+        TreeSet<Question> questionSet = new TreeSet<>(new QuestionWeightComparator());
         while ((buffer = br.readLine()) != null) {
             String[] split = buffer.split(";");
             Question q = new Question();
@@ -112,9 +115,9 @@ public class DatasetIO {
             }
             q.setAnswerList(answerList);
 
-            questionList.add(q);
+            questionSet.add(q);
         }
-        dataset.setQuestionList(questionList);
+        dataset.setQuestionSet(questionSet);
 
         br.close();
         return dataset;

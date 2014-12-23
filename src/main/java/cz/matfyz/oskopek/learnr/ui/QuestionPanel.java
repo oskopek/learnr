@@ -12,6 +12,8 @@ public class QuestionPanel extends JPanel {
 
     private Question question;
     protected QuestionAnswerPanel parentPane;
+    private JLabel name;
+    private JLabel text;
 
     public QuestionPanel(QuestionAnswerPanel parentPane) {
         this.parentPane = parentPane;
@@ -23,9 +25,9 @@ public class QuestionPanel extends JPanel {
 
     private void init() {
         setLayout(new BorderLayout());
-        JLabel name = new JLabel(question.getName());
+        name = new JLabel(question.getName());
         name.setHorizontalAlignment(JLabel.CENTER);
-        JLabel text = new JLabel(question.getDescription());
+        text = new JLabel(question.getDescription());
         text.setHorizontalAlignment(JLabel.CENTER);
         add(name, BorderLayout.PAGE_START);
         add(text, BorderLayout.CENTER);
@@ -33,7 +35,8 @@ public class QuestionPanel extends JPanel {
 
     public void showQuestion(Question question) {
         this.question = question;
-        init();
+        name.setText(question.getName());
+        text.setText(question.getDescription());
     }
 
 }

@@ -3,7 +3,7 @@ package cz.matfyz.oskopek.learnr.model;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by oskopek on 11/29/14.
@@ -11,24 +11,28 @@ import java.util.List;
 @XStreamAlias("Dataset")
 public class Dataset extends AbstractPersistable {
 
-    private List<Question> questionList;
-
+    private TreeSet<Question> questionSet;
+    private TreeSet<Question> finishedSet;
     private String name;
-
     private String description;
-
     private String author;
-
     private long createdDate;
-
     private Limits limits;
 
-    public List<Question> getQuestionList() {
-        return questionList;
+    public TreeSet<Question> getQuestionSet() {
+        return questionSet;
     }
 
-    public void setQuestionList(List<Question> questionList) {
-        this.questionList = questionList;
+    public void setQuestionSet(TreeSet<Question> questionSet) {
+        this.questionSet = questionSet;
+    }
+
+    public TreeSet<Question> getFinishedSet() {
+        return finishedSet;
+    }
+
+    public void setFinishedSet(TreeSet<Question> finishedSet) {
+        this.finishedSet = finishedSet;
     }
 
     public String getName() {
@@ -74,6 +78,6 @@ public class Dataset extends AbstractPersistable {
     @Override
     public String toString() {
         return new ToStringBuilder(this).append(name).append(description).append(author).append(createdDate).append(limits)
-                .append(questionList).build();
+                .append(questionSet).append(finishedSet).build();
     }
 }

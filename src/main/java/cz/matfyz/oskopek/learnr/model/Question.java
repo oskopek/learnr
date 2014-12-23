@@ -1,6 +1,8 @@
 package cz.matfyz.oskopek.learnr.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;
@@ -12,16 +14,20 @@ import java.util.List;
 public class Question extends AbstractPersistable {
 
     private String name;
-
     private String description;
-
     private List<Answer> answerList;
-
     private Statistics statistics;
-
-    public enum AnswerCheckType {ALL, LOWERCASE, UPPERCASE, EXACT};
-
+    public enum AnswerCheckType {ALL, LOWERCASE, UPPERCASE, EXACT}
     private AnswerCheckType answerCheckType;
+    private int weight;
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
     public String getName() {
         return name;
@@ -65,6 +71,25 @@ public class Question extends AbstractPersistable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append(name).append(description).append(answerCheckType).append(statistics).append(answerList).build();
+        return new ToStringBuilder(this).append(name).append(description).append(weight).
+                append(answerCheckType).append(statistics).append(answerList).build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Question)) return false;
+
+        Question question = (Question) o;
+        return new EqualsBuilder().append(name, question.name).append(description, question.description)
+                .append(answerList, question.answerList).append(statistics, question.statistics)
+                .append(answerCheckType, question.answerCheckType)
+                .append(weight, question.weight).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(name).append(description).append(weight).
+                append(answerList).append(statistics).append(answerCheckType).toHashCode();
     }
 }

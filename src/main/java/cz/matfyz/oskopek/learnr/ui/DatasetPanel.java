@@ -1,6 +1,6 @@
 package cz.matfyz.oskopek.learnr.ui;
 
-import cz.matfyz.oskopek.learnr.data.QuestionIteratorManager;
+import cz.matfyz.oskopek.learnr.data.QuestionIterator;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.tools.DatasetIO;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class DatasetPanel extends JPanel {
     final private Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
 
     protected MainPanel parentPane;
-    final private static String currentDirectory = ".";
+    final private static String currentDirectory = "./prog1/zapoctak_learnr/data/";
 
     public DatasetPanel(MainPanel parentPane) {
         this.parentPane = parentPane;
@@ -61,7 +61,7 @@ public class DatasetPanel extends JPanel {
                 if(returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Save dataset to: {}", chooser.getSelectedFile());
                     try {
-                        DatasetIO.saveDataset(parentPane.qaPanel.questionIteratorManager.getDataset(), chooser.getSelectedFile().getAbsolutePath());
+                        DatasetIO.saveDataset(parentPane.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
@@ -99,7 +99,7 @@ public class DatasetPanel extends JPanel {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Export dataset to: {}", chooser.getSelectedFile());
                     try {
-                        DatasetIO.exportJSONDataset(parentPane.qaPanel.questionIteratorManager.getDataset(), chooser.getSelectedFile().getAbsolutePath());
+                        DatasetIO.exportJSONDataset(parentPane.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
@@ -137,7 +137,7 @@ public class DatasetPanel extends JPanel {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Export dataset to: {}", chooser.getSelectedFile());
                     try {
-                        DatasetIO.exportTXTDataset(parentPane.qaPanel.questionIteratorManager.getDataset(), chooser.getSelectedFile().getAbsolutePath());
+                        DatasetIO.exportTXTDataset(parentPane.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
@@ -153,7 +153,7 @@ public class DatasetPanel extends JPanel {
     }
 
     private void setDatasetToPanel(Dataset dataset) {
-        parentPane.qaPanel.questionIteratorManager = new QuestionIteratorManager(dataset);
+        parentPane.qaPanel.questionIterator = new QuestionIterator(dataset);
     }
 
 }

@@ -19,8 +19,9 @@ public class Answer extends AbstractPersistable {
         this.value = value;
     }
 
-    public static boolean checkAnswer() {
+    public boolean checkAnswer(Question question) {
         return false;
+        //TODO checkAnswer
     }
 
     @Override
