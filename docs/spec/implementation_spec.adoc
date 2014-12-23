@@ -3,13 +3,13 @@ Ondrej Skopek <oskopek@matfyz.cz>
 
 == ToDo
 * *Finish UI*
-* Write algorithm for questions
+* *Write algorithm for questions*
 * *Write statistics collection*
 * Implement limits
 * Write documentation (aj dataset formátu) + dev doc
 * Create model unit tests
 * Check I/O for bugs -- write unit tests -- check for modularity
-* Check everything
+* Check everything -- finish UI
 * _Implement bonus features_
 
 === ToDo Goals
@@ -17,7 +17,7 @@ Ondrej Skopek <oskopek@matfyz.cz>
 * *Modulárny formát datasetu*
 * *GUI vo Swing*
 * *Systém na zapamätanie štatistických údajov*
-* Algoritmus na ich vyhodnocovanie (na základe predchádzajúcich odpovedí na danú otázku, pridávanie doposial nezodpovedaných (nových) otázok, ...)
+* *Algoritmus na ich vyhodnocovanie (na základe predchádzajúcich odpovedí na danú otázku, pridávanie doposial nezodpovedaných (nových) otázok, ...)*
 * Denné a "session" limity na nové/celkové/... otázky
 
 ==== Implementačné poznámky
