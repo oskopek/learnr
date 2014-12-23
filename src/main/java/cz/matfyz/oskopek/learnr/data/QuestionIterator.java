@@ -3,12 +3,10 @@ package cz.matfyz.oskopek.learnr.data;
 import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Question;
-import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
-import java.util.function.Consumer;
 
 /**
  * Created by oskopek on 11/29/14.
@@ -41,8 +39,7 @@ public class QuestionIterator implements Iterator<Question> {
         if (!hasNext()) return null;
 
         Question prevQuestion = currentQuestion;
-        currentQuestion = dataset.getQuestionSet().first();
-        dataset.getQuestionSet().remove(currentQuestion);
+        currentQuestion = dataset.getQuestionSet().pollLast();
 
         if (prevQuestion != null) {
             if (prevQuestion.getWeight() <= 0) {
@@ -52,16 +49,6 @@ public class QuestionIterator implements Iterator<Question> {
             }
         }
         return currentQuestion;
-    }
-
-    @Override
-    public void remove() {
-        throw new NotImplementedException("");
-    }
-
-    @Override
-    public void forEachRemaining(Consumer<? super Question> action) {
-        throw new NotImplementedException("");
     }
 
     public void submitAnswer(Answer answer) {

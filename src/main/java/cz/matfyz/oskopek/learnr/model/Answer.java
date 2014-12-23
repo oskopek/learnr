@@ -1,6 +1,8 @@
 package cz.matfyz.oskopek.learnr.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -20,12 +22,49 @@ public class Answer extends AbstractPersistable {
     }
 
     public boolean checkAnswer(Question question) {
-        return false;
-        //TODO checkAnswer
+        switch(question.getAnswerCheckType()) {
+            case CASE_INSENSITIVE: {
+                String val = value.toLowerCase().trim();
+                for (Answer a : question.getAnswerList()) {
+                    if (a.getValue().toLowerCase().trim().equals(val)) return true;
+                }
+                return false;
+            }
+            case CASE_SENSITIVE: {
+                String val = value.trim();
+                for (Answer a : question.getAnswerList()) {
+                    if (a.getValue().trim().equals(val)) return true;
+                }
+                return false;
+            }
+            case EXACT:
+            default: {
+                String val = value;
+                for (Answer a : question.getAnswerList()) {
+                    if (a.getValue().equals(val)) return true;
+                }
+                return false;
+            }
+
+        }
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("value", value).build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Answer)) return false;
+
+        Answer answer = (Answer) o;
+        return new EqualsBuilder().append(value, answer.value).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(value).toHashCode();
     }
 }

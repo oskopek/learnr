@@ -1,6 +1,7 @@
 package cz.matfyz.oskopek.learnr.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -11,13 +12,13 @@ import java.util.List;
  * Created by oskopek on 11/29/14.
  */
 @XStreamAlias("Question")
-public class Question extends AbstractPersistable {
+public class Question extends AbstractPersistable implements Comparable<Question> {
 
     private String name;
     private String description;
     private List<Answer> answerList;
     private Statistics statistics;
-    public enum AnswerCheckType {ALL, LOWERCASE, UPPERCASE, EXACT}
+    public enum AnswerCheckType {CASE_SENSITIVE, CASE_INSENSITIVE, EXACT}
     private AnswerCheckType answerCheckType;
     private int weight;
 
@@ -91,5 +92,15 @@ public class Question extends AbstractPersistable {
     public int hashCode() {
         return new HashCodeBuilder().append(name).append(description).append(weight).
                 append(answerList).append(statistics).append(answerCheckType).toHashCode();
+    }
+
+    @Override
+    public int compareTo(Question o) {
+        int weightCompare = Integer.compare(getWeight(), o.getWeight());
+        if (weightCompare != 0) return weightCompare;
+
+        return new CompareToBuilder().append(name, o.name).append(description, o.description)
+                .append(answerList, o.answerList).append(statistics, o.statistics)
+                .append(answerCheckType, o.answerCheckType).toComparison();
     }
 }

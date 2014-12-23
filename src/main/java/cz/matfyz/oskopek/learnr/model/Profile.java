@@ -1,6 +1,5 @@
 package cz.matfyz.oskopek.learnr.model;
 
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -43,10 +42,8 @@ public class Profile extends AbstractPersistable {
     }
 
     public void addDataset(Dataset dataset) {
-
+        //TODO implement add dataset
     }
-
-    //TODO implement add dataset
 
     @Override
     public String toString() {

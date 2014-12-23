@@ -1,6 +1,9 @@
 package cz.matfyz.oskopek.learnr.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;
 
@@ -42,5 +45,26 @@ public class Statistics extends AbstractPersistable {
 
     public void setGoodAnswerCount(int goodAnswerCount) {
         this.goodAnswerCount = goodAnswerCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Statistics)) return false;
+
+        Statistics that = (Statistics) o;
+
+        return new EqualsBuilder().append(lastAsked, that.lastAsked).append(goodAnswerCount, that.goodAnswerCount)
+                .append(answeredList, that.answeredList).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(lastAsked).append(goodAnswerCount).append(answeredList).toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append(lastAsked).append(goodAnswerCount).append(answeredList).build();
     }
 }
