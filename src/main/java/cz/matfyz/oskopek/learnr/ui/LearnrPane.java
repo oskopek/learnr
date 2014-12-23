@@ -16,7 +16,6 @@ public class LearnrPane extends JPanel {
     }
 
     private void init() {
-        // TODO use a splitpane?
         setLayout(new BorderLayout());
         mainPanel = new MainPanel(this);
         menuPanel = new MenuPanel(this);

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.List;
 
 /**
- * Created by oskopek on 11/29/14.
+ * TODO: Not yet implemented
  */
 @XStreamAlias("Profile")
 public class Profile extends AbstractPersistable {
