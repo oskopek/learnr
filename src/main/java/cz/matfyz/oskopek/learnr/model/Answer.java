@@ -12,6 +12,15 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Answer extends AbstractPersistable {
 
     private String value;
+    private long reactionTime;
+
+    public long getReactionTime() {
+        return reactionTime;
+    }
+
+    public void setReactionTime(long reactionTime) {
+        this.reactionTime = reactionTime;
+    }
 
     public String getValue() {
         return value;
@@ -51,7 +60,7 @@ public class Answer extends AbstractPersistable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("value", value).build();
+        return new ToStringBuilder(this).append("value", value).append("reactionTime", reactionTime).build();
     }
 
     @Override
@@ -60,11 +69,11 @@ public class Answer extends AbstractPersistable {
         if (!(o instanceof Answer)) return false;
 
         Answer answer = (Answer) o;
-        return new EqualsBuilder().append(value, answer.value).isEquals();
+        return new EqualsBuilder().append(value, answer.value).append(reactionTime, answer.reactionTime).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(value).toHashCode();
+        return new HashCodeBuilder().append(value).append(reactionTime).toHashCode();
     }
 }

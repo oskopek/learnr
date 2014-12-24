@@ -37,25 +37,25 @@ public class AnswerPanel extends JPanel {
 
     private class SubmitAnswerListener implements ActionListener {
 
-        private AnswerPanel parentPane;
+        private AnswerPanel answerPane;
 
-        private SubmitAnswerListener(AnswerPanel parentPane) {
-            this.parentPane = parentPane;
+        private SubmitAnswerListener(AnswerPanel answerPane) {
+            this.answerPane = answerPane;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            LOGGER.debug("Submitted \'{}\' in answer text field.", parentPane.textField.getText());
+            LOGGER.debug("Submitted \'{}\' in answer text field.", answerPane.textField.getText());
 
             Answer answer = new Answer();
-            answer.setValue(parentPane.textField.getText());
-            if (parentPane.parentPane.questionIterator != null) {
-                parentPane.parentPane.questionIterator.submitAnswer(answer);
-                parentPane.parentPane.nextQuestion();
+            answer.setValue(answerPane.textField.getText());
+            if (answerPane.parentPane.questionIterator != null) {
+                answerPane.parentPane.questionIterator.submitAnswer(answer);
+                answerPane.parentPane.nextQuestion();
             } else {
                 LOGGER.warn("Submitting answer to null questionIteratorManager.");
             }
-            parentPane.textField.setText("");
+            answerPane.textField.setText("");
         }
     }
 

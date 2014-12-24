@@ -10,7 +10,6 @@ Ondrej Skopek <oskopek@matfyz.cz>
 * Write documentation (aj dataset formátu) + dev doc
 * Check I/O for bugs
 * Finish UI
-* _Implement bonus features_
 
 === ToDo Goals
 
@@ -20,17 +19,12 @@ Ondrej Skopek <oskopek@matfyz.cz>
 * *Algoritmus na ich vyhodnocovanie (na základe predchádzajúcich odpovedí na danú otázku, pridávanie doposial nezodpovedaných (nových) otázok, ...)*
 * Denné a "session" limity na nové/celkové/... otázky
 
-==== Implementačné poznámky
-
-* Guess and Answer levels of answering?
-* Autosave a backup in case of ALT+F4?
-
 === ToDo Bonus
 
 * Štatistické vyhodnocovanie odpovedí (tabuľkový prehľad v menu)
-* Vyhodnocovanie "reakčného času" na otázku + štatistiky "najrýchlejsie/najpomalšie odpovedáš dobre/zle na ..."
+* *Vyhodnocovanie "reakčného času" na otázku + štatistiky "najrýchlejsie/najpomalšie odpovedáš dobre/zle na ..."*
 * Prekladateľnosť rozhrania + podpora základných jazykov (EN, SK, CZ, DE)
-* Funkcia "testu" vedomostí -- otázky sa vyhodnotia až po N otázkach alebo po uplynutí času
-* Čiastkové správne odpovede -- kategorizácia otázok a odpovedí v datasete + štatistiky "najviac sa mýliš v úlohách typu ..."
-* Profily -- podpora viacerých užívateľov
-* LaTeX in dataset
+* _Funkcia "testu" vedomostí -- otázky sa vyhodnotia až po N otázkach alebo po uplynutí času_
+* _Čiastkové správne odpovede -- kategorizácia otázok a odpovedí v datasete + štatistiky "najviac sa mýliš v úlohách typu ..."_
+* _Profily -- podpora viacerých užívateľov_
+* _LaTeX in dataset_

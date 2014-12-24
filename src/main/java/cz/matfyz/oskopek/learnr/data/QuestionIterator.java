@@ -3,6 +3,7 @@ package cz.matfyz.oskopek.learnr.data;
 import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Question;
+import cz.matfyz.oskopek.learnr.tools.DatasetIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ public class QuestionIterator implements Iterator<Question> {
     final static private Logger LOGGER = LoggerFactory.getLogger(QuestionIterator.class);
     private Dataset dataset;
     private Question currentQuestion;
+    private long startTime;
 
     public QuestionIterator(Dataset dataset) {
         this.dataset = dataset;
@@ -33,6 +35,7 @@ public class QuestionIterator implements Iterator<Question> {
     @Override
     public Question next() {
         if (!hasNext()) {
+            startTime = 0l;
             currentQuestion = null;
             return null;
         }
@@ -49,22 +52,28 @@ public class QuestionIterator implements Iterator<Question> {
                 dataset.getQuestionSet().add(prevQuestion);
             }
         }
+        startTime = System.nanoTime();
         return currentQuestion;
     }
 
     public void submitAnswer(Answer answer) {
         if (currentQuestion != null) {
+            long reactionTime = System.nanoTime() - startTime;
+            answer.setReactionTime(reactionTime);
             currentQuestion.getStatistics().submitAnswer(answer);
+
             int lastWeight = currentQuestion.getWeight();
             currentQuestion = updateWeight(currentQuestion, answer);
-            LOGGER.debug("Updating weight of \'{}\': \'{}\'->\'{}\'", currentQuestion.getName(), lastWeight, currentQuestion.getWeight());
+            LOGGER.debug("Updating weight of \'{}\': \'{}\'->\'{}\'", currentQuestion.getName(),
+                    lastWeight, currentQuestion.getWeight());
         }
         else LOGGER.warn("Called submitAnswer when currentQuestion was null.");
     }
 
     private static Question updateWeight(Question question, Answer answer) {
         boolean isGood = answer.checkAnswer(question);
-        LOGGER.info("Answer of \'{}\' with \'{}\' was {}.", question.getName(), answer.getValue(), isGood);
+        LOGGER.info("Answer of \'{}\' with \'{}\' was {}. ReactionTime: \'{}\'.", question.getName(),
+                answer.getValue(), isGood, DatasetIO.convertNanosToHMS(answer.getReactionTime()));
         if (isGood) { //TODO make these values dynamic
             question.setWeight(question.getWeight() - 3);
         } else {
