@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
  * Created by oskopek on 12/3/14.
  */
 public class AnswerPanel extends JPanel {
+
+    final static private Logger LOGGER = LoggerFactory.getLogger(AnswerPanel.class);
+
     private SubmitAnswerListener answerListener;
 
     protected QuestionAnswerPanel parentPane;
@@ -34,26 +37,25 @@ public class AnswerPanel extends JPanel {
 
     private class SubmitAnswerListener implements ActionListener {
 
-        private AnswerPanel parentPanel;
+        private AnswerPanel parentPane;
 
-        final private Logger LOGGER = LoggerFactory.getLogger(AnswerPanel.class);
-
-        private SubmitAnswerListener(AnswerPanel parentPanel) {
-            this.parentPanel = parentPanel;
+        private SubmitAnswerListener(AnswerPanel parentPane) {
+            this.parentPane = parentPane;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            LOGGER.debug("Submitted \'{}\' in answer text field.", parentPanel.textField.getText());
+            LOGGER.debug("Submitted \'{}\' in answer text field.", parentPane.textField.getText());
 
             Answer answer = new Answer();
-            answer.setValue(parentPanel.textField.getText());
-            if (parentPanel.parentPane.questionIterator != null) {
-                parentPanel.parentPane.questionIterator.submitAnswer(answer);
-                parentPanel.parentPane.nextQuestion();
+            answer.setValue(parentPane.textField.getText());
+            if (parentPane.parentPane.questionIterator != null) {
+                parentPane.parentPane.questionIterator.submitAnswer(answer);
+                parentPane.parentPane.nextQuestion();
             } else {
                 LOGGER.warn("Submitting answer to null questionIteratorManager.");
             }
+            parentPane.textField.setText("");
         }
     }
 

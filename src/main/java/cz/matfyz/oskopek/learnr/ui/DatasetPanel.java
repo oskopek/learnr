@@ -3,6 +3,7 @@ package cz.matfyz.oskopek.learnr.ui;
 import cz.matfyz.oskopek.learnr.data.QuestionIterator;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.tools.DatasetIO;
+import cz.matfyz.oskopek.learnr.tools.JFileChooserOverwriteCheck;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,7 @@ public class DatasetPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                JFileChooser chooser = new JFileChooser(currentDirectory);
+                JFileChooser chooser = new JFileChooserOverwriteCheck(currentDirectory);
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("XML", "xml");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showOpenDialog(getParent());
@@ -46,6 +47,7 @@ public class DatasetPanel extends JPanel {
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
+                    parentPane.viewQA();
                 }
             }
         });
@@ -54,7 +56,7 @@ public class DatasetPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                JFileChooser chooser = new JFileChooser(currentDirectory);
+                JFileChooser chooser = new JFileChooserOverwriteCheck(currentDirectory);
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("XML", "xml");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showSaveDialog(getParent());
@@ -73,7 +75,7 @@ public class DatasetPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                JFileChooser chooser = new JFileChooser(currentDirectory);
+                JFileChooser chooser = new JFileChooserOverwriteCheck(currentDirectory);
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON", "json");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showOpenDialog(getParent());
@@ -84,6 +86,7 @@ public class DatasetPanel extends JPanel {
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
+                    parentPane.viewQA();
                 }
             }
         });
@@ -92,7 +95,7 @@ public class DatasetPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                JFileChooser chooser = new JFileChooser(currentDirectory);
+                JFileChooser chooser = new JFileChooserOverwriteCheck(currentDirectory);
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON", "json");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showSaveDialog(getParent());
@@ -111,7 +114,7 @@ public class DatasetPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                JFileChooser chooser = new JFileChooser(currentDirectory);
+                JFileChooser chooser = new JFileChooserOverwriteCheck(currentDirectory);
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT", "txt");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showOpenDialog(getParent());
@@ -122,6 +125,7 @@ public class DatasetPanel extends JPanel {
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
+                    parentPane.viewQA();
                 }
             }
         });
@@ -130,7 +134,7 @@ public class DatasetPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                JFileChooser chooser = new JFileChooser(currentDirectory);
+                JFileChooser chooser = new JFileChooserOverwriteCheck(currentDirectory);
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT", "txt");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showSaveDialog(getParent());
@@ -154,6 +158,7 @@ public class DatasetPanel extends JPanel {
 
     private void setDatasetToPanel(Dataset dataset) {
         parentPane.qaPanel.questionIterator = new QuestionIterator(dataset);
+        parentPane.qaPanel.nextQuestion();
     }
 
 }

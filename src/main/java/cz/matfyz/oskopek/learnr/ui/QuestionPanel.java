@@ -1,6 +1,8 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.model.Question;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,33 +12,45 @@ import java.awt.*;
  */
 public class QuestionPanel extends JPanel {
 
-    private Question question;
+    final private static Logger LOGGER = LoggerFactory.getLogger(QuestionPanel.class);
+
     protected QuestionAnswerPanel parentPane;
     private JLabel name;
-    private JLabel text;
+    private JLabel description;
 
     public QuestionPanel(QuestionAnswerPanel parentPane) {
         this.parentPane = parentPane;
-        question = new Question();
-        question.setName("QUESTION NAME");
-        question.setDescription("QUESTION TEXT");
         init();
+        setNullQuestion(false);
     }
 
     private void init() {
         setLayout(new BorderLayout());
-        name = new JLabel(question.getName());
+        name = new JLabel();
         name.setHorizontalAlignment(JLabel.CENTER);
-        text = new JLabel(question.getDescription());
-        text.setHorizontalAlignment(JLabel.CENTER);
+        description = new JLabel();
+        description.setHorizontalAlignment(JLabel.CENTER);
         add(name, BorderLayout.PAGE_START);
-        add(text, BorderLayout.CENTER);
+        add(description, BorderLayout.CENTER);
     }
 
     public void showQuestion(Question question) {
-        this.question = question;
-        name.setText(question.getName());
-        text.setText(question.getDescription());
+        if (question != null) {
+            LOGGER.debug("Loaded question \'{}\'.", question.getName());
+            name.setText(question.getName());
+            description.setText(question.getDescription());
+        } else {
+            setNullQuestion(true);
+        }
+    }
+
+    private void setNullQuestion(boolean isEnd) {
+        LOGGER.debug("Loaded null question. At end? {}.", isEnd);
+        name.setText("");
+        description.setText("");
+        if (isEnd) {
+            JOptionPane.showMessageDialog(this, "You have finished all the questions!");
+        }
     }
 
 }

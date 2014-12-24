@@ -13,7 +13,7 @@ import java.util.Iterator;
  */
 public class QuestionIterator implements Iterator<Question> {
 
-    final private Logger LOGGER = LoggerFactory.getLogger(QuestionIterator.class);
+    final static private Logger LOGGER = LoggerFactory.getLogger(QuestionIterator.class);
     private Dataset dataset;
     private Question currentQuestion;
 
@@ -25,25 +25,26 @@ public class QuestionIterator implements Iterator<Question> {
         return dataset.getQuestionSet().size();
     }
 
-    public Question getCurrentQuestion() {
-        return currentQuestion;
-    }
-
     @Override
     public boolean hasNext() {
-        return dataset.getQuestionSet().isEmpty();
+        return questionsLeft() != 0;
     }
 
     @Override
     public Question next() {
-        if (!hasNext()) return null;
+        if (!hasNext()) {
+            currentQuestion = null;
+            return null;
+        }
 
         Question prevQuestion = currentQuestion;
         currentQuestion = dataset.getQuestionSet().pollLast();
+        LOGGER.debug("Loading question \'{}\'.", currentQuestion.getName());
 
         if (prevQuestion != null) {
             if (prevQuestion.getWeight() <= 0) {
                 dataset.getFinishedSet().add(prevQuestion);
+                LOGGER.debug("Moving question \'{}\' to finishedSet.", prevQuestion.getName());
             } else {
                 dataset.getQuestionSet().add(prevQuestion);
             }
@@ -54,13 +55,17 @@ public class QuestionIterator implements Iterator<Question> {
     public void submitAnswer(Answer answer) {
         if (currentQuestion != null) {
             currentQuestion.getStatistics().submitAnswer(answer);
-            currentQuestion = score(currentQuestion, answer);
+            int lastWeight = currentQuestion.getWeight();
+            currentQuestion = updateWeight(currentQuestion, answer);
+            LOGGER.debug("Updating weight of \'{}\': \'{}\'->\'{}\'", currentQuestion.getName(), lastWeight, currentQuestion.getWeight());
         }
         else LOGGER.warn("Called submitAnswer when currentQuestion was null.");
     }
 
-    private Question score(Question question, Answer answer) {
-        if (answer.checkAnswer(question)) {
+    private static Question updateWeight(Question question, Answer answer) {
+        boolean isGood = answer.checkAnswer(question);
+        LOGGER.info("Answer of \'{}\' with \'{}\' was {}.", question.getName(), answer.getValue(), isGood);
+        if (isGood) { //TODO make these values dynamic
             question.setWeight(question.getWeight() - 3);
         } else {
             question.setWeight(question.getWeight() - 1);
@@ -70,5 +75,18 @@ public class QuestionIterator implements Iterator<Question> {
 
     public Dataset getDataset() {
         return dataset;
+    }
+
+    public void resetWeights(int newWeight) {
+        if (dataset != null) {
+            dataset.getQuestionSet().addAll(dataset.getFinishedSet());
+            dataset.getFinishedSet().clear();
+            for (Question question : dataset.getQuestionSet()) {
+                question.setWeight(newWeight);
+            }
+        }
+        else {
+            LOGGER.error("Dataset is null, cannot reset weight to \'{}\'.", newWeight);
+        }
     }
 }

@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,12 @@ import java.util.List;
  */
 @XStreamAlias("Statistics")
 public class Statistics extends AbstractPersistable {
+
+    public Statistics() {
+        answeredList = new ArrayList<>();
+        goodAnswerCount = 0;
+        lastAsked = 0;
+    }
 
     private long lastAsked;
 

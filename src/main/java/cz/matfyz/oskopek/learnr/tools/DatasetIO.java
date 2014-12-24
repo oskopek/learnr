@@ -99,7 +99,7 @@ public class DatasetIO {
         dataset.setDescription(br.readLine().split(":")[1].trim());
         dataset.setAuthor(br.readLine().split(":")[1].trim());
         dataset.setCreatedDate(Long.parseLong(br.readLine().split(":")[1].trim()));
-        double repCoef = Integer.parseInt(br.readLine().split(":")[1].trim());
+        int repCoef = Integer.parseInt(br.readLine().split(":")[1].trim());
         String[] limitsStr = br.readLine().split("/");
         Limits limits = new Limits();
         limits.setDaily(Integer.parseInt(limitsStr[0].split(":")[1].trim()));
@@ -118,7 +118,7 @@ public class DatasetIO {
             q.setDescription(split[1].trim());
             q.setAnswerCheckType(Question.AnswerCheckType.valueOf(split[2].trim()));
             q.setStatistics(new Statistics());
-            q.setWeight(Math.toIntExact(Math.round((1/repCoef)*Math.pow(10, Math.floor(Math.log10(repCoef))+1)))); // (1/c)*10^(floor(log(repCoef))+1)
+            q.setWeight(repCoef);
 
             List<Answer> answerList = new ArrayList<>();
             for(int i = 3; i < split.length; i++) {
@@ -128,8 +128,8 @@ public class DatasetIO {
             }
             q.setAnswerList(answerList);
 
-            LOGGER.debug("Reading question {}; weight {}.", q.getName(), q.getWeight());
-            if(!questionSet.add(q)) LOGGER.error("Question {} already in dataset!", q.getName());
+            LOGGER.debug("Reading question \'{}\'; weight \'{}\'.", q.getName(), q.getWeight());
+            if(!questionSet.add(q)) LOGGER.error("Question \'{}\' already in dataset!", q.getName());
         }
         dataset.setQuestionSet(questionSet);
         dataset.setFinishedSet(new TreeSet<Question>());
