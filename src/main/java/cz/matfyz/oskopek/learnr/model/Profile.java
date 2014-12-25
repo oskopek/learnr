@@ -6,9 +6,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.List;
 
 /**
- * TODO: Not yet implemented
+ *
  */
 @XStreamAlias("Profile")
+@Deprecated
 public class Profile extends AbstractPersistable {
 
     private String name;
@@ -41,9 +42,7 @@ public class Profile extends AbstractPersistable {
         this.settings = settings;
     }
 
-    public void addDataset(Dataset dataset) {
-        //TODO implement add dataset
-    }
+    public void addDataset(Dataset dataset) {    }
 
     @Override
     public String toString() {

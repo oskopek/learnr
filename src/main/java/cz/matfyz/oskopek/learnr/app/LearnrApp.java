@@ -14,13 +14,13 @@ import java.util.List;
  */
 public class LearnrApp {
 
+    @Deprecated
     private List<Profile> profileList;
 
+    @Deprecated
     public void saveProfile(Profile profile) throws IOException {
         File outFile = new File(profile.getSettings().getFilename());
-        if(!outFile.createNewFile()) {
-            // TODO Are you sure you want to overwrite?
-        }
+        outFile.createNewFile();
         FileOutputStream fileOutputStream = new FileOutputStream(outFile);
 
         XStream xstream = new XStream();
@@ -28,12 +28,14 @@ public class LearnrApp {
         fileOutputStream.close();
     }
 
+    @Deprecated
     public void saveAllProfiles() throws IOException {
         for (Profile p : profileList) {
             saveProfile(p);
         }
     }
 
+    @Deprecated
     public void loadProfile(String filename) {
         XStream xstream = new XStream();
         Profile profile = (Profile) xstream.fromXML(new File(filename));
