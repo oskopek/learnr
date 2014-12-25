@@ -30,11 +30,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class DatasetIO {
 
-    //TODO fix not overwriting issue
-
     final static private Logger LOGGER = LoggerFactory.getLogger(DatasetIO.class);
 
     public static void exportXMLDataset(Dataset dataset, String filename) throws IOException {
+        LOGGER.debug("Export dataset to XML: \'{}\'", filename);
         File outFile = new File(filename);
         outFile.createNewFile();
         FileOutputStream fileOutputStream = new FileOutputStream(outFile);
@@ -46,12 +45,14 @@ public class DatasetIO {
     }
 
     public static Dataset importXMLDataset(String filename) throws IOException {
+        LOGGER.debug("Import dataset from XML: \'{}\'", filename);
         XStream xstream = new XStream();
         return (Dataset) xstream.fromXML(new File(filename));
     }
 
     @Deprecated
     public static void exportJSONDataset(Dataset dataset, String filename) throws IOException {
+        LOGGER.debug("Export dataset to JSON: \'{}\'", filename);
         File outFile = new File(filename);
         outFile.createNewFile();
         FileOutputStream fileOutputStream = new FileOutputStream(outFile);
@@ -64,11 +65,13 @@ public class DatasetIO {
 
     @Deprecated
     public static Dataset importJSONDataset(String filename) throws IOException {
+        LOGGER.debug("Import dataset from JSON: \'{}\'", filename);
         XStream xstream = new XStream(new JettisonMappedXmlDriver());
         return (Dataset) xstream.fromXML(new File(filename));
     }
 
     public static void exportTXTDataset(Dataset dataset, String filename) throws IOException {
+        LOGGER.debug("Export dataset to TXT: \'{}\'", filename);
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
         pw.printf("PREAMBLE:\n");
         pw.printf("Name: %s\n", dataset.getName());
@@ -96,6 +99,7 @@ public class DatasetIO {
     }
 
     public static Dataset importTXTDataset(String filename) throws IOException {
+        LOGGER.debug("Import dataset from TXT: \'{}\'", filename);
         Dataset dataset = new Dataset();
         BufferedReader br = new BufferedReader(new FileReader(filename));
 

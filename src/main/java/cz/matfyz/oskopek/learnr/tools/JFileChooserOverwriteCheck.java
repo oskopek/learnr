@@ -34,17 +34,18 @@ public class JFileChooserOverwriteCheck extends JFileChooser {
     }
 
     @Override
-    public void approveSelection(){
+    public void approveSelection() {
         File f = getSelectedFile();
         if(f.exists() && getDialogType() == SAVE_DIALOG) {
             int result = JOptionPane.showConfirmDialog(this, "File already exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-            switch(result) {
-                case JOptionPane.YES_OPTION: super.approveSelection();
-                case JOptionPane.CANCEL_OPTION: cancelSelection();
+            if (result == JOptionPane.YES_OPTION) {
+                super.approveSelection();
+            } else if (result == JOptionPane.CANCEL_OPTION) {
+                cancelSelection();
             }
-            return;
+        } else {
+            super.approveSelection();
         }
-        super.approveSelection();
     }
 
 }

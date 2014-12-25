@@ -31,8 +31,8 @@ public class DatasetPanel extends JPanel {
 
     private void init() {
         setLayout(new FlowLayout());
-        JButton importJSONBtt = new JButton("Load");
-        importJSONBtt.addMouseListener(new MouseAdapter() {
+        JButton loadBtt = new JButton("Load");
+        loadBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -51,8 +51,8 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        JButton exportJSONBtt = new JButton("Save");
-        exportJSONBtt.addMouseListener(new MouseAdapter() {
+        JButton saveBtt = new JButton("Save");
+        saveBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -70,8 +70,8 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        JButton importTXTBtt = new JButton("Import");
-        importTXTBtt.addMouseListener(new MouseAdapter() {
+        JButton importBtt = new JButton("Import");
+        importBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -90,8 +90,8 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        JButton exportTXTBtt = new JButton("Export");
-        exportTXTBtt.addMouseListener(new MouseAdapter() {
+        JButton exportBtt = new JButton("Export");
+        exportBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -109,10 +109,10 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        add(importTXTBtt);
-        add(exportTXTBtt);
-        add(importJSONBtt);
-        add(exportJSONBtt);
+        add(importBtt);
+        add(exportBtt);
+        add(loadBtt);
+        add(saveBtt);
     }
 
     private void setDatasetToPanel(Dataset dataset) {
