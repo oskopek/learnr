@@ -30,6 +30,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class DatasetIO {
 
+    //TODO fix not overwriting issue
+
     final static private Logger LOGGER = LoggerFactory.getLogger(DatasetIO.class);
 
     public static void exportXMLDataset(Dataset dataset, String filename) throws IOException {
@@ -48,17 +50,19 @@ public class DatasetIO {
         return (Dataset) xstream.fromXML(new File(filename));
     }
 
+    @Deprecated
     public static void exportJSONDataset(Dataset dataset, String filename) throws IOException {
         File outFile = new File(filename);
         outFile.createNewFile();
         FileOutputStream fileOutputStream = new FileOutputStream(outFile);
 
-        XStream xStream = new XStream(new JsonHierarchicalStreamDriver());
+        XStream xStream = new XStream(new JettisonMappedXmlDriver());
         xStream.toXML(dataset, fileOutputStream);
 
         fileOutputStream.close();
     }
 
+    @Deprecated
     public static Dataset importJSONDataset(String filename) throws IOException {
         XStream xstream = new XStream(new JettisonMappedXmlDriver());
         return (Dataset) xstream.fromXML(new File(filename));

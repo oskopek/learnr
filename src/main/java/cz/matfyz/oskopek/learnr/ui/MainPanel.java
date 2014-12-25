@@ -17,24 +17,12 @@ public class MainPanel extends JPanel {
         init();
     }
 
-    public void viewQA() {
-        remove(dataPanel);
-        add(qaPanel);
-        updateUI();
-    }
-
-    public void viewDataset() {
-        remove(qaPanel);
-        add(dataPanel);
-        updateUI();
-    }
-
     private void init() {
         setLayout(new BorderLayout());
 
         qaPanel = new QuestionAnswerPanel(this);
         dataPanel = new DatasetPanel(this);
-
-        viewDataset();
+        add(dataPanel, BorderLayout.PAGE_START);
+        add(qaPanel, BorderLayout.CENTER);
     }
 }

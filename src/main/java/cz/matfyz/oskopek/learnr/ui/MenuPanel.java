@@ -26,33 +26,25 @@ public class MenuPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
-        gbc.gridy = 0;
-        JButton btt1 = new JButton("Show data");
-        btt1.addMouseListener(new MouseAdapter() {
+
+        JButton bttStats = new JButton("Show stats");
+        bttStats.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                parentPane.mainPanel.viewDataset();
+                // TODO Stats UI
             }
         });
-        JButton btt2 = new JButton("Show QA");
-        btt2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                parentPane.mainPanel.viewQA();
-            }
-        });
-        JButton btt3 = new JButton("Exit");
-        btt3.addMouseListener(new MouseAdapter() {
+        JButton bttExit = new JButton("Exit");
+        bttExit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 System.exit(0);
             }
         });
-        JButton btt4 = new JButton("Reset weights");
-        btt4.addMouseListener(new MouseAdapter() {
+        JButton bttWeights = new JButton("Reset weights");
+        bttWeights.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -65,7 +57,7 @@ public class MenuPanel extends JPanel {
                         parentPane.mainPanel.qaPanel.nextQuestion();
                     } else {
                         LOGGER.debug("Trying to set weights with a null questionIterator.");
-                        JOptionPane.showMessageDialog(parentPane, "Trying to set weights without a loaded dataset.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(parentPane, "No dataset loaded.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException nfe) {
                     LOGGER.debug("Wrong input in reset weights dialog: \'{}\'", resStr);
@@ -73,13 +65,13 @@ public class MenuPanel extends JPanel {
                 }
             }
         });
-        add(btt1, gbc);
-        gbc.gridy = 1;
-        add(btt2, gbc);
-        gbc.gridy = 3;
-        add(btt3, gbc);
+
+        gbc.gridy = 0;
+        add(bttStats, gbc);
         gbc.gridy = 2;
-        add(btt4, gbc);
+        add(bttExit, gbc);
+        gbc.gridy = 1;
+        add(bttWeights, gbc);
     }
 
 }

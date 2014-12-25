@@ -31,8 +31,8 @@ public class DatasetPanel extends JPanel {
 
     private void init() {
         setLayout(new FlowLayout());
-        JButton openBtt = new JButton("Open");
-        openBtt.addMouseListener(new MouseAdapter() {
+        JButton importJSONBtt = new JButton("Load");
+        importJSONBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -40,19 +40,19 @@ public class DatasetPanel extends JPanel {
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("XML", "xml");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showOpenDialog(getParent());
-                if(returnVal == JFileChooser.APPROVE_OPTION) {
-                    LOGGER.debug("Open dataset: {}", chooser.getSelectedFile());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    LOGGER.debug("Import dataset: {}", chooser.getSelectedFile());
                     try {
                         setDatasetToPanel(DatasetIO.importXMLDataset(chooser.getSelectedFile().getAbsolutePath()));
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
-                    parentPane.viewQA();
+                    parentPane.updateUI();
                 }
             }
         });
-        JButton saveBtt = new JButton("Save");
-        saveBtt.addMouseListener(new MouseAdapter() {
+        JButton exportJSONBtt = new JButton("Save");
+        exportJSONBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -60,8 +60,8 @@ public class DatasetPanel extends JPanel {
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("XML", "xml");
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showSaveDialog(getParent());
-                if(returnVal == JFileChooser.APPROVE_OPTION) {
-                    LOGGER.debug("Save dataset to: {}", chooser.getSelectedFile());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    LOGGER.debug("Export dataset to: {}", chooser.getSelectedFile());
                     try {
                         DatasetIO.exportXMLDataset(parentPane.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
@@ -70,46 +70,7 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        JButton importJSONBtt = new JButton("Import JSON");
-        importJSONBtt.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                JFileChooser chooser = new JFileChooserOverwriteCheck(currentDirectory);
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON", "json");
-                chooser.setFileFilter(filter);
-                int returnVal = chooser.showOpenDialog(getParent());
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    LOGGER.debug("Import dataset: {}", chooser.getSelectedFile());
-                    try {
-                        setDatasetToPanel(DatasetIO.importJSONDataset(chooser.getSelectedFile().getAbsolutePath()));
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    }
-                    parentPane.viewQA();
-                }
-            }
-        });
-        JButton exportJSONBtt = new JButton("Export JSON");
-        exportJSONBtt.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                JFileChooser chooser = new JFileChooserOverwriteCheck(currentDirectory);
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON", "json");
-                chooser.setFileFilter(filter);
-                int returnVal = chooser.showSaveDialog(getParent());
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    LOGGER.debug("Export dataset to: {}", chooser.getSelectedFile());
-                    try {
-                        DatasetIO.exportJSONDataset(parentPane.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    }
-                }
-            }
-        });
-        JButton importTXTBtt = new JButton("Import TXT");
+        JButton importTXTBtt = new JButton("Import");
         importTXTBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -125,11 +86,11 @@ public class DatasetPanel extends JPanel {
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
-                    parentPane.viewQA();
+                    parentPane.updateUI();
                 }
             }
         });
-        JButton exportTXTBtt = new JButton("Export TXT");
+        JButton exportTXTBtt = new JButton("Export");
         exportTXTBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -148,8 +109,6 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        add(openBtt);
-        add(saveBtt);
         add(importTXTBtt);
         add(exportTXTBtt);
         add(importJSONBtt);
