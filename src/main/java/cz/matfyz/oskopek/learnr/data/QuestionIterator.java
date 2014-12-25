@@ -18,9 +18,11 @@ public class QuestionIterator implements Iterator<Question> {
     private Dataset dataset;
     private Question currentQuestion;
     private long startTime;
+    private LimitWatcher limitWatcher;
 
     public QuestionIterator(Dataset dataset) {
         this.dataset = dataset;
+        this.limitWatcher = new LimitWatcher(dataset.getLimits());
     }
 
     public int questionsLeft() {
@@ -29,7 +31,7 @@ public class QuestionIterator implements Iterator<Question> {
 
     @Override
     public boolean hasNext() {
-        return questionsLeft() != 0;
+        return questionsLeft() != 0 && limitWatcher.isValidAll();
     }
 
     @Override
@@ -39,6 +41,8 @@ public class QuestionIterator implements Iterator<Question> {
             currentQuestion = null;
             return null;
         }
+
+        limitWatcher.incAll();
 
         Question prevQuestion = currentQuestion;
         currentQuestion = dataset.getQuestionSet().pollLast();
@@ -75,7 +79,7 @@ public class QuestionIterator implements Iterator<Question> {
         answer.setAccepted(isGood);
         LOGGER.info("Answer of \'{}\' with \'{}\' was {}. ReactionTime: \'{}\'.", question.getName(),
                 answer.getValue(), isGood, DatasetIO.convertNanosToHMS(answer.getReactionTime()));
-        if (isGood) { //TODO make these values dynamic
+        if (isGood) { //TODO make these values dynamic?
             question.setWeight(question.getWeight() - 3);
         } else {
             question.setWeight(question.getWeight() - 1);
