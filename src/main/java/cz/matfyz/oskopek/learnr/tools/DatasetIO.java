@@ -2,7 +2,6 @@ package cz.matfyz.oskopek.learnr.tools;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
-import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Limits;
@@ -21,6 +20,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
@@ -79,17 +79,18 @@ public class DatasetIO {
         pw.printf("Author: %s\n", dataset.getAuthor());
         pw.printf("CreatedDate: %d\n", dataset.getCreatedDate());
         pw.printf("RepetitionCoef: %d\n", dataset.getQuestionSet().size()+dataset.getFinishedSet().size());
-        pw.printf("Limits: %d/%d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession(), dataset.getLimits().getSessionTimeout());
+        pw.printf("Limits: %d/%d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession());
+        pw.printf("AnswerCheckType: %s\n", dataset.getAnswerCheckType());
         pw.printf("QUESTIONS:\n");
         for (Question q : dataset.getQuestionSet()) {
-            pw.printf("%s; %s; %s", q.getName(), q.getDescription(), q.getAnswerCheckType()); //skips statistics
+            pw.printf("%s", q.getText()); //skips statistics
             for (Answer a : q.getAnswerList()) {
                 pw.printf("; %s", a.getValue());
             }
             pw.printf("\n");
         }
         for (Question q : dataset.getFinishedSet()) {
-            pw.printf("%s; %s; %s", q.getName(), q.getDescription(), q.getAnswerCheckType()); //skips statistics
+            pw.printf("%s", q.getText()); //skips statistics
             for (Answer a : q.getAnswerList()) {
                 pw.printf("; %s", a.getValue());
             }
@@ -113,8 +114,9 @@ public class DatasetIO {
         Limits limits = new Limits();
         limits.setDaily(Integer.parseInt(limitsStr[0].split(":")[1].trim()));
         limits.setSession(Integer.parseInt(limitsStr[1]));
-        limits.setSessionTimeout(Integer.parseInt(limitsStr[2]));
         dataset.setLimits(limits);
+        String answerCheckTypeStr = br.readLine().split(":")[1].trim();
+        dataset.setAnswerCheckType(Dataset.AnswerCheckType.valueOf(answerCheckTypeStr));
 
         String buffer;
         br.readLine(); // QUESTIONS
@@ -123,22 +125,30 @@ public class DatasetIO {
             if (StringUtils.isWhitespace(buffer)) continue;
             String[] split = buffer.split(";");
             Question q = new Question();
-            q.setName(split[0].trim());
-            q.setDescription(split[1].trim());
-            q.setAnswerCheckType(Question.AnswerCheckType.valueOf(split[2].trim()));
+            q.setText(split[0].trim());
             q.setStatistics(new Statistics());
             q.setWeight(repCoef);
 
             List<Answer> answerList = new ArrayList<>();
-            for(int i = 3; i < split.length; i++) {
+            for(int i = 1; i < split.length; i++) {
                 Answer answer = new Answer();
                 answer.setValue(split[i].trim());
                 answerList.add(answer);
             }
             q.setAnswerList(answerList);
 
-            LOGGER.debug("Reading question \'{}\'; weight \'{}\'.", q.getName(), q.getWeight());
-            if(!questionSet.add(q)) LOGGER.error("Question \'{}\' already in dataset!", q.getName());
+            LOGGER.debug("Reading question \'{}\'; weight \'{}\'.", q.getText(), q.getWeight());
+            if(!questionSet.add(q)) {
+                LOGGER.warn("Question \'{}\' already in dataset, adding as an answer.", q.getText());
+                Iterator<Question> descIter = questionSet.descendingIterator(); // Descending iterator, because it's probably last
+                while (descIter.hasNext()) {
+                    Question current = descIter.next();
+                    if (current.equals(q)) {
+                        current.getAnswerList().addAll(q.getAnswerList());
+                        break;
+                    }
+                }
+            }
         }
         dataset.setQuestionSet(questionSet);
         dataset.setFinishedSet(new TreeSet<Question>());

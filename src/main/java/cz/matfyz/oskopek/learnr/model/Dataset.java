@@ -18,6 +18,8 @@ public class Dataset extends AbstractPersistable {
     private String author;
     private long createdDate;
     private Limits limits;
+    public enum AnswerCheckType {CASE_SENSITIVE, CASE_INSENSITIVE, EXACT}
+    private AnswerCheckType answerCheckType;
 
     public TreeSet<Question> getQuestionSet() {
         return questionSet;
@@ -75,9 +77,17 @@ public class Dataset extends AbstractPersistable {
         this.limits = limits;
     }
 
+    public AnswerCheckType getAnswerCheckType() {
+        return answerCheckType;
+    }
+
+    public void setAnswerCheckType(AnswerCheckType answerCheckType) {
+        this.answerCheckType = answerCheckType;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this).append(name).append(description).append(author).append(createdDate).append(limits)
-                .append(questionSet).append(finishedSet).build();
+                .append(answerCheckType).append(questionSet).append(finishedSet).build();
     }
 }

@@ -11,7 +11,7 @@ public class LimitWatcher {
 
     private Limits limits;
 
-    private int sessionCounter;
+    private int sessionCounter; //TODO add a good dialog to GUI
     private int dailyCounter; //TODO add day checking
 
     public LimitWatcher(Limits limits) {
@@ -38,11 +38,11 @@ public class LimitWatcher {
     }
 
     public boolean isValidSession() {
-        return sessionCounter <= limits.getSession();
+        return sessionCounter < limits.getSession();
     }
 
     public boolean isValidDaily() {
-        return dailyCounter <= limits.getDaily();
+        return dailyCounter < limits.getDaily();
     }
 
 

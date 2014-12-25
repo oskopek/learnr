@@ -14,12 +14,9 @@ import java.util.List;
 @XStreamAlias("Question")
 public class Question extends AbstractPersistable implements Comparable<Question> {
 
-    private String name;
-    private String description;
+    private String text;
     private List<Answer> answerList;
     private Statistics statistics;
-    public enum AnswerCheckType {CASE_SENSITIVE, CASE_INSENSITIVE, EXACT}
-    private AnswerCheckType answerCheckType;
     private int weight;
 
     public int getWeight() {
@@ -30,20 +27,12 @@ public class Question extends AbstractPersistable implements Comparable<Question
         this.weight = weight;
     }
 
-    public String getName() {
-        return name;
+    public String getText() {
+        return text;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public List<Answer> getAnswerList() {
@@ -62,18 +51,9 @@ public class Question extends AbstractPersistable implements Comparable<Question
         this.statistics = statistics;
     }
 
-    public AnswerCheckType getAnswerCheckType() {
-        return answerCheckType;
-    }
-
-    public void setAnswerCheckType(AnswerCheckType answerCheckType) {
-        this.answerCheckType = answerCheckType;
-    }
-
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append(name).append(description).append(weight).
-                append(answerCheckType).append(statistics).append(answerList).build();
+        return new ToStringBuilder(this).append(text).build();
     }
 
     @Override
@@ -82,25 +62,19 @@ public class Question extends AbstractPersistable implements Comparable<Question
         if (!(o instanceof Question)) return false;
 
         Question question = (Question) o;
-        return new EqualsBuilder().append(name, question.name).append(description, question.description)
-                .append(answerList, question.answerList).append(statistics, question.statistics)
-                .append(answerCheckType, question.answerCheckType)
-                .append(weight, question.weight).isEquals();
+        return new EqualsBuilder().append(text, question.text).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(name).append(description).append(weight).
-                append(answerList).append(statistics).append(answerCheckType).toHashCode();
+        return new HashCodeBuilder().append(text).toHashCode();
     }
 
     @Override
     public int compareTo(Question o) {
-        int weightCompare = Integer.compare(getWeight(), o.getWeight());
+        int weightCompare = Integer.compare(getWeight(), o.getWeight()); // comparing by weight, for TreeSet comparing
         if (weightCompare != 0) return weightCompare;
 
-        return new CompareToBuilder().append(name, o.name).append(description, o.description)
-                .append(answerList, o.answerList).append(statistics, o.statistics)
-                .append(answerCheckType, o.answerCheckType).toComparison();
+        return new CompareToBuilder().append(text, o.text).toComparison();
     }
 }

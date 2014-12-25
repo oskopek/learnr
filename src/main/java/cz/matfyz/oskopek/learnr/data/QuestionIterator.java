@@ -46,12 +46,12 @@ public class QuestionIterator implements Iterator<Question> {
 
         Question prevQuestion = currentQuestion;
         currentQuestion = dataset.getQuestionSet().pollLast();
-        LOGGER.debug("Loading question \'{}\'.", currentQuestion.getName());
+        LOGGER.debug("Loading question \'{}\'.", currentQuestion.getText());
 
         if (prevQuestion != null) {
             if (prevQuestion.getWeight() <= 0) {
                 dataset.getFinishedSet().add(prevQuestion);
-                LOGGER.debug("Moving question \'{}\' to finishedSet.", prevQuestion.getName());
+                LOGGER.debug("Moving question \'{}\' to finishedSet.", prevQuestion.getText());
             } else {
                 dataset.getQuestionSet().add(prevQuestion);
             }
@@ -67,17 +67,17 @@ public class QuestionIterator implements Iterator<Question> {
             currentQuestion.getStatistics().submitAnswer(answer);
 
             int lastWeight = currentQuestion.getWeight();
-            currentQuestion = updateWeight(currentQuestion, answer);
-            LOGGER.debug("Updating weight of \'{}\': \'{}\'->\'{}\'", currentQuestion.getName(),
+            currentQuestion = updateWeight(currentQuestion, answer, dataset.getAnswerCheckType());
+            LOGGER.debug("Updating weight of \'{}\': \'{}\'->\'{}\'", currentQuestion.getText(),
                     lastWeight, currentQuestion.getWeight());
         }
         else LOGGER.warn("Called submitAnswer when currentQuestion was null.");
     }
 
-    private static Question updateWeight(Question question, Answer answer) {
-        boolean isGood = answer.checkAnswer(question);
+    private static Question updateWeight(Question question, Answer answer, Dataset.AnswerCheckType answerCheckType) {
+        boolean isGood = answer.checkAnswer(question, answerCheckType);
         answer.setAccepted(isGood);
-        LOGGER.info("Answer of \'{}\' with \'{}\' was {}. ReactionTime: \'{}\'.", question.getName(),
+        LOGGER.info("Answer of \'{}\' with \'{}\' was {}. ReactionTime: \'{}\'.", question.getText(),
                 answer.getValue(), isGood, DatasetIO.convertNanosToHMS(answer.getReactionTime()));
         if (isGood) { //TODO make these values dynamic?
             question.setWeight(question.getWeight() - 3);
