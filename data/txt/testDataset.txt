@@ -1,6 +1,6 @@
 PREAMBLE:
 Name: Test Dataset #1
-Description: Description Test Dataset #1 Description
+Description: Test Dataset #1 Description
 Author: Ondrej Skopek
 CreatedDate: 56832129249418
 RepetitionCoef: 4

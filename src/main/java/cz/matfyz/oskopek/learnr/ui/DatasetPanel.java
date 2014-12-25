@@ -43,7 +43,7 @@ public class DatasetPanel extends JPanel {
                 if(returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Open dataset: {}", chooser.getSelectedFile());
                     try {
-                        setDatasetToPanel(DatasetIO.openDataset(chooser.getSelectedFile().getAbsolutePath()));
+                        setDatasetToPanel(DatasetIO.importXMLDataset(chooser.getSelectedFile().getAbsolutePath()));
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
@@ -63,7 +63,7 @@ public class DatasetPanel extends JPanel {
                 if(returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Save dataset to: {}", chooser.getSelectedFile());
                     try {
-                        DatasetIO.saveDataset(parentPane.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
+                        DatasetIO.exportXMLDataset(parentPane.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }

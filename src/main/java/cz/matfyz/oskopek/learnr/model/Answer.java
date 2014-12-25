@@ -13,6 +13,15 @@ public class Answer extends AbstractPersistable {
 
     private String value;
     private long reactionTime;
+    private boolean accepted;
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean isAccepted) {
+        this.accepted = isAccepted;
+    }
 
     public long getReactionTime() {
         return reactionTime;
@@ -60,7 +69,7 @@ public class Answer extends AbstractPersistable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("value", value).append("reactionTime", reactionTime).build();
+        return new ToStringBuilder(this).append("value", value).append("reactionTime", reactionTime).append("accepted", accepted).build();
     }
 
     @Override
@@ -69,11 +78,11 @@ public class Answer extends AbstractPersistable {
         if (!(o instanceof Answer)) return false;
 
         Answer answer = (Answer) o;
-        return new EqualsBuilder().append(value, answer.value).append(reactionTime, answer.reactionTime).isEquals();
+        return new EqualsBuilder().append(value, answer.value).append(reactionTime, answer.reactionTime).append(accepted, answer.accepted).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(value).append(reactionTime).toHashCode();
+        return new HashCodeBuilder().append(value).append(reactionTime).append(accepted).toHashCode();
     }
 }

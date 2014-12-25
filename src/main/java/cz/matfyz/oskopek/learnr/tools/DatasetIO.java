@@ -32,7 +32,7 @@ public class DatasetIO {
 
     final static private Logger LOGGER = LoggerFactory.getLogger(DatasetIO.class);
 
-    public static void saveDataset(Dataset dataset, String filename) throws IOException {
+    public static void exportXMLDataset(Dataset dataset, String filename) throws IOException {
         File outFile = new File(filename);
         outFile.createNewFile();
         FileOutputStream fileOutputStream = new FileOutputStream(outFile);
@@ -43,7 +43,7 @@ public class DatasetIO {
         fileOutputStream.close();
     }
 
-    public static Dataset openDataset(String filename) throws IOException {
+    public static Dataset importXMLDataset(String filename) throws IOException {
         XStream xstream = new XStream();
         return (Dataset) xstream.fromXML(new File(filename));
     }

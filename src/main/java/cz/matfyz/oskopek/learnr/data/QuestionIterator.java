@@ -33,7 +33,7 @@ public class QuestionIterator implements Iterator<Question> {
     }
 
     @Override
-    public Question next() {
+    public Question next() { //TODO: if save with an open question, that question doesn't get saved
         if (!hasNext()) {
             startTime = 0l;
             currentQuestion = null;
@@ -72,6 +72,7 @@ public class QuestionIterator implements Iterator<Question> {
 
     private static Question updateWeight(Question question, Answer answer) {
         boolean isGood = answer.checkAnswer(question);
+        answer.setAccepted(isGood);
         LOGGER.info("Answer of \'{}\' with \'{}\' was {}. ReactionTime: \'{}\'.", question.getName(),
                 answer.getValue(), isGood, DatasetIO.convertNanosToHMS(answer.getReactionTime()));
         if (isGood) { //TODO make these values dynamic
