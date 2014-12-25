@@ -4,8 +4,9 @@ Description: Test Dataset #1 Description
 Author: Ondrej Skopek
 CreatedDate: 56832129249418
 RepetitionCoef: 4
-Limits: 20/10/0
+Limits: 20/10
+AnswerCheckType: CASE_INSENSITIVE
 QUESTIONS:
-Feeling; How are you?; CASE_INSENSITIVE; Good; Great; Fine
-Kofola; Do you like kofola?; CASE_INSENSITIVE; Yes
-Days in a week; How many days are there in a week?; CASE_INSENSITIVE; 7; Seven
+How are you?; Good; Great; Fine
+Do you like kofola?; Yes
+How many days are there in a week?; 7; Seven
