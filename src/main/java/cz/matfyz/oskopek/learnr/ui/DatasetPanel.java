@@ -4,6 +4,7 @@ import cz.matfyz.oskopek.learnr.data.QuestionIterator;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.tools.DatasetIO;
 import cz.matfyz.oskopek.learnr.tools.JFileChooserOverwriteCheck;
+import cz.matfyz.oskopek.learnr.tools.Localizable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +18,12 @@ import java.io.IOException;
 /**
  * Created by oskopek on 12/3/14.
  */
-public class DatasetPanel extends JPanel {
+public class DatasetPanel extends JPanel implements Localizable {
 
     final private Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
 
     protected MainPanel parentPane;
-    final private static String currentDirectory = "./prog1/zapoctak_learnr/data/";
+    final private static String currentDirectory = "./prog1/zapoctak_learnr/data/"; // TODO fix hardcoding file path
 
     public DatasetPanel(MainPanel parentPane) {
         this.parentPane = parentPane;
@@ -31,7 +32,7 @@ public class DatasetPanel extends JPanel {
 
     private void init() {
         setLayout(new FlowLayout());
-        JButton loadBtt = new JButton("Load");
+        JButton loadBtt = new JButton(localizedText("load"));
         loadBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -51,7 +52,7 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        JButton saveBtt = new JButton("Save");
+        JButton saveBtt = new JButton(localizedText("save"));
         saveBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -70,7 +71,7 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        JButton importBtt = new JButton("Import");
+        JButton importBtt = new JButton(localizedText("import"));
         importBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -90,7 +91,7 @@ public class DatasetPanel extends JPanel {
                 }
             }
         });
-        JButton exportBtt = new JButton("Export");
+        JButton exportBtt = new JButton(localizedText("export"));
         exportBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -120,4 +121,8 @@ public class DatasetPanel extends JPanel {
         parentPane.qaPanel.nextQuestion();
     }
 
+    @Override
+    public String localizedText(String id) {
+        return parentPane.localizedText(id);
+    }
 }

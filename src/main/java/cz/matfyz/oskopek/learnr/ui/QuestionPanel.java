@@ -1,6 +1,7 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.model.Question;
+import cz.matfyz.oskopek.learnr.tools.Localizable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +11,7 @@ import java.awt.*;
 /**
  * Created by oskopek on 12/3/14.
  */
-public class QuestionPanel extends JPanel {
+public class QuestionPanel extends JPanel implements Localizable {
 
     final private static Logger LOGGER = LoggerFactory.getLogger(QuestionPanel.class);
 
@@ -43,8 +44,12 @@ public class QuestionPanel extends JPanel {
         LOGGER.debug("Loaded null question. At end? {}.", isEnd);
         text.setText("");
         if (isEnd) {
-            JOptionPane.showMessageDialog(this, "You have finished all the questions!");
+            JOptionPane.showMessageDialog(this, localizedText("finished-questions"));
         }
     }
 
+    @Override
+    public String localizedText(String id) {
+        return parentPane.localizedText(id);
+    }
 }

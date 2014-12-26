@@ -1,6 +1,7 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.model.Answer;
+import cz.matfyz.oskopek.learnr.tools.Localizable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by oskopek on 12/3/14.
  */
-public class AnswerPanel extends JPanel {
+public class AnswerPanel extends JPanel implements Localizable {
 
     final static private Logger LOGGER = LoggerFactory.getLogger(AnswerPanel.class);
 
@@ -30,7 +31,7 @@ public class AnswerPanel extends JPanel {
         textField.addActionListener(answerListener);
         add(textField, BorderLayout.CENTER);
 
-        JButton submitBtt = new JButton("Submit");
+        JButton submitBtt = new JButton(localizedText("submit"));
         submitBtt.addActionListener(answerListener);
         add(submitBtt, BorderLayout.LINE_END);
     }
@@ -59,4 +60,8 @@ public class AnswerPanel extends JPanel {
         }
     }
 
+    @Override
+    public String localizedText(String id) {
+        return parentPane.localizedText(id);
+    }
 }

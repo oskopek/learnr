@@ -1,6 +1,7 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.data.StatsCalculator;
+import cz.matfyz.oskopek.learnr.tools.Localizable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,13 +9,15 @@ import java.awt.*;
 /**
  * Created by oskopek on 12/24/14.
  */
-public class StatsUI extends JFrame {
+public class StatsUI extends JFrame implements Localizable {
 
     private JTabbedPane tabbedPane;
+    private LearnrPane parentPane;
 
     private StatsCalculator statsCalculator;
 
-    public StatsUI(StatsCalculator statsCalculator) {
+    public StatsUI(LearnrPane parentPane, StatsCalculator statsCalculator) {
+        this.parentPane = parentPane;
         this.statsCalculator = statsCalculator;
         init();
     }
@@ -45,16 +48,18 @@ public class StatsUI extends JFrame {
         totalTab.setShowVerticalLines(true);
         totalTab.setShowHorizontalLines(true);
         JScrollPane totalScrollPane = new JScrollPane(totalTab);
-        tabbedPane.addTab("Total", totalScrollPane);
+        tabbedPane.addTab(localizedText("total"), totalScrollPane);
 
         JTable generalTab = new JTable(generalTabData, generalTabColumns);
         generalTab.setEnabled(false);
         generalTab.setShowVerticalLines(true);
         generalTab.setShowHorizontalLines(true);
         JScrollPane generalScrollPane = new JScrollPane(generalTab);
-        tabbedPane.addTab("General", generalScrollPane);
+        tabbedPane.addTab(localizedText("general"), generalScrollPane);
     }
 
-
-
+    @Override
+    public String localizedText(String id) {
+        return parentPane.localizedText(id);
+    }
 }

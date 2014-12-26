@@ -11,7 +11,7 @@ import java.util.TreeSet;
 /**
  * Created by oskopek on 12/26/14.
  */
-public class StatsCalculator {
+public class StatsCalculator { //TODO: Localize this
 
     private Dataset dataset;
 

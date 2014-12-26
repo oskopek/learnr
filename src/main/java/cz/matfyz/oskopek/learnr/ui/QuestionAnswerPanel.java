@@ -1,6 +1,7 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.data.QuestionIterator;
+import cz.matfyz.oskopek.learnr.tools.Localizable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +11,7 @@ import java.awt.*;
 /**
  * Created by oskopek on 12/3/14.
  */
-public class QuestionAnswerPanel extends JPanel {
+public class QuestionAnswerPanel extends JPanel implements Localizable {
 
     final private Logger LOGGER = LoggerFactory.getLogger(QuestionAnswerPanel.class);
 
@@ -37,4 +38,8 @@ public class QuestionAnswerPanel extends JPanel {
         else LOGGER.warn("Called nextQuestion() when questionIteratorManager was null.");
     }
 
+    @Override
+    public String localizedText(String id) {
+        return parentPane.localizedText(id);
+    }
 }
