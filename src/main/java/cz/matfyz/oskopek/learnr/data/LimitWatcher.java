@@ -11,7 +11,7 @@ public class LimitWatcher {
 
     private Limits limits;
 
-    private int sessionCounter; //TODO add a good dialog to GUI
+    private int sessionCounter;
     private int dailyCounter; //TODO add day checking
 
     public LimitWatcher(Limits limits) {

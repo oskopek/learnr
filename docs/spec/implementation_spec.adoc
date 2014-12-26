@@ -5,10 +5,10 @@ Ondrej Skopek <oskopek@matfyz.cz>
 * *Finish UI*
 * *Write algorithm for questions*
 * *Write statistics collection*
-* Implement statistics view
-* Implement limits
+* *Implement statistics view*
+* *Implement limits*
 * Write documentation (aj dataset formátu) + dev doc
-* Check I/O for bugs
+* *Check I/O for bugs*
 * Finish UI
 
 === ToDo Goals
@@ -17,11 +17,11 @@ Ondrej Skopek <oskopek@matfyz.cz>
 * *GUI vo Swing*
 * *Systém na zapamätanie štatistických údajov*
 * *Algoritmus na ich vyhodnocovanie (na základe predchádzajúcich odpovedí na danú otázku, pridávanie doposial nezodpovedaných (nových) otázok, ...)*
-* Denné a "session" limity na nové/celkové/... otázky
+* *Denné a "session" limity na nové/celkové/... otázky*
 
 === ToDo Bonus
 
-* Štatistické vyhodnocovanie odpovedí (tabuľkový prehľad v menu)
+* *Štatistické vyhodnocovanie odpovedí (tabuľkový prehľad v menu)*
 * *Vyhodnocovanie "reakčného času" na otázku + štatistiky "najrýchlejsie/najpomalšie odpovedáš dobre/zle na ..."*
 * Prekladateľnosť rozhrania + podpora základných jazykov (EN, SK, CZ, DE)
 * _Funkcia "testu" vedomostí -- otázky sa vyhodnotia až po N otázkach alebo po uplynutí času_

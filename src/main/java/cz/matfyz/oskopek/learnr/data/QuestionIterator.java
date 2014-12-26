@@ -35,27 +35,35 @@ public class QuestionIterator implements Iterator<Question> {
     }
 
     @Override
-    public Question next() { //TODO: if save with an open question, that question doesn't get saved
-        if (!hasNext()) {
-            startTime = 0l;
-            currentQuestion = null;
+    public Question next() {
+        if (!limitWatcher.isValidAll()) { // TODO Limit reached dialog
+            setNullQuestion();
             return null;
         }
 
-        limitWatcher.incAll();
+        if (questionsLeft() == 0) { // TODO end of question dialog
+            setNullQuestion();
+            return null;
+        }
 
-        Question prevQuestion = currentQuestion;
-        currentQuestion = dataset.getQuestionSet().pollLast();
-        LOGGER.debug("Loading question \'{}\'.", currentQuestion.getText());
-
-        if (prevQuestion != null) {
-            if (prevQuestion.getWeight() <= 0) {
-                dataset.getFinishedSet().add(prevQuestion);
-                LOGGER.debug("Moving question \'{}\' to finishedSet.", prevQuestion.getText());
+        if (currentQuestion != null) {
+            dataset.getQuestionSet().pollLast(); //intentionally ignored (we already have it in currentQuestion)
+            if (currentQuestion.getWeight() <= 0) {
+                dataset.getFinishedSet().add(currentQuestion);
+                LOGGER.debug("Moving question \'{}\' to finishedSet.", currentQuestion.getText());
             } else {
-                dataset.getQuestionSet().add(prevQuestion);
+                dataset.getQuestionSet().add(currentQuestion);
             }
         }
+
+        if (questionsLeft() == 0) { //TODO End of question dialog
+            setNullQuestion();
+            return null;
+        }
+        currentQuestion = dataset.getQuestionSet().last();
+        LOGGER.debug("Loading question \'{}\'.", currentQuestion.getText());
+        limitWatcher.incAll(); // here because of second hasNext check
+
         startTime = System.nanoTime();
         return currentQuestion;
     }
@@ -102,5 +110,10 @@ public class QuestionIterator implements Iterator<Question> {
         else {
             LOGGER.error("Dataset is null, cannot reset weight to \'{}\'.", newWeight);
         }
+    }
+
+    private void setNullQuestion() {
+        startTime = 0l;
+        currentQuestion = null;
     }
 }

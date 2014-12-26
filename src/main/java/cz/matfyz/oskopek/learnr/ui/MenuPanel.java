@@ -1,5 +1,6 @@
 package cz.matfyz.oskopek.learnr.ui;
 
+import cz.matfyz.oskopek.learnr.data.StatsCalculator;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
@@ -32,7 +33,11 @@ public class MenuPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                // TODO Stats UI
+                if (parentPane.mainPanel.qaPanel.questionIterator == null) {
+                    JOptionPane.showMessageDialog(parentPane, "To show stats, first load a dataset.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    new StatsUI(new StatsCalculator(parentPane.mainPanel.qaPanel.questionIterator.getDataset()));
+                }
             }
         });
         JButton bttExit = new JButton("Exit");
