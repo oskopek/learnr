@@ -1,6 +1,7 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.data.StatsCalculator;
+import cz.matfyz.oskopek.learnr.model.Limits;
 import cz.matfyz.oskopek.learnr.tools.Localizable;
 import org.slf4j.LoggerFactory;
 
@@ -88,15 +89,40 @@ public class MenuPanel extends JPanel implements Localizable {
                 parentPane.languageChange(Locale.forLanguageTag(result));
             }
         });
+        JButton bttLimits = new JButton(localizedText("change-lim"));
+        bttLimits.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (parentPane.mainPanel.qaPanel.questionIterator == null) {
+                    LOGGER.debug("Trying to set limits with a null questionIterator.");
+                    JOptionPane.showMessageDialog(parentPane, localizedText("no-dataset-loaded"), localizedText("error"),
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                LimitsDialog limitsDialog = new LimitsDialog(parentPane);
+                Limits limits = limitsDialog.showDialog(parentPane.mainPanel.qaPanel.questionIterator.getDataset().getLimits());
+                if (limits == null) {
+                    LOGGER.debug("Cancelled setting limits.");
+                    return;
+                } else {
+                    LOGGER.debug("Setting limits to: \'{}\'.", limits);
+                    //This will also reset any progress to today's or this session's limit
+                    parentPane.mainPanel.qaPanel.questionIterator.resetLimits(limits);
+                }
+            }
+        });
 
         gbc.gridy = 0;
         add(bttStats, gbc);
-        gbc.gridy = 3;
-        add(bttExit, gbc);
         gbc.gridy = 1;
         add(bttWeights, gbc);
         gbc.gridy = 2;
+        add(bttLimits, gbc);
+        gbc.gridy = 3;
         add(bttLang, gbc);
+        gbc.gridy = 4;
+        add(bttExit, gbc);
     }
 
     @Override

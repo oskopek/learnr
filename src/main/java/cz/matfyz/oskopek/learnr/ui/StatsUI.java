@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * Created by oskopek on 12/24/14.
  */
-public class StatsUI extends JFrame implements Localizable {
+public class StatsUI extends JDialog implements Localizable {
 
     private JTabbedPane tabbedPane;
     private LearnrPane parentPane;

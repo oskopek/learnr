@@ -2,6 +2,7 @@ package cz.matfyz.oskopek.learnr.data;
 
 import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
+import cz.matfyz.oskopek.learnr.model.Limits;
 import cz.matfyz.oskopek.learnr.model.Question;
 import cz.matfyz.oskopek.learnr.tools.DatasetIO;
 import org.slf4j.Logger;
@@ -119,5 +120,10 @@ public class QuestionIterator implements Iterator<Question> {
     private void setNullQuestion() {
         startTime = 0l;
         currentQuestion = null;
+    }
+
+    public void resetLimits(Limits limits) {
+        dataset.setLimits(limits);
+        limitWatcher = new LimitWatcher(limits);
     }
 }
