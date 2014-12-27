@@ -13,6 +13,7 @@
     <artifactId>learnr</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Learnr</name>
+    <description>Quick and easy learning software</description>
     <developers>
         <developer>
             <name>Ondrej Skopek</name>
@@ -96,6 +97,9 @@
                 <version>1.8</version>
                 <configuration>
                     <licenseName>mit</licenseName>
+                    <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+                    <canUpdateCopyright>true</canUpdateCopyright>
+                    <canUpdateDescription>true</canUpdateDescription>
                 </configuration>
             </plugin>
             <plugin>
