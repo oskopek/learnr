@@ -36,16 +36,13 @@ import java.awt.*;
  */
 public class LimitCounterPanel extends JPanel implements Localizable {
 
-    private QuestionAnswerPanel parentPanel;
-    private JLabel sessionCount;
-    private JLabel dailyCount;
+    private final QuestionAnswerPanel parentPanel;
+    private final JLabel sessionCount;
+    private final JLabel dailyCount;
 
     public LimitCounterPanel(QuestionAnswerPanel parentPanel) {
         this.parentPanel = parentPanel;
-        init();
-    }
 
-    private void init() {
         setLayout(new FlowLayout());
         JLabel sessionText = new JLabel(localizedText("session") + ":");
         JLabel dailyText = new JLabel(localizedText("daily") + ":");

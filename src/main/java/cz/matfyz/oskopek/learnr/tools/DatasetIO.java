@@ -26,7 +26,6 @@
 package cz.matfyz.oskopek.learnr.tools;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Limits;
@@ -69,29 +68,9 @@ public class DatasetIO {
         fileOutputStream.close();
     }
 
-    public static Dataset importXMLDataset(String filename) throws IOException {
+    public static Dataset importXMLDataset(String filename) {
         LOGGER.debug("Import dataset from XML: \'{}\'", filename);
         XStream xstream = new XStream();
-        return (Dataset) xstream.fromXML(new File(filename));
-    }
-
-    @Deprecated
-    public static void exportJSONDataset(Dataset dataset, String filename) throws IOException {
-        LOGGER.debug("Export dataset to JSON: \'{}\'", filename);
-        File outFile = new File(filename);
-        outFile.createNewFile();
-        FileOutputStream fileOutputStream = new FileOutputStream(outFile);
-
-        XStream xStream = new XStream(new JettisonMappedXmlDriver());
-        xStream.toXML(dataset, fileOutputStream);
-
-        fileOutputStream.close();
-    }
-
-    @Deprecated
-    public static Dataset importJSONDataset(String filename) throws IOException {
-        LOGGER.debug("Import dataset from JSON: \'{}\'", filename);
-        XStream xstream = new XStream(new JettisonMappedXmlDriver());
         return (Dataset) xstream.fromXML(new File(filename));
     }
 
@@ -104,7 +83,7 @@ public class DatasetIO {
         pw.printf("Author: %s\n", dataset.getAuthor());
         pw.printf("CreatedDate: %d\n", dataset.getCreatedDate());
         pw.printf("RepetitionCoef: %d\n", dataset.getQuestionSet().size() + dataset.getFinishedSet().size());
-        pw.printf("Limits: %d/%d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession());
+        pw.printf("Limits: %d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession());
         pw.printf("AnswerCheckType: %s\n", dataset.getAnswerCheckType());
         pw.printf("GoodAnswerPenalty: %d\n", dataset.getGoodAnswerPenalty());
         pw.printf("BadAnswerPenalty: %d\n", dataset.getBadAnswerPenalty());

@@ -33,7 +33,7 @@ import java.awt.*;
  */
 public class LearnrFrame {
 
-    private LearnrPanel learnrPanel;
+    private final LearnrPanel learnrPanel;
 
     public LearnrFrame() {
         learnrPanel = new LearnrPanel();

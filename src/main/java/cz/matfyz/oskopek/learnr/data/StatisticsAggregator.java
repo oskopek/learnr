@@ -25,7 +25,6 @@
  */
 package cz.matfyz.oskopek.learnr.data;
 
-import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Question;
 import cz.matfyz.oskopek.learnr.tools.DatasetIO;
@@ -36,24 +35,22 @@ import java.util.TreeSet;
 /**
  * Created by oskopek on 12/26/14.
  */
-public class StatsCalculator { //TODO: Localize this
+public class StatisticsAggregator { //TODO: Localize this
 
     private final static String[] totalColumns = {"Statistic", "Value"};
     private final static String[] generalColumns = {"Question", "# Good Ans.", "# Bad Ans.", "# Total Ans.",
             "% Good Ans.", "Avg. Reaction Time"};
-    private Dataset dataset;
+    private final Dataset dataset;
 
-    public StatsCalculator(Dataset dataset) {
+    public StatisticsAggregator(Dataset dataset) {
         this.dataset = dataset;
     }
-
 
     /**
      * Generates data into total table from questionSet, writes into data[][] from index onwards (including).
      *
-     * @param data
-     * @param questionSet
-     * @return New index that is writable (or is out of bounds)
+     * @param data        the data into which to write
+     * @param questionSet the set from which to gather question data
      */
     private void generateTotalFromSet(Object[][] data, Set<Question> questionSet) {
         Object[] answerStats = new Object[5];
@@ -62,13 +59,8 @@ public class StatsCalculator { //TODO: Localize this
         int timesGood = 0;
         long reactionTimeSum = 0;
         for (Question question : questionSet) {
-            for (Answer answer : question.getStatistics().getAnsweredList()) {
-                if (answer.isGood()) {
-                    timesGood++;
-                }
-                reactionTimeSum += answer.getReactionTime();
-            }
-
+            timesGood += question.getStatistics().getGoodAnswerCount();
+            reactionTimeSum += question.getStatistics().getReactionTimeSum();
             timesAsked += question.getStatistics().getAnsweredList().size();
             total++;
         }
@@ -102,40 +94,30 @@ public class StatsCalculator { //TODO: Localize this
     /**
      * Generates stats according to generalColumns for question (from column 1 onwards)
      *
-     * @param question
+     * @param question the question from which to gather data
      * @return stats according to generalColumns
      */
     private Object[] generalAnswerStats(Question question) {
         Object[] stats = new Object[5];
 
-        int good = 0;
-        int bad = 0;
-        long sumReactionTime = 0;
-        for (Answer answer : question.getStatistics().getAnsweredList()) {
-            if (answer.isGood()) {
-                good++;
-            } else {
-                bad++;
-            }
-            sumReactionTime += answer.getReactionTime();
-        }
+        int good = question.getStatistics().getGoodAnswerCount();
+        int bad = question.getStatistics().getAnsweredList().size() - good;
 
         stats[0] = good;
         stats[1] = bad;
         stats[2] = good + bad;
-        //stats[2] = question.getStatistics().getAnsweredList().size(); //Total answers (should be equal to good+bad)
         stats[3] = ((double) good / (good + bad)) * 100;
-        stats[4] = DatasetIO.convertNanosToHMS(Math.round((double) sumReactionTime / (good + bad)));
+        stats[4] = DatasetIO.convertNanosToHMS(Math.round((double) question.getStatistics().getReactionTimeSum() / (good + bad)));
         return stats;
     }
 
     /**
      * Generates data into general table from questionSet, writes into data[][] from index onwards (including).
      *
-     * @param data
-     * @param index
-     * @param questionSet
-     * @return New index that is writable (or is out of bounds)
+     * @param data        the data into which to write
+     * @param index       the index (in data[]) from which onwards (including) to write
+     * @param questionSet the set from which to gather question data
+     * @return New index in data[] that is writable (or is out of bounds)
      */
     private int generateGeneralFromSet(Object[][] data, int index, Set<Question> questionSet) {
         for (Question q : questionSet) {
@@ -152,7 +134,7 @@ public class StatsCalculator { //TODO: Localize this
     public Object[][] generalData() {
         Object[][] data = new Object[dataset.getQuestionSet().size() + dataset.getFinishedSet().size()][generalColumns.length];
         int index = generateGeneralFromSet(data, 0, dataset.getQuestionSet());
-        index = generateGeneralFromSet(data, index, dataset.getFinishedSet());
+        generateGeneralFromSet(data, index, dataset.getFinishedSet());
         return data;
     }
 

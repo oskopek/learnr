@@ -37,6 +37,7 @@ import java.util.TreeSet;
 public class Dataset extends AbstractPersistable {
 
     public enum AnswerCheckType {CASE_SENSITIVE, CASE_INSENSITIVE, EXACT}
+
     private TreeSet<Question> questionSet;
     private TreeSet<Question> finishedSet;
     private String name;

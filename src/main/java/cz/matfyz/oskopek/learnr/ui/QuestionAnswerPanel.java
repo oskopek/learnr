@@ -38,20 +38,16 @@ import java.awt.*;
  */
 public class QuestionAnswerPanel extends JPanel implements Localizable {
 
+    protected final MainPanel parentPanel;
+    protected final LimitCounterPanel limitCounterPanel;
+    protected final QuestionPanel questionPanel;
+    protected final AnswerPanel answerPanel;
     final private Logger LOGGER = LoggerFactory.getLogger(QuestionAnswerPanel.class);
-
-    protected MainPanel parentPanel;
     protected QuestionIterator questionIterator;
-    protected LimitCounterPanel limitCounterPanel;
-    protected QuestionPanel questionPanel;
-    protected AnswerPanel answerPanel;
 
     public QuestionAnswerPanel(MainPanel parentPanel) {
         this.parentPanel = parentPanel;
-        init();
-    }
 
-    private void init() {
         setLayout(new BorderLayout());
         limitCounterPanel = new LimitCounterPanel(this);
         questionPanel = new QuestionPanel(this);

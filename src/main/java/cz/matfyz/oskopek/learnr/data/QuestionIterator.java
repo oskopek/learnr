@@ -42,7 +42,7 @@ import java.util.Iterator;
 public class QuestionIterator implements Iterator<Question> {
 
     final static private Logger LOGGER = LoggerFactory.getLogger(QuestionIterator.class);
-    private Dataset dataset;
+    private final Dataset dataset;
     private Question currentQuestion;
     private long startTime;
     private LimitWatcher limitWatcher;

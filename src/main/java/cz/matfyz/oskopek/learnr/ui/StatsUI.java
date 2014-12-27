@@ -25,7 +25,7 @@
  */
 package cz.matfyz.oskopek.learnr.ui;
 
-import cz.matfyz.oskopek.learnr.data.StatsCalculator;
+import cz.matfyz.oskopek.learnr.data.StatisticsAggregator;
 import cz.matfyz.oskopek.learnr.tools.Localizable;
 
 import javax.swing.*;
@@ -36,22 +36,20 @@ import java.awt.*;
  */
 public class StatsUI extends JDialog implements Localizable {
 
-    private JTabbedPane tabbedPane;
-    private LearnrPanel parentPanel;
+    private final JTabbedPane tabbedPane;
+    private final LearnrPanel parentPanel;
 
-    private StatsCalculator statsCalculator;
+    private final StatisticsAggregator statisticsAggregator;
 
-    public StatsUI(LearnrPanel parentPanel, StatsCalculator statsCalculator) {
+    public StatsUI(LearnrPanel parentPanel, StatisticsAggregator statisticsAggregator) {
         this.parentPanel = parentPanel;
-        this.statsCalculator = statsCalculator;
-        init();
-    }
+        this.statisticsAggregator = statisticsAggregator;
 
-    private void init() {
         setLayout(new BorderLayout());
         tabbedPane = new JTabbedPane();
 
         initTables();
+
         add(tabbedPane, BorderLayout.CENTER);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(200, 200);
@@ -62,11 +60,11 @@ public class StatsUI extends JDialog implements Localizable {
     }
 
     private void initTables() {
-        String[] totalTabColumns = statsCalculator.totalColumns();
-        Object[][] totalTabData = statsCalculator.totalData();
+        String[] totalTabColumns = statisticsAggregator.totalColumns();
+        Object[][] totalTabData = statisticsAggregator.totalData();
 
-        String[] generalTabColumns = statsCalculator.generalColumns();
-        Object[][] generalTabData = statsCalculator.generalData();
+        String[] generalTabColumns = statisticsAggregator.generalColumns();
+        Object[][] generalTabData = statisticsAggregator.generalData();
 
         JTable totalTab = new JTable(totalTabData, totalTabColumns);
         totalTab.setEnabled(false);

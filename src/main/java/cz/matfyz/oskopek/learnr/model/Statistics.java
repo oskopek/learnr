@@ -39,26 +39,22 @@ import java.util.List;
 @XStreamAlias("Statistics")
 public class Statistics extends AbstractPersistable {
 
-    private long lastAsked;
     private List<Answer> answeredList;
     private int goodAnswerCount;
+    private long reactionTimeSum;
 
     public Statistics() {
         answeredList = new ArrayList<>();
         goodAnswerCount = 0;
-        lastAsked = 0;
+        reactionTimeSum = 0;
     }
 
     public void submitAnswer(Answer answer) {
+        reactionTimeSum += answer.getReactionTime();
+        if (answer.isGood()) {
+            goodAnswerCount++;
+        }
         answeredList.add(answer);
-    }
-
-    public long getLastAsked() {
-        return lastAsked;
-    }
-
-    public void setLastAsked(long lastAsked) {
-        this.lastAsked = lastAsked;
     }
 
     public List<Answer> getAnsweredList() {
@@ -77,6 +73,14 @@ public class Statistics extends AbstractPersistable {
         this.goodAnswerCount = goodAnswerCount;
     }
 
+    public long getReactionTimeSum() {
+        return reactionTimeSum;
+    }
+
+    public void setReactionTimeSum(long reactionTimeSum) {
+        this.reactionTimeSum = reactionTimeSum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,17 +88,17 @@ public class Statistics extends AbstractPersistable {
 
         Statistics that = (Statistics) o;
 
-        return new EqualsBuilder().append(lastAsked, that.lastAsked).append(goodAnswerCount, that.goodAnswerCount)
+        return new EqualsBuilder().append(reactionTimeSum, that.reactionTimeSum).append(goodAnswerCount, that.goodAnswerCount)
                 .append(answeredList, that.answeredList).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(lastAsked).append(goodAnswerCount).append(answeredList).toHashCode();
+        return new HashCodeBuilder().append(reactionTimeSum).append(goodAnswerCount).append(answeredList).toHashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append(lastAsked).append(goodAnswerCount).append(answeredList).build();
+        return new ToStringBuilder(this).append(reactionTimeSum).append(goodAnswerCount).append(answeredList).build();
     }
 }

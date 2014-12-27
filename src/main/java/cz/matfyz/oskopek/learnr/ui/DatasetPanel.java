@@ -46,15 +46,12 @@ import java.io.IOException;
 public class DatasetPanel extends JPanel implements Localizable {
 
     final private static String currentDirectory = "."; //"./prog1/zapoctak_learnr/data/";
+    protected final MainPanel parentPanel;
     final private Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
-    protected MainPanel parentPanel;
 
-    public DatasetPanel(MainPanel parentPanel) {
-        this.parentPanel = parentPanel;
-        init();
-    }
+    public DatasetPanel(MainPanel mainPanel) {
+        this.parentPanel = mainPanel;
 
-    private void init() {
         setLayout(new FlowLayout());
         JButton loadBtt = new JButton(localizedText("load"));
         loadBtt.addMouseListener(new MouseAdapter() {
@@ -67,11 +64,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 int returnVal = chooser.showOpenDialog(getParent());
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Import dataset: {}", chooser.getSelectedFile());
-                    try {
-                        setDatasetToPanel(DatasetIO.importXMLDataset(chooser.getSelectedFile().getAbsolutePath()));
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    }
+                    setDatasetToPanel(DatasetIO.importXMLDataset(chooser.getSelectedFile().getAbsolutePath()));
                     parentPanel.updateUI();
                 }
             }

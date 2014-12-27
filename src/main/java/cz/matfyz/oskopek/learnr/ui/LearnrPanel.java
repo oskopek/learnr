@@ -26,8 +26,8 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.tools.Localizable;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,15 +43,11 @@ import java.util.ResourceBundle;
 public class LearnrPanel extends JPanel implements Localizable {
 
     final private static Logger LOGGER = LoggerFactory.getLogger(LearnrPanel.class);
-    protected MainPanel mainPanel;
-    protected MenuPanel menuPanel;
+    protected final MainPanel mainPanel;
+    protected final MenuPanel menuPanel;
     private ResourceBundle resourceBundle;
 
     public LearnrPanel() {
-        init();
-    }
-
-    private void init() {
         languageChange(Locale.forLanguageTag("en-US")); // default en-US
         setLayout(new BorderLayout());
         mainPanel = new MainPanel(this);

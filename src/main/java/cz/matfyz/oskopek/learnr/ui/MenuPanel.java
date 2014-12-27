@@ -25,7 +25,7 @@
  */
 package cz.matfyz.oskopek.learnr.ui;
 
-import cz.matfyz.oskopek.learnr.data.StatsCalculator;
+import cz.matfyz.oskopek.learnr.data.StatisticsAggregator;
 import cz.matfyz.oskopek.learnr.model.Limits;
 import cz.matfyz.oskopek.learnr.tools.Localizable;
 import org.slf4j.LoggerFactory;
@@ -44,14 +44,11 @@ public class MenuPanel extends JPanel implements Localizable {
 
     final private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MenuPanel.class);
 
-    private LearnrPanel parentPanel;
+    private final LearnrPanel parentPanel;
 
-    public MenuPanel(LearnrPanel parentPanel) {
-        this.parentPanel = parentPanel;
-        init();
-    }
+    public MenuPanel(LearnrPanel learnrPanel) {
+        this.parentPanel = learnrPanel;
 
-    private void init() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -66,7 +63,7 @@ public class MenuPanel extends JPanel implements Localizable {
                     JOptionPane.showMessageDialog(parentPanel, localizedText("error-show-stats"), localizedText("error"),
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    new StatsUI(parentPanel, new StatsCalculator(parentPanel.mainPanel.qaPanel.questionIterator.getDataset()));
+                    new StatsUI(parentPanel, new StatisticsAggregator(parentPanel.mainPanel.qaPanel.questionIterator.getDataset()));
                 }
             }
         });
@@ -132,7 +129,6 @@ public class MenuPanel extends JPanel implements Localizable {
                 Limits limits = limitsDialog.showDialog(parentPanel.mainPanel.qaPanel.questionIterator.getDataset().getLimits());
                 if (limits == null) {
                     LOGGER.debug("Cancelled setting limits.");
-                    return;
                 } else {
                     LOGGER.debug("Setting limits to: \'{}\'.", limits);
                     //This will also reset any progress to today's or this session's limit

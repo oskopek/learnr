@@ -30,9 +30,9 @@ import java.io.Serializable;
 /**
  * Created by oskopek on 11/29/14.
  */
-public abstract class AbstractPersistable implements Serializable/*, Comparable<AbstractPersistable>*/ {
+public abstract class AbstractPersistable implements Serializable {
 
-    protected Long id;
+    private Long id;
 
     protected AbstractPersistable() {
         //intentionally empty

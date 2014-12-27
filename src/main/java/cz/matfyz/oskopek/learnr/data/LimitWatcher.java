@@ -34,7 +34,7 @@ import java.util.Calendar;
  */
 public class LimitWatcher {
 
-    private Limits limits;
+    private final Limits limits;
 
     public LimitWatcher(Limits limits) {
         this.limits = limits;

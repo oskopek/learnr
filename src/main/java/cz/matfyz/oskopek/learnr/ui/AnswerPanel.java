@@ -41,13 +41,12 @@ import java.awt.event.ActionListener;
 public class AnswerPanel extends JPanel implements Localizable {
 
     final static private Logger LOGGER = LoggerFactory.getLogger(AnswerPanel.class);
-    final protected JTextField textField;
-    protected QuestionAnswerPanel parentPanel;
-    private SubmitAnswerListener answerListener;
+    protected final QuestionAnswerPanel parentPanel;
+    private final JTextField textField;
 
     public AnswerPanel(QuestionAnswerPanel parentPanel) {
         this.parentPanel = parentPanel;
-        answerListener = new SubmitAnswerListener(this);
+        SubmitAnswerListener answerListener = new SubmitAnswerListener(this);
 
         setLayout(new BorderLayout());
         textField = new JTextField();
@@ -66,7 +65,7 @@ public class AnswerPanel extends JPanel implements Localizable {
 
     private class SubmitAnswerListener implements ActionListener {
 
-        private AnswerPanel answerPanel;
+        private final AnswerPanel answerPanel;
 
         private SubmitAnswerListener(AnswerPanel answerPanel) {
             this.answerPanel = answerPanel;
