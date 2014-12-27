@@ -38,12 +38,12 @@ public class QuestionIterator implements Iterator<Question> {
 
     @Override
     public Question next() {
-        if (!limitWatcher.isValidAll()) { // TODO Limit reached dialog
+        if (!limitWatcher.isValidAll()) {
             setNullQuestion();
             return null;
         }
 
-        if (questionsLeft() == 0) { // TODO end of question dialog
+        if (questionsLeft() == 0) {
             setNullQuestion();
             return null;
         }
@@ -58,7 +58,7 @@ public class QuestionIterator implements Iterator<Question> {
             }
         }
 
-        if (questionsLeft() == 0) { //TODO End of question dialog
+        if (questionsLeft() == 0) {
             setNullQuestion();
             return null;
         }

@@ -21,7 +21,7 @@ public class QuestionPanel extends JPanel implements Localizable {
     public QuestionPanel(QuestionAnswerPanel parentPanel) {
         this.parentPanel = parentPanel;
         init();
-        setNullQuestion(false);
+        showEmptyQuestion(false);
     }
 
     private void init() {
@@ -36,15 +36,28 @@ public class QuestionPanel extends JPanel implements Localizable {
             LOGGER.debug("Loaded question \'{}\'.", question.getText());
             text.setText(question.getText());
         } else {
-            setNullQuestion(true);
+            showEmptyQuestion(true);
         }
     }
 
-    private void setNullQuestion(boolean isEnd) {
-        LOGGER.debug("Loaded null question. At end? {}.", isEnd);
+    private void showEmptyQuestion(boolean showDialog) {
+        LOGGER.debug("Loaded null question. Show dialog? {}.", showDialog);
         text.setText("");
-        if (isEnd) {
-            JOptionPane.showMessageDialog(this, localizedText("finished-questions"));
+        if (showDialog) {
+            // Dialog cause guessing:
+            if (parentPanel.questionIterator.questionsLeft() == 0) {
+                JOptionPane.showMessageDialog(this, localizedText("finished-questions"));
+            }
+            else if (!parentPanel.questionIterator.getLimitWatcher().isValidSession()) {
+                JOptionPane.showMessageDialog(this, localizedText("reached-session-lim"));
+            }
+            else if (!parentPanel.questionIterator.getLimitWatcher().isValidDaily()) {
+                JOptionPane.showMessageDialog(this, localizedText("reached-daily-lim"));
+            }
+            else {
+                LOGGER.error("Unknown end-of-dataset status!");
+                JOptionPane.showMessageDialog(this, localizedText("unknown-error"), localizedText("error"), JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
