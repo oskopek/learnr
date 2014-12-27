@@ -28,10 +28,15 @@ package cz.matfyz.oskopek.learnr.app;
 import cz.matfyz.oskopek.learnr.ui.LearnrFrame;
 
 /**
- * Created by oskopek on 11/29/14.
+ * A very simple entry point class for the UI.
  */
 public class LearnrApp {
 
+    /**
+     * Calls {@link cz.matfyz.oskopek.learnr.ui.LearnrFrame#showFrame()} on a new instance of <code>LearnrFrame</code>.
+     *
+     * @param args standard command-line arguments
+     */
     public static void main(String[] args) {
         LearnrFrame learnrFrame = new LearnrFrame();
         learnrFrame.showFrame();

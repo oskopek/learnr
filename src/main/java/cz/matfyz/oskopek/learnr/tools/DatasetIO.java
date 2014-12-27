@@ -47,19 +47,27 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.concurrent.TimeUnit;
 
 /**
- * Created by oskopek on 11/29/14.
+ * A class for static helper methods related to loading/saving and importing/exporting datasets.
  */
 public class DatasetIO {
 
     final static private Logger LOGGER = LoggerFactory.getLogger(DatasetIO.class);
 
-    public static void exportXMLDataset(Dataset dataset, String filename) throws IOException {
-        LOGGER.debug("Export dataset to XML: \'{}\'", filename);
+    /**
+     * Saves the dataset via XStream.
+     * <p/>
+     * Used for saving a used dataset. Saves statistics.
+     *
+     * @param dataset  the dataset to save
+     * @param filename the filename into which to save
+     * @throws IOException if an error during write occurs
+     */
+    public static void saveXMLDataset(Dataset dataset, String filename) throws IOException {
+        LOGGER.debug("Save dataset to XML: \'{}\'", filename);
         File outFile = new File(filename);
-        outFile.createNewFile();
+        outFile.createNewFile(); // Ignored return value, checking for overwriting in UI
         FileOutputStream fileOutputStream = new FileOutputStream(outFile);
 
         XStream xStream = new XStream();
@@ -68,12 +76,29 @@ public class DatasetIO {
         fileOutputStream.close();
     }
 
-    public static Dataset importXMLDataset(String filename) {
-        LOGGER.debug("Import dataset from XML: \'{}\'", filename);
+    /**
+     * Loads a dataset via XStream.
+     * <p/>
+     * Used for loading a used dataset. Loads statistics.
+     *
+     * @param filename the filename from which to load
+     * @return the imported dataset
+     */
+    public static Dataset loadXMLDataset(String filename) {
+        LOGGER.debug("Load dataset from XML: \'{}\'", filename);
         XStream xstream = new XStream();
         return (Dataset) xstream.fromXML(new File(filename));
     }
 
+    /**
+     * A manual method of exporting the dataset to a text file.
+     * <p/>
+     * Used for plain dataset distribution. Does not export statistics of any kind.
+     *
+     * @param dataset  the dataset to export
+     * @param filename the filename into which to export
+     * @throws IOException if an error during write occurs
+     */
     public static void exportTXTDataset(Dataset dataset, String filename) throws IOException {
         LOGGER.debug("Export dataset to TXT: \'{}\'", filename);
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
@@ -105,6 +130,15 @@ public class DatasetIO {
         pw.close();
     }
 
+    /**
+     * A manual method of importing a dataset from a text file.
+     * <p/>
+     * Used for plain dataset distribution. Does not import statistics of any kind.
+     *
+     * @param filename the filename from which to import
+     * @return the imported dataset
+     * @throws IOException if an error during read occurs
+     */
     public static Dataset importTXTDataset(String filename) throws IOException {
         LOGGER.debug("Import dataset from TXT: \'{}\'", filename);
         Dataset dataset = new Dataset();
@@ -117,9 +151,7 @@ public class DatasetIO {
         dataset.setCreatedDate(Long.parseLong(br.readLine().split(":")[1].trim()));
         int repCoef = Integer.parseInt(br.readLine().split(":")[1].trim());
         String[] limitsStr = br.readLine().split("/");
-        Limits limits = new Limits();
-        limits.setDaily(Integer.parseInt(limitsStr[0].split(":")[1].trim()));
-        limits.setSession(Integer.parseInt(limitsStr[1]));
+        Limits limits = new Limits(Integer.parseInt(limitsStr[0].split(":")[1].trim()), Integer.parseInt(limitsStr[1]));
         dataset.setLimits(limits);
         String answerCheckTypeStr = br.readLine().split(":")[1].trim();
         dataset.setAnswerCheckType(Dataset.AnswerCheckType.valueOf(answerCheckTypeStr));
@@ -132,10 +164,7 @@ public class DatasetIO {
         while ((buffer = br.readLine()) != null) {
             if (StringUtils.isWhitespace(buffer)) continue;
             String[] split = buffer.split(";");
-            Question q = new Question();
-            q.setText(split[0].trim());
-            q.setStatistics(new Statistics());
-            q.setWeight(repCoef);
+            String text = split[0].trim();
 
             List<Answer> answerList = new ArrayList<>();
             for (int i = 1; i < split.length; i++) {
@@ -143,7 +172,7 @@ public class DatasetIO {
                 answer.setValue(split[i].trim());
                 answerList.add(answer);
             }
-            q.setAnswerList(answerList);
+            Question q = new Question(text, new Statistics(), answerList, repCoef);
 
             LOGGER.debug("Reading question \'{}\'; weight \'{}\'.", q.getText(), q.getWeight());
             if (!questionSet.add(q)) {
@@ -163,13 +192,6 @@ public class DatasetIO {
 
         br.close();
         return dataset;
-    }
-
-    public static String convertNanosToHMS(long nanoTime) {
-        long millis = nanoTime / 1_000_000l;
-        return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
-                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
     }
 
 }

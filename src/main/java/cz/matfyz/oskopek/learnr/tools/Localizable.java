@@ -26,10 +26,16 @@
 package cz.matfyz.oskopek.learnr.tools;
 
 /**
- * Created by oskopek on 12/26/14.
+ * Specifies methods for enabling localization of UI elements and other data headers.
  */
 public interface Localizable {
 
+    /**
+     * Returns the localized text for given string id.
+     *
+     * @param id
+     * @return the localized text represented by <code>id</code>
+     */
     public String localizedText(String id);
 
 }

@@ -39,60 +39,36 @@ public class QuestionTest {
 
     @Test
     public void equalsTest() {
-        Question q1 = new Question();
-        q1.setText("Name");
-        q1.setStatistics(new Statistics());
-        q1.setWeight(5);
-        q1.setAnswerList(new ArrayList<Answer>());
-        Question q2 = new Question();
-        q2.setText("Name");
-        q2.setStatistics(new Statistics());
-        q2.setWeight(5);
-        q2.setAnswerList(new ArrayList<Answer>());
+        Question q1 = new Question("Name", new Statistics(), new ArrayList<Answer>(), 5);
+        Question q2 = new Question("Name", new Statistics(), new ArrayList<Answer>(), 5);
         assertEquals(q1, q2);
         q2.setWeight(4);
         assertEquals(q1, q2);
-        q1.setText("NamE");
+        q1 = new Question("NamE", new Statistics(), new ArrayList<Answer>(), 5);
         assertNotEquals(q1, q2);
     }
 
     @Test
     public void hashCodeTest() {
-        Question q1 = new Question();
-        q1.setText("Name");
-        q1.setStatistics(new Statistics());
-        q1.setWeight(5);
-        q1.setAnswerList(new ArrayList<Answer>());
-        Question q2 = new Question();
-        q2.setText("Name");
-        q2.setStatistics(new Statistics());
-        q2.setWeight(5);
-        q2.setAnswerList(new ArrayList<Answer>());
+        Question q1 = new Question("Name", new Statistics(), new ArrayList<Answer>(), 5);
+        Question q2 = new Question("Name", new Statistics(), new ArrayList<Answer>(), 5);
         assertEquals(q1.hashCode(), q2.hashCode());
         q2.setWeight(4);
         assertEquals(q1.hashCode(), q2.hashCode());
-        q1.setText("NamE");
+        q1 = new Question("NamE", new Statistics(), new ArrayList<Answer>(), 5);
         assertNotEquals(q1.hashCode(), q2.hashCode());
     }
 
     @Test
     public void compareToTest() {
-        Question q1 = new Question();
-        q1.setText("Name");
-        q1.setStatistics(new Statistics());
-        q1.setWeight(5);
-        q1.setAnswerList(new ArrayList<Answer>());
-        Question q2 = new Question();
-        q2.setText("Name");
-        q2.setStatistics(new Statistics());
-        q2.setWeight(5);
-        q2.setAnswerList(new ArrayList<Answer>());
+        Question q1 = new Question("Name", new Statistics(), new ArrayList<Answer>(), 5);
+        Question q2 = new Question("Name", new Statistics(), new ArrayList<Answer>(), 5);
         assertEquals(q1.compareTo(q2), q2.compareTo(q1));
         assertEquals(0, q1.compareTo(q2));
         q2.setWeight(4);
         assertEquals(-1, q2.compareTo(q1));
         assertEquals(+1, q1.compareTo(q2));
-        q1.setText("NamE");
+        q1 = new Question("NamE", new Statistics(), new ArrayList<Answer>(), 5);
         assertEquals(-1, q2.compareTo(q1));
         assertEquals(+1, q1.compareTo(q2));
     }

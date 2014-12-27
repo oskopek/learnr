@@ -60,10 +60,7 @@ public class LimitsDialog implements Localizable {
 
         int result = JOptionPane.showConfirmDialog(parentPanel, inputPanel, "", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            Limits limits = new Limits();
-            limits.setDaily(daily.getNumber().intValue());
-            limits.setSession(session.getNumber().intValue());
-            return limits;
+            return new Limits(daily.getNumber().intValue(), session.getNumber().intValue());
         } else {
             return null;
         }

@@ -29,32 +29,40 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * Created by oskopek on 11/29/14.
+ * A <code>Limits</code> objects that tracks limits for the number of asked questions.
+ * <p/>
+ * Also keeps counters of the current numbers of questions asked.
+ * (So the <code>LimitWatcher</code> and <code>QuestionIterator</code> can use the same object instance).
  */
 @XStreamAlias("Limits")
 public class Limits extends AbstractPersistable {
 
-    private int daily;
-    private int session;
+    // LIMITS
+    final private int daily;
+    final private int session;
 
+    // COUNTERS
     private int dailyCounter;
     private int sessionCounter;
     private long loggedDay;
+
+    /**
+     * Constructs a new <code>Limits</code> object with the default limits set.
+     *
+     * @param daily   the maximum amount of questions asked daily
+     * @param session the maximum amount of questions asked in a single session
+     */
+    public Limits(int daily, int session) {
+        this.daily = daily;
+        this.session = session;
+    }
 
     public int getDaily() {
         return daily;
     }
 
-    public void setDaily(int daily) {
-        this.daily = daily;
-    }
-
     public int getSession() {
         return session;
-    }
-
-    public void setSession(int session) {
-        this.session = session;
     }
 
     public int getDailyCounter() {

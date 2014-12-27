@@ -31,7 +31,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * Created by oskopek on 11/29/14.
+ * A lightweight <code>Answer</code> object used for correct answers in datasets,
+ * as well as keeping statistics (user-generated answers).
  */
 @XStreamAlias("Answer")
 public class Answer extends AbstractPersistable {
@@ -40,6 +41,11 @@ public class Answer extends AbstractPersistable {
     private long reactionTime;
     private boolean good;
 
+    /**
+     * Note: Has no meaning if answer is a correct answer in a dataset. Used only for statistics.
+     *
+     * @return true if answer is good
+     */
     public boolean isGood() {
         return good;
     }

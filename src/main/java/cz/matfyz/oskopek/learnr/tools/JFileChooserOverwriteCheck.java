@@ -29,7 +29,7 @@ import javax.swing.*;
 import java.io.File;
 
 /**
- * Created by oskopek on 12/24/14.
+ * A simple {@link javax.swing.JFileChooser} wrapper that displays a confirm dialog on overwrite.
  */
 public class JFileChooserOverwriteCheck extends JFileChooser {
 

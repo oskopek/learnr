@@ -64,7 +64,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 int returnVal = chooser.showOpenDialog(getParent());
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Import dataset: {}", chooser.getSelectedFile());
-                    setDatasetToPanel(DatasetIO.importXMLDataset(chooser.getSelectedFile().getAbsolutePath()));
+                    setDatasetToPanel(DatasetIO.loadXMLDataset(chooser.getSelectedFile().getAbsolutePath()));
                     parentPanel.updateUI();
                 }
             }
@@ -81,7 +81,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Export dataset to: {}", chooser.getSelectedFile());
                     try {
-                        DatasetIO.exportXMLDataset(parentPanel.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
+                        DatasetIO.saveXMLDataset(parentPanel.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }

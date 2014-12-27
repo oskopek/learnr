@@ -34,15 +34,32 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.List;
 
 /**
- * Created by oskopek on 11/29/14.
+ * <code>Question</code> is an object mostly associated with the <code>Dataset</code> it belongs to.
+ * <p/>
+ * Only the <code>statistics</code> (internally) and <code>weight</code> fields change during usage.
+ * <p/>
+ * <b>WARNING</b>: Do not mistake {@link #getAnswerList()} for {@link Statistics#getAnsweredList()}!
  */
 @XStreamAlias("Question")
 public class Question extends AbstractPersistable implements Comparable<Question> {
 
-    private String text;
-    private List<Answer> answerList;
-    private Statistics statistics;
+    private final String text;
+    private final List<Answer> answerList;
+    private final Statistics statistics;
     private int weight;
+
+    public Question(String text, Statistics statistics, List<Answer> answerList) {
+        this.answerList = answerList;
+        this.text = text;
+        this.statistics = statistics;
+    }
+
+    public Question(String text, Statistics statistics, List<Answer> answerList, int weight) {
+        this.answerList = answerList;
+        this.text = text;
+        this.statistics = statistics;
+        this.weight = weight;
+    }
 
     public int getWeight() {
         return weight;
@@ -56,24 +73,12 @@ public class Question extends AbstractPersistable implements Comparable<Question
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public List<Answer> getAnswerList() {
         return answerList;
     }
 
-    public void setAnswerList(List<Answer> answerList) {
-        this.answerList = answerList;
-    }
-
     public Statistics getStatistics() {
         return statistics;
-    }
-
-    public void setStatistics(Statistics statistics) {
-        this.statistics = statistics;
     }
 
     @Override
@@ -95,6 +100,14 @@ public class Question extends AbstractPersistable implements Comparable<Question
         return new HashCodeBuilder().append(text).toHashCode();
     }
 
+    /**
+     * Compares two questions by <code>weight</code> in decreasing order, or in case of equality, by their <code>text</code>s.
+     * <p/>
+     * <b>WARNING</b>: Doesn't conform to the output of <code>equals</code> and <code>hashCode</code>!
+     *
+     * @param o the other question
+     * @return -1, 0, or 1, in decreasing order by <code>weight</code>, or if <code>weight</code>s are equal, by <code>text</code>
+     */
     @Override
     public int compareTo(Question o) {
         int weightCompare = Integer.compare(getWeight(), o.getWeight()); // comparing by weight, for TreeSet comparing

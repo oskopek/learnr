@@ -28,7 +28,7 @@ package cz.matfyz.oskopek.learnr.model;
 import java.io.Serializable;
 
 /**
- * Created by oskopek on 11/29/14.
+ * A general serializable object that all model objects inherit from.
  */
 public abstract class AbstractPersistable implements Serializable {
 

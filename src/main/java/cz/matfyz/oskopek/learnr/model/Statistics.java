@@ -34,7 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by oskopek on 11/29/14.
+ * A lightweight storage object for user's answers.
+ * <p/>
+ * Also keeps simple statistics about the given answers, which it updated incrementally for each new answer.
  */
 @XStreamAlias("Statistics")
 public class Statistics extends AbstractPersistable {

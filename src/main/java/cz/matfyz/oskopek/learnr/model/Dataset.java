@@ -31,7 +31,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.TreeSet;
 
 /**
- * Created by oskopek on 11/29/14.
+ * <code>Dataset</code> represents the current state of questions, limits and general dataset configuration parameters.
+ * <p/>
+ * The questions in <code>questionSet</code> are <emph>currently</emph> available to be asked,
+ * while the questions in <code>finishedSet</code> are <emph>currently</emph> not going to be asked.
+ * (For example, until a weight reset is issued).
  */
 @XStreamAlias("Dataset")
 public class Dataset extends AbstractPersistable {
