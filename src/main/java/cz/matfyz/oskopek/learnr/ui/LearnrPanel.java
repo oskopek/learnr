@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -36,8 +36,8 @@ public class LearnrPanel extends JPanel implements Localizable {
     }
 
     public void languageChange(Locale locale) {
-        try { // TODO fix hardcoding file path
-            resourceBundle = new PropertyResourceBundle(new FileReader(new File("./prog1/zapoctak_learnr/data/strings/messages." + locale.toLanguageTag() + ".properties")));
+        try {
+            resourceBundle = new PropertyResourceBundle(getClass().getResourceAsStream("/strings/messages." + locale.toLanguageTag() + ".properties"));
         } catch (IOException e) {
             LOGGER.error("No such resourceBundle found: \'{}\'", locale.toLanguageTag());
             e.printStackTrace();
@@ -46,7 +46,10 @@ public class LearnrPanel extends JPanel implements Localizable {
         setLocale(locale); //necessary?
     }
 
-    public static String[] getAvailableLanguages() { // TODO fix this ugly thing
+    public HashMap<String, String> getAvailableLanguages() {
+        /*
+        //Old version, used while loading only from file system (wouldn't work in exec-able jar)
+
         File langDir = new File("./prog1/zapoctak_learnr/data/strings/");
         java.util.List<String> availableLanguages = new ArrayList<>();
         for (String filename : langDir.list()) {
@@ -59,6 +62,15 @@ public class LearnrPanel extends JPanel implements Localizable {
         String[] availableLangArr = new String[availableLanguages.size()];
         availableLanguages.toArray(availableLangArr);
         return availableLangArr;
+        */
+
+        HashMap<String, String> availableLanguages = new HashMap<>();
+        availableLanguages.put(localizedText("english"), "en-US");
+        availableLanguages.put(localizedText("slovak"), "sk-SK");
+        availableLanguages.put(localizedText("german"), "de-DE");
+        availableLanguages.put(localizedText("czech"), "cs-CS");
+        //Add new languages here
+        return availableLanguages;
     }
 
     @Override

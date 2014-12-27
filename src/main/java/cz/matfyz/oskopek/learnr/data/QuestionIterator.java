@@ -5,6 +5,7 @@ import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Limits;
 import cz.matfyz.oskopek.learnr.model.Question;
 import cz.matfyz.oskopek.learnr.tools.DatasetIO;
+import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +35,11 @@ public class QuestionIterator implements Iterator<Question> {
     @Override
     public boolean hasNext() {
         return questionsLeft() != 0 && limitWatcher.isValidAll();
+    }
+
+    @Override
+    public void remove() {
+        throw new NotImplementedException("remove() is not implemented in QuestionIterator");
     }
 
     @Override

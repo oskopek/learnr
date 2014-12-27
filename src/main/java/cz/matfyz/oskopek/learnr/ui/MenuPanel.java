@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -81,12 +82,14 @@ public class MenuPanel extends JPanel implements Localizable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String[] languages = LearnrPanel.getAvailableLanguages();
+                HashMap<String, String> languages = parentPanel.getAvailableLanguages();
+                String[] langArr = new String[languages.size()];
+                languages.keySet().toArray(langArr);
                 String result = (String) JOptionPane.showInputDialog(parentPanel, localizedText("choose-lang") + ":", localizedText("change-lang"),
-                        JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
+                        JOptionPane.QUESTION_MESSAGE, null, langArr, langArr[0]);
                 LOGGER.debug("Chose language: \'{}\'", result);
                 if (result == null) return; // Cancel button
-                parentPanel.languageChange(Locale.forLanguageTag(result));
+                parentPanel.languageChange(Locale.forLanguageTag(languages.get(result)));
             }
         });
         JButton bttLimits = new JButton(localizedText("change-lim"));

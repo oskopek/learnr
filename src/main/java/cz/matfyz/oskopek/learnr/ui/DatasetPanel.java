@@ -23,7 +23,7 @@ public class DatasetPanel extends JPanel implements Localizable {
     final private Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
 
     protected MainPanel parentPanel;
-    final private static String currentDirectory = "./prog1/zapoctak_learnr/data/"; // TODO fix hardcoding file path
+    final private static String currentDirectory = "."; //"./prog1/zapoctak_learnr/data/";
 
     public DatasetPanel(MainPanel parentPanel) {
         this.parentPanel = parentPanel;
