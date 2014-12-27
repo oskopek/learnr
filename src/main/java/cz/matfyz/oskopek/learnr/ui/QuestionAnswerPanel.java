@@ -17,6 +17,7 @@ public class QuestionAnswerPanel extends JPanel implements Localizable {
 
     protected MainPanel parentPanel;
     protected QuestionIterator questionIterator;
+    protected LimitCounterPanel limitCounterPanel;
     protected QuestionPanel questionPanel;
     protected AnswerPanel answerPanel;
 
@@ -27,15 +28,21 @@ public class QuestionAnswerPanel extends JPanel implements Localizable {
 
     private void init() {
         setLayout(new BorderLayout());
+        limitCounterPanel = new LimitCounterPanel(this);
         questionPanel = new QuestionPanel(this);
         answerPanel = new AnswerPanel(this);
+        add(limitCounterPanel, BorderLayout.PAGE_START);
         add(questionPanel, BorderLayout.CENTER);
         add(answerPanel, BorderLayout.PAGE_END);
     }
 
     public void nextQuestion() {
-        if (questionIterator != null) questionPanel.showQuestion(questionIterator.next());
-        else LOGGER.warn("Called nextQuestion() when questionIteratorManager was null.");
+        if (questionIterator != null) {
+            limitCounterPanel.updateLimitCounters(questionIterator.getLimitWatcher());
+            questionPanel.showQuestion(questionIterator.next());
+        } else {
+            LOGGER.warn("Called nextQuestion() when questionIteratorManager was null.");
+        }
     }
 
     @Override

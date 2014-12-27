@@ -24,6 +24,7 @@ public class QuestionIterator implements Iterator<Question> {
     public QuestionIterator(Dataset dataset) {
         this.dataset = dataset;
         this.limitWatcher = new LimitWatcher(dataset.getLimits());
+        this.limitWatcher.resetSession();
     }
 
     public int questionsLeft() {
@@ -104,6 +105,10 @@ public class QuestionIterator implements Iterator<Question> {
         return dataset;
     }
 
+    public LimitWatcher getLimitWatcher() {
+        return limitWatcher;
+    }
+
     public void resetWeights(int newWeight) {
         if (dataset != null) {
             dataset.getQuestionSet().addAll(dataset.getFinishedSet());
@@ -125,5 +130,6 @@ public class QuestionIterator implements Iterator<Question> {
     public void resetLimits(Limits limits) {
         dataset.setLimits(limits);
         limitWatcher = new LimitWatcher(limits);
+        limitWatcher.resetAll();
     }
 }

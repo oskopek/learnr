@@ -1,23 +1,36 @@
 package cz.matfyz.oskopek.learnr.data;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import cz.matfyz.oskopek.learnr.model.Limits;
+
+import java.util.Calendar;
 
 /**
  * Created by oskopek on 12/25/14.
  */
-@XStreamAlias("LimitWatcher")
 public class LimitWatcher {
 
     private Limits limits;
 
-    private int sessionCounter;
-    private int dailyCounter; //TODO add day checking
-
     public LimitWatcher(Limits limits) {
         this.limits = limits;
-        this.sessionCounter = 0;
-        this.dailyCounter = 0;
+    }
+
+    public void resetAll() {
+        resetSession();
+        resetDaily();
+        resetLoggedDay();
+    }
+
+    public void resetSession() {
+        this.limits.setSessionCounter(0);
+    }
+
+    public void resetDaily() {
+        this.limits.setDailyCounter(0);
+    }
+
+    public void resetLoggedDay() {
+        this.limits.setLoggedDay(System.currentTimeMillis());
     }
 
     public boolean isValidAll() {
@@ -25,11 +38,11 @@ public class LimitWatcher {
     }
 
     public void incDaily() {
-        dailyCounter++;
+        limits.setDailyCounter(limits.getDailyCounter() + 1);
     }
 
     public void incSession() {
-        sessionCounter++;
+        limits.setSessionCounter(limits.getSessionCounter() + 1);
     }
 
     public void incAll() {
@@ -38,12 +51,34 @@ public class LimitWatcher {
     }
 
     public boolean isValidSession() {
-        return sessionCounter < limits.getSession();
+        return limits.getSessionCounter() < limits.getSession();
     }
 
     public boolean isValidDaily() {
-        return dailyCounter < limits.getDaily();
+        long currentDay = System.currentTimeMillis();
+        if (!isSameDay(limits.getLoggedDay(), currentDay)) {
+            limits.setLoggedDay(currentDay);
+            limits.setDailyCounter(0);
+        }
+        return limits.getDailyCounter() < limits.getDaily();
     }
 
+    private static boolean isSameDay(long loggedDay, long currentDay) {
+        Calendar loggedCal = Calendar.getInstance();
+        Calendar currentCal = Calendar.getInstance();
+        loggedCal.setTimeInMillis(loggedDay);
+        currentCal.setTimeInMillis(currentDay);
+        return  (loggedCal.get(Calendar.YEAR) == currentCal.get(Calendar.YEAR)) &&
+                (loggedCal.get(Calendar.MONTH) == currentCal.get(Calendar.MONTH)) &&
+                (loggedCal.get(Calendar.DAY_OF_MONTH) == currentCal.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public int getSessionCounter() {
+        return limits.getSessionCounter();
+    }
+
+    public int getDailyCounter() {
+        return limits.getDailyCounter();
+    }
 
 }

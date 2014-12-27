@@ -12,6 +12,10 @@ public class Limits extends AbstractPersistable {
     private int daily;
     private int session;
 
+    private int dailyCounter;
+    private int sessionCounter;
+    private long loggedDay;
+
     public int getDaily() {
         return daily;
     }
@@ -28,8 +32,33 @@ public class Limits extends AbstractPersistable {
         this.session = session;
     }
 
+    public int getDailyCounter() {
+        return dailyCounter;
+    }
+
+    public void setDailyCounter(int dailyCounter) {
+        this.dailyCounter = dailyCounter;
+    }
+
+    public int getSessionCounter() {
+        return sessionCounter;
+    }
+
+    public void setSessionCounter(int sessionCounter) {
+        this.sessionCounter = sessionCounter;
+    }
+
+    public long getLoggedDay() {
+        return loggedDay;
+    }
+
+    public void setLoggedDay(long loggedDay) {
+        this.loggedDay = loggedDay;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("daily", daily).append("session", session).build();
+        return new ToStringBuilder(this).append("daily", daily).append("session", session).append("dailyCounter", dailyCounter)
+                .append("sessionCounter", sessionCounter).append("loggedDay", loggedDay).build();
     }
 }

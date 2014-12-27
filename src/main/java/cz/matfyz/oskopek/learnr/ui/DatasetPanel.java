@@ -118,6 +118,7 @@ public class DatasetPanel extends JPanel implements Localizable {
 
     private void setDatasetToPanel(Dataset dataset) {
         parentPanel.qaPanel.questionIterator = new QuestionIterator(dataset);
+        parentPanel.qaPanel.questionIterator.getLimitWatcher().resetSession();
         parentPanel.qaPanel.nextQuestion();
     }
 
