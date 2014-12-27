@@ -20,6 +20,8 @@ public class Dataset extends AbstractPersistable {
     private Limits limits;
     public enum AnswerCheckType {CASE_SENSITIVE, CASE_INSENSITIVE, EXACT}
     private AnswerCheckType answerCheckType;
+    private int goodAnswerPenalty;
+    private int badAnswerPenalty;
 
     public TreeSet<Question> getQuestionSet() {
         return questionSet;
@@ -85,9 +87,26 @@ public class Dataset extends AbstractPersistable {
         this.answerCheckType = answerCheckType;
     }
 
+    public int getBadAnswerPenalty() {
+        return badAnswerPenalty;
+    }
+
+    public void setBadAnswerPenalty(int badAnswerPenalty) {
+        this.badAnswerPenalty = badAnswerPenalty;
+    }
+
+    public int getGoodAnswerPenalty() {
+        return goodAnswerPenalty;
+    }
+
+    public void setGoodAnswerPenalty(int goodAnswerPenalty) {
+        this.goodAnswerPenalty = goodAnswerPenalty;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this).append(name).append(description).append(author).append(createdDate).append(limits)
-                .append(answerCheckType).append(questionSet).append(finishedSet).build();
+                .append(answerCheckType).append(questionSet).append(finishedSet).append(goodAnswerPenalty)
+                .append(badAnswerPenalty).build();
     }
 }

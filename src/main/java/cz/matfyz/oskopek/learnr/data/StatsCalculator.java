@@ -40,8 +40,7 @@ public class StatsCalculator { //TODO: Localize this
         long reactionTimeSum = 0;
         for (Question question : questionSet) {
             for (Answer answer : question.getStatistics().getAnsweredList()) {
-                if (answer.checkAnswer(question, dataset.getAnswerCheckType())) {
-                    //TODO set good/bad when checking answer the first time
+                if (answer.isGood()) {
                     timesGood++;
                 }
                 reactionTimeSum += answer.getReactionTime();
@@ -90,7 +89,7 @@ public class StatsCalculator { //TODO: Localize this
         int bad = 0;
         long sumReactionTime = 0;
         for (Answer answer : question.getStatistics().getAnsweredList()) {
-            if (answer.checkAnswer(question, dataset.getAnswerCheckType())) {
+            if (answer.isGood()) {
                 good++;
             } else {
                 bad++;

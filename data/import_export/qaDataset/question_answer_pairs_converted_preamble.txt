@@ -6,6 +6,8 @@ CreatedDate: 56832129249419
 RepetitionCoef: 1
 Limits: 20/10
 AnswerCheckType: CASE_INSENSITIVE
+GoodAnswerPenalty: 3
+BadAnswerPenalty: 1
 QUESTIONS:
 Was Alessandro Volta a professor of chemistry?; Alessandro Volta was not a professor of chemistry.
 Was Alessandro Volta a professor of chemistry?; No

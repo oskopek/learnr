@@ -72,26 +72,30 @@ public class QuestionIterator implements Iterator<Question> {
         if (currentQuestion != null) {
             long reactionTime = System.nanoTime() - startTime;
             answer.setReactionTime(reactionTime);
+            answer = checkAnswer(currentQuestion, answer);
+            currentQuestion = updateWeight(currentQuestion, answer);
             currentQuestion.getStatistics().submitAnswer(answer);
-
-            int lastWeight = currentQuestion.getWeight();
-            currentQuestion = updateWeight(currentQuestion, answer, dataset.getAnswerCheckType());
-            LOGGER.debug("Updating weight of \'{}\': \'{}\'->\'{}\'", currentQuestion.getText(),
-                    lastWeight, currentQuestion.getWeight());
         }
         else LOGGER.warn("Called submitAnswer when currentQuestion was null.");
     }
 
-    private static Question updateWeight(Question question, Answer answer, Dataset.AnswerCheckType answerCheckType) {
-        boolean isGood = answer.checkAnswer(question, answerCheckType);
-        answer.setAccepted(isGood);
+    private Answer checkAnswer(Question question, Answer answer) {
+        boolean isGood = answer.checkAnswer(question, dataset.getAnswerCheckType());
         LOGGER.info("Answer of \'{}\' with \'{}\' was {}. ReactionTime: \'{}\'.", question.getText(),
                 answer.getValue(), isGood, DatasetIO.convertNanosToHMS(answer.getReactionTime()));
-        if (isGood) { //TODO make these values dynamic?
-            question.setWeight(question.getWeight() - 3);
+        answer.setGood(isGood);
+        return answer;
+    }
+
+    private Question updateWeight(Question question, Answer answer) {
+        int lastWeight = currentQuestion.getWeight();
+        if (answer.isGood()) {
+            question.setWeight(question.getWeight() - Math.abs(dataset.getGoodAnswerPenalty())); // absolute value in case of wrong configuration
         } else {
-            question.setWeight(question.getWeight() - 1);
+            question.setWeight(question.getWeight() - Math.abs(dataset.getBadAnswerPenalty())); // absolute value in case of wrong configuration
         }
+        LOGGER.debug("Updating weight of \'{}\': \'{}\'->\'{}\'", currentQuestion.getText(),
+                lastWeight, currentQuestion.getWeight());
         return question;
     }
 

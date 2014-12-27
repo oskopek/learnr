@@ -9,7 +9,7 @@ Ondrej Skopek <oskopek@matfyz.cz>
 * *Implement limits*
 * Write documentation (aj dataset formátu) + dev doc
 * *Check I/O for bugs*
-* Finish UI
+* *Finish UI*
 
 === ToDo Goals
 
@@ -23,7 +23,7 @@ Ondrej Skopek <oskopek@matfyz.cz>
 
 * *Štatistické vyhodnocovanie odpovedí (tabuľkový prehľad v menu)*
 * *Vyhodnocovanie "reakčného času" na otázku + štatistiky "najrýchlejsie/najpomalšie odpovedáš dobre/zle na ..."*
-* Prekladateľnosť rozhrania + podpora základných jazykov (EN, SK, CZ, DE)
+* *Prekladateľnosť rozhrania + podpora základných jazykov (EN, SK, CZ, DE)*
 * _Funkcia "testu" vedomostí -- otázky sa vyhodnotia až po N otázkach alebo po uplynutí času_
 * _Čiastkové správne odpovede -- kategorizácia otázok a odpovedí v datasete + štatistiky "najviac sa mýliš v úlohách typu ..."_
 * _Profily -- podpora viacerých užívateľov_

@@ -6,7 +6,9 @@ CreatedDate: 56832129249418
 RepetitionCoef: 4
 Limits: 20/10
 AnswerCheckType: CASE_INSENSITIVE
+GoodAnswerPenalty: 3
+BadAnswerPenalty: 1
 QUESTIONS:
 How are you?; Good; Great; Fine
-Do you like kofola?; Yes
+Do you like Kofola?; Yes
 How many days are there in a week?; 7; Seven

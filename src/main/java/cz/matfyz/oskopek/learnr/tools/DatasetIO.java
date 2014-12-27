@@ -81,6 +81,8 @@ public class DatasetIO {
         pw.printf("RepetitionCoef: %d\n", dataset.getQuestionSet().size()+dataset.getFinishedSet().size());
         pw.printf("Limits: %d/%d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession());
         pw.printf("AnswerCheckType: %s\n", dataset.getAnswerCheckType());
+        pw.printf("GoodAnswerPenalty: %d\n", dataset.getGoodAnswerPenalty());
+        pw.printf("BadAnswerPenalty: %d\n", dataset.getBadAnswerPenalty());
         pw.printf("QUESTIONS:\n");
         for (Question q : dataset.getQuestionSet()) {
             pw.printf("%s", q.getText()); //skips statistics
@@ -117,6 +119,8 @@ public class DatasetIO {
         dataset.setLimits(limits);
         String answerCheckTypeStr = br.readLine().split(":")[1].trim();
         dataset.setAnswerCheckType(Dataset.AnswerCheckType.valueOf(answerCheckTypeStr));
+        dataset.setGoodAnswerPenalty(Integer.parseInt(br.readLine().split(":")[1].trim()));
+        dataset.setBadAnswerPenalty(Integer.parseInt(br.readLine().split(":")[1].trim()));
 
         String buffer;
         br.readLine(); // QUESTIONS
