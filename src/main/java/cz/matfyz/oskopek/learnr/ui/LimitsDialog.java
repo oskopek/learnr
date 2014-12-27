@@ -32,7 +32,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by oskopek on 12/27/14.
+ * The change limits dialog.
  */
 public class LimitsDialog implements Localizable {
 

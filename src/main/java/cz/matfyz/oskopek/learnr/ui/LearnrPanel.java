@@ -38,7 +38,7 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 /**
- * Created by oskopek on 12/3/14.
+ * The base panel (inside of <code>LearnrFrame</code>). Also manages localization (bottom-up).
  */
 public class LearnrPanel extends JPanel implements Localizable {
 

@@ -32,15 +32,15 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by oskopek on 12/24/14.
+ * <code>StatisticsDialog</code> displays the statistics provided by a {@link cz.matfyz.oskopek.learnr.data.StatisticsAggregator}.
  */
-public class StatsUI extends JDialog implements Localizable {
+public class StatisticsDialog extends JDialog implements Localizable {
 
     final LearnrPanel parentPanel;
     private final JTabbedPane tabbedPane;
     private final StatisticsAggregator statisticsAggregator;
 
-    public StatsUI(LearnrPanel parentPanel, StatisticsAggregator statisticsAggregator) {
+    public StatisticsDialog(LearnrPanel parentPanel, StatisticsAggregator statisticsAggregator) {
         this.parentPanel = parentPanel;
         this.statisticsAggregator = statisticsAggregator;
 

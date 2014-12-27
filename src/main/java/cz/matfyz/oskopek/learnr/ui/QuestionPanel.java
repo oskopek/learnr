@@ -34,7 +34,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by oskopek on 12/3/14.
+ * Simple panel that displays a question.
  */
 public class QuestionPanel extends JPanel implements Localizable {
 

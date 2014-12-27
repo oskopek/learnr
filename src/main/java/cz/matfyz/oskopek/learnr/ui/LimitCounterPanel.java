@@ -32,7 +32,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by oskopek on 12/27/14.
+ * Simple panel for displaying limit counter status.
  */
 public class LimitCounterPanel extends JPanel implements Localizable {
 

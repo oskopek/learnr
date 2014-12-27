@@ -41,7 +41,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 /**
- * Created by oskopek on 12/3/14.
+ * Dataset input/output panel, with four associated buttons.
  */
 public class DatasetPanel extends JPanel implements Localizable {
 

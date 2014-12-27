@@ -32,6 +32,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * A <code>Limits</code> objects that tracks limits for the number of asked questions.
  * <p/>
  * Also keeps counters of the current numbers of questions asked.
+ * <p/>
+ * Supports these limits:
+ * <ul>
+ * <li>daily</li>
+ * <li>session</li>
+ * </ul>
+ * <p/>
  * (So the <code>LimitWatcher</code> and <code>QuestionIterator</code> can use the same object instance).
  */
 @XStreamAlias("Limits")

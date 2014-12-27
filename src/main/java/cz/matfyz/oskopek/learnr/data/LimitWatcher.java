@@ -30,7 +30,13 @@ import cz.matfyz.oskopek.learnr.model.Limits;
 import java.util.Calendar;
 
 /**
- * Created by oskopek on 12/25/14.
+ * Manages the limit counters for the dataset's <code>Limits</code>.
+ * <p/>
+ * Keeps just a pointer to the dataset's instance.
+ *
+ * @see QuestionIterator#getDataset()
+ * @see cz.matfyz.oskopek.learnr.model.Dataset#getLimits()
+ * @see cz.matfyz.oskopek.learnr.model.Limits
  */
 public class LimitWatcher {
 

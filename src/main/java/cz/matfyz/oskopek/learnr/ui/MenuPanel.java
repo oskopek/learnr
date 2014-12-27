@@ -39,7 +39,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 /**
- * Created by oskopek on 12/3/14.
+ * Panel for managing the configuration of the application and basic navigation.
  */
 public class MenuPanel extends JPanel implements Localizable {
 
@@ -64,7 +64,7 @@ public class MenuPanel extends JPanel implements Localizable {
                     JOptionPane.showMessageDialog(parentPanel, localizedText("error-show-stats"), localizedText("error"),
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    new StatsUI(parentPanel, new StatisticsAggregator(parentPanel.mainPanel.qaPanel.getQuestionIterator().getDataset()));
+                    new StatisticsDialog(parentPanel, new StatisticsAggregator(parentPanel.mainPanel.qaPanel.getQuestionIterator().getDataset()));
                 }
             }
         });

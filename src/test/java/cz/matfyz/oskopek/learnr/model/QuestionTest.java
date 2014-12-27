@@ -33,7 +33,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 /**
- * Created by oskopek on 12/23/14.
+ * A basic test of the equals, hashCode, and compareTo implementations in {@link cz.matfyz.oskopek.learnr.model.Question}.
  */
 public class QuestionTest {
 

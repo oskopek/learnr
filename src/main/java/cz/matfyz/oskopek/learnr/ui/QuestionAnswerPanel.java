@@ -34,7 +34,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by oskopek on 12/3/14.
+ * Aggregates questions and answers.
+ * Contains the {@link cz.matfyz.oskopek.learnr.data.QuestionIterator} that manages question asking.
  */
 public class QuestionAnswerPanel extends JPanel implements Localizable {
 

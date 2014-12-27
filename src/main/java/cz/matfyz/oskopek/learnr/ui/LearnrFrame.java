@@ -29,7 +29,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by oskopek on 12/3/14.
+ * The base frame for Learnr.
  */
 public class LearnrFrame {
 

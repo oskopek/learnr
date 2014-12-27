@@ -33,7 +33,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Created by oskopek on 12/26/14.
+ * A simple class that collects statistics from the dataset and returns column and data arrays to display in a {@link cz.matfyz.oskopek.learnr.ui.StatisticsDialog}
  */
 public class StatisticsAggregator { //TODO: Localize this
 
@@ -76,6 +76,12 @@ public class StatisticsAggregator { //TODO: Localize this
         }
     }
 
+    /**
+     * Aggregate data for the <emph>total</emph> tab in <code>StatisticsDialog</code>.
+     * Contains summary data from the dataset.
+     *
+     * @return total summary data
+     */
     public Object[][] totalData() {
         String[] statColumn = {"# Total questions", "# Times asked total", "# Times repeated average",
                 "% Average good answer", "Total average reaction time"};
@@ -131,6 +137,12 @@ public class StatisticsAggregator { //TODO: Localize this
         return index;
     }
 
+    /**
+     * Aggregate data for the <emph>general</emph> tab in <code>StatisticsDialog</code>.
+     * Contains individual question data from the dataset.
+     *
+     * @return data for the individual questions
+     */
     public Object[][] generalData() {
         Object[][] data = new Object[dataset.getQuestionSet().size() + dataset.getFinishedSet().size()][generalColumns.length];
         int index = generateGeneralFromSet(data, 0, dataset.getQuestionSet());
@@ -138,10 +150,20 @@ public class StatisticsAggregator { //TODO: Localize this
         return data;
     }
 
+    /**
+     * Returns header strings for the total (summary) data tab in <code>StatisticsDialog</code>.
+     *
+     * @return headers for the total data
+     */
     public String[] totalColumns() {
         return totalColumns;
     }
 
+    /**
+     * Returns header strings for the general (individual question) data tab in <code>StatisticsDialog</code>.
+     *
+     * @return headers for the individual question data
+     */
     public String[] generalColumns() {
         return generalColumns;
     }

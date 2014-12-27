@@ -36,7 +36,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by oskopek on 12/3/14.
+ * Contains the answer text field and the submit button and manages them.
  */
 public class AnswerPanel extends JPanel implements Localizable {
 

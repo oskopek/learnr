@@ -31,7 +31,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by oskopek on 12/3/14.
+ * The main panel aggregating the questions, answering, and dataset IO.
  */
 public class MainPanel extends JPanel implements Localizable {
 

@@ -37,7 +37,10 @@ import org.slf4j.LoggerFactory;
 import java.util.Iterator;
 
 /**
- * Created by oskopek on 11/29/14.
+ * Manages the order of asked questions and the process of updating the question and answer after a answer is submitted.
+ * Also updates the <code>LimitWatcher</code> and measures the response time.
+ * <p/>
+ * Note: the <code>remove()</code> method is not implemented, as it has no sense.
  */
 public class QuestionIterator implements Iterator<Question> {
 
@@ -57,16 +60,29 @@ public class QuestionIterator implements Iterator<Question> {
         return dataset.getQuestionSet().size();
     }
 
+    /**
+     * Checks if there are any questions left and if no limits are reached.
+     *
+     * @return true if the next question exists and can be displayed
+     */
     @Override
     public boolean hasNext() {
         return questionsLeft() != 0 && limitWatcher.isValidAll();
     }
 
+    /**
+     * <b>Not Implemented:</b> Throws a {@link org.apache.commons.lang3.NotImplementedException} every time it is invoked.
+     */
     @Override
     public void remove() {
         throw new NotImplementedException("remove() is not implemented in QuestionIterator");
     }
 
+    /**
+     * Updates the current question after the answer submission and returns a new one to display.
+     *
+     * @return the next question to display
+     */
     @Override
     public Question next() {
         if (!limitWatcher.isValidAll()) {
@@ -141,6 +157,11 @@ public class QuestionIterator implements Iterator<Question> {
         return limitWatcher;
     }
 
+    /**
+     * Re-enables all questions (even finished ones) and sets their weight.
+     *
+     * @param newWeight the new weight to set
+     */
     public void resetWeights(int newWeight) {
         dataset.getQuestionSet().addAll(dataset.getFinishedSet());
         dataset.getFinishedSet().clear();
@@ -154,6 +175,11 @@ public class QuestionIterator implements Iterator<Question> {
         currentQuestion = null;
     }
 
+    /**
+     * Sets the dataset's limits and creates a new <code>LimitWatcher</code> to use them.
+     *
+     * @param limits the limits to set
+     */
     public void resetLimits(Limits limits) {
         dataset.setLimits(limits);
         limitWatcher = new LimitWatcher(limits);
