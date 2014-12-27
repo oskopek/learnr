@@ -18,10 +18,10 @@ public class MenuPanel extends JPanel implements Localizable {
 
     final private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MenuPanel.class);
 
-    private LearnrPane parentPane;
+    private LearnrPanel parentPanel;
 
-    public MenuPanel(LearnrPane parentPane) {
-        this.parentPane = parentPane;
+    public MenuPanel(LearnrPanel parentPanel) {
+        this.parentPanel = parentPanel;
         init();
     }
 
@@ -36,11 +36,11 @@ public class MenuPanel extends JPanel implements Localizable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                if (parentPane.mainPanel.qaPanel.questionIterator == null) {
-                    JOptionPane.showMessageDialog(parentPane, localizedText("error-show-stats"), localizedText("error"),
+                if (parentPanel.mainPanel.qaPanel.questionIterator == null) {
+                    JOptionPane.showMessageDialog(parentPanel, localizedText("error-show-stats"), localizedText("error"),
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    new StatsUI(parentPane, new StatsCalculator(parentPane.mainPanel.qaPanel.questionIterator.getDataset()));
+                    new StatsUI(parentPanel, new StatsCalculator(parentPanel.mainPanel.qaPanel.questionIterator.getDataset()));
                 }
             }
         });
@@ -57,21 +57,21 @@ public class MenuPanel extends JPanel implements Localizable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String resStr = JOptionPane.showInputDialog(parentPane, localizedText("reset-weights") + ":");
+                String resStr = JOptionPane.showInputDialog(parentPanel, localizedText("reset-weights") + ":");
                 if (resStr == null) return;
                 try {
                     int res = Integer.parseInt(resStr);
-                    if (parentPane.mainPanel.qaPanel.questionIterator != null) {
-                        parentPane.mainPanel.qaPanel.questionIterator.resetWeights(res);
-                        parentPane.mainPanel.qaPanel.nextQuestion();
+                    if (parentPanel.mainPanel.qaPanel.questionIterator != null) {
+                        parentPanel.mainPanel.qaPanel.questionIterator.resetWeights(res);
+                        parentPanel.mainPanel.qaPanel.nextQuestion();
                     } else {
                         LOGGER.debug("Trying to set weights with a null questionIterator.");
-                        JOptionPane.showMessageDialog(parentPane, localizedText("no-dataset-loaded"), localizedText("error"),
+                        JOptionPane.showMessageDialog(parentPanel, localizedText("no-dataset-loaded"), localizedText("error"),
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException nfe) {
                     LOGGER.debug("Wrong input in reset weights dialog: \'{}\'", resStr);
-                    JOptionPane.showMessageDialog(parentPane, localizedText("wrong-weight-val") + ": \'" + resStr + "\'.",
+                    JOptionPane.showMessageDialog(parentPanel, localizedText("wrong-weight-val") + ": \'" + resStr + "\'.",
                             localizedText("error"), JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -81,12 +81,12 @@ public class MenuPanel extends JPanel implements Localizable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String[] languages = LearnrPane.getAvailableLanguages();
-                String result = (String) JOptionPane.showInputDialog(parentPane, localizedText("choose-lang") + ":", localizedText("change-lang"),
+                String[] languages = LearnrPanel.getAvailableLanguages();
+                String result = (String) JOptionPane.showInputDialog(parentPanel, localizedText("choose-lang") + ":", localizedText("change-lang"),
                         JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
                 LOGGER.debug("Chose language: \'{}\'", result);
                 if (result == null) return; // Cancel button
-                parentPane.languageChange(Locale.forLanguageTag(result));
+                parentPanel.languageChange(Locale.forLanguageTag(result));
             }
         });
         JButton bttLimits = new JButton(localizedText("change-lim"));
@@ -94,21 +94,21 @@ public class MenuPanel extends JPanel implements Localizable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                if (parentPane.mainPanel.qaPanel.questionIterator == null) {
+                if (parentPanel.mainPanel.qaPanel.questionIterator == null) {
                     LOGGER.debug("Trying to set limits with a null questionIterator.");
-                    JOptionPane.showMessageDialog(parentPane, localizedText("no-dataset-loaded"), localizedText("error"),
+                    JOptionPane.showMessageDialog(parentPanel, localizedText("no-dataset-loaded"), localizedText("error"),
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                LimitsDialog limitsDialog = new LimitsDialog(parentPane);
-                Limits limits = limitsDialog.showDialog(parentPane.mainPanel.qaPanel.questionIterator.getDataset().getLimits());
+                LimitsDialog limitsDialog = new LimitsDialog(parentPanel);
+                Limits limits = limitsDialog.showDialog(parentPanel.mainPanel.qaPanel.questionIterator.getDataset().getLimits());
                 if (limits == null) {
                     LOGGER.debug("Cancelled setting limits.");
                     return;
                 } else {
                     LOGGER.debug("Setting limits to: \'{}\'.", limits);
                     //This will also reset any progress to today's or this session's limit
-                    parentPane.mainPanel.qaPanel.questionIterator.resetLimits(limits);
+                    parentPanel.mainPanel.qaPanel.questionIterator.resetLimits(limits);
                 }
             }
         });
@@ -127,6 +127,6 @@ public class MenuPanel extends JPanel implements Localizable {
 
     @Override
     public String localizedText(String id) {
-        return parentPane.localizedText(id);
+        return parentPanel.localizedText(id);
     }
 }

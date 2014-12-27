@@ -13,18 +13,18 @@ import java.util.*;
 /**
  * Created by oskopek on 12/3/14.
  */
-public class LearnrPane extends JPanel implements Localizable {
+public class LearnrPanel extends JPanel implements Localizable {
 
     protected MainPanel mainPanel;
     protected MenuPanel menuPanel;
 
     private ResourceBundle resourceBundle;
 
-    public LearnrPane() {
+    public LearnrPanel() {
         init();
     }
 
-    final private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LearnrPane.class);
+    final private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LearnrPanel.class);
 
     private void init() {
         languageChange(Locale.forLanguageTag("en-US")); // default en-US

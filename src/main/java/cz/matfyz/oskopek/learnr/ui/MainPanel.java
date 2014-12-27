@@ -12,10 +12,10 @@ public class MainPanel extends JPanel implements Localizable {
 
     protected QuestionAnswerPanel qaPanel;
     private DatasetPanel dataPanel;
-    protected LearnrPane parentPane;
+    protected LearnrPanel parentPanel;
 
-    public MainPanel(LearnrPane parentPane) {
-        this.parentPane = parentPane;
+    public MainPanel(LearnrPanel parentPanel) {
+        this.parentPanel = parentPanel;
         init();
     }
 
@@ -30,6 +30,6 @@ public class MainPanel extends JPanel implements Localizable {
 
     @Override
     public String localizedText(String id) {
-        return parentPane.localizedText(id);
+        return parentPanel.localizedText(id);
     }
 }

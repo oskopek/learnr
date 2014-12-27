@@ -22,11 +22,11 @@ public class DatasetPanel extends JPanel implements Localizable {
 
     final private Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
 
-    protected MainPanel parentPane;
+    protected MainPanel parentPanel;
     final private static String currentDirectory = "./prog1/zapoctak_learnr/data/"; // TODO fix hardcoding file path
 
-    public DatasetPanel(MainPanel parentPane) {
-        this.parentPane = parentPane;
+    public DatasetPanel(MainPanel parentPanel) {
+        this.parentPanel = parentPanel;
         init();
     }
 
@@ -48,7 +48,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
-                    parentPane.updateUI();
+                    parentPanel.updateUI();
                 }
             }
         });
@@ -64,7 +64,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Export dataset to: {}", chooser.getSelectedFile());
                     try {
-                        DatasetIO.exportXMLDataset(parentPane.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
+                        DatasetIO.exportXMLDataset(parentPanel.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
@@ -87,7 +87,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
-                    parentPane.updateUI();
+                    parentPanel.updateUI();
                 }
             }
         });
@@ -103,7 +103,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Export dataset to: {}", chooser.getSelectedFile());
                     try {
-                        DatasetIO.exportTXTDataset(parentPane.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
+                        DatasetIO.exportTXTDataset(parentPanel.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
@@ -117,12 +117,12 @@ public class DatasetPanel extends JPanel implements Localizable {
     }
 
     private void setDatasetToPanel(Dataset dataset) {
-        parentPane.qaPanel.questionIterator = new QuestionIterator(dataset);
-        parentPane.qaPanel.nextQuestion();
+        parentPanel.qaPanel.questionIterator = new QuestionIterator(dataset);
+        parentPanel.qaPanel.nextQuestion();
     }
 
     @Override
     public String localizedText(String id) {
-        return parentPane.localizedText(id);
+        return parentPanel.localizedText(id);
     }
 }

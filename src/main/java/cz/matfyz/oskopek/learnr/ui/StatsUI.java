@@ -12,12 +12,12 @@ import java.awt.*;
 public class StatsUI extends JDialog implements Localizable {
 
     private JTabbedPane tabbedPane;
-    private LearnrPane parentPane;
+    private LearnrPanel parentPanel;
 
     private StatsCalculator statsCalculator;
 
-    public StatsUI(LearnrPane parentPane, StatsCalculator statsCalculator) {
-        this.parentPane = parentPane;
+    public StatsUI(LearnrPanel parentPanel, StatsCalculator statsCalculator) {
+        this.parentPanel = parentPanel;
         this.statsCalculator = statsCalculator;
         init();
     }
@@ -60,6 +60,6 @@ public class StatsUI extends JDialog implements Localizable {
 
     @Override
     public String localizedText(String id) {
-        return parentPane.localizedText(id);
+        return parentPanel.localizedText(id);
     }
 }

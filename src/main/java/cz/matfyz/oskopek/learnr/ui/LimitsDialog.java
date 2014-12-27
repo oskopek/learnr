@@ -11,10 +11,10 @@ import java.awt.*;
  */
 public class LimitsDialog implements Localizable {
 
-    private LearnrPane parentPane;
+    private LearnrPanel parentPanel;
 
-    public LimitsDialog(LearnrPane parentPane) {
-        this.parentPane = parentPane;
+    public LimitsDialog(LearnrPanel parentPanel) {
+        this.parentPanel = parentPanel;
     }
 
     public Limits showDialog(Limits current) {
@@ -33,7 +33,7 @@ public class LimitsDialog implements Localizable {
         inputPanel.add(new JLabel(localizedText("daily") + ":"));
         inputPanel.add(new JSpinner(daily));
 
-        int result = JOptionPane.showConfirmDialog(parentPane, inputPanel, "", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(parentPanel, inputPanel, "", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             Limits limits = new Limits();
             limits.setDaily(daily.getNumber().intValue());
@@ -46,6 +46,6 @@ public class LimitsDialog implements Localizable {
 
     @Override
     public String localizedText(String id) {
-        return parentPane.localizedText(id);
+        return parentPanel.localizedText(id);
     }
 }

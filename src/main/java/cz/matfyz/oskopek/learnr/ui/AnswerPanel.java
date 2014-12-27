@@ -19,11 +19,11 @@ public class AnswerPanel extends JPanel implements Localizable {
 
     private SubmitAnswerListener answerListener;
 
-    protected QuestionAnswerPanel parentPane;
+    protected QuestionAnswerPanel parentPanel;
     final protected JTextField textField;
 
-    public AnswerPanel(QuestionAnswerPanel parentPane) {
-        this.parentPane = parentPane;
+    public AnswerPanel(QuestionAnswerPanel parentPanel) {
+        this.parentPanel = parentPanel;
         answerListener = new SubmitAnswerListener(this);
 
         setLayout(new BorderLayout());
@@ -38,30 +38,30 @@ public class AnswerPanel extends JPanel implements Localizable {
 
     private class SubmitAnswerListener implements ActionListener {
 
-        private AnswerPanel answerPane;
+        private AnswerPanel answerPanel;
 
-        private SubmitAnswerListener(AnswerPanel answerPane) {
-            this.answerPane = answerPane;
+        private SubmitAnswerListener(AnswerPanel answerPanel) {
+            this.answerPanel = answerPanel;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            LOGGER.debug("Submitted \'{}\' in answer text field.", answerPane.textField.getText());
+            LOGGER.debug("Submitted \'{}\' in answer text field.", answerPanel.textField.getText());
 
             Answer answer = new Answer();
-            answer.setValue(answerPane.textField.getText());
-            if (answerPane.parentPane.questionIterator != null) {
-                answerPane.parentPane.questionIterator.submitAnswer(answer);
-                answerPane.parentPane.nextQuestion();
+            answer.setValue(answerPanel.textField.getText());
+            if (answerPanel.parentPanel.questionIterator != null) {
+                answerPanel.parentPanel.questionIterator.submitAnswer(answer);
+                answerPanel.parentPanel.nextQuestion();
             } else {
                 LOGGER.warn("Submitting answer to null questionIteratorManager.");
             }
-            answerPane.textField.setText("");
+            answerPanel.textField.setText("");
         }
     }
 
     @Override
     public String localizedText(String id) {
-        return parentPane.localizedText(id);
+        return parentPanel.localizedText(id);
     }
 }

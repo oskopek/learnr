@@ -15,13 +15,13 @@ public class QuestionAnswerPanel extends JPanel implements Localizable {
 
     final private Logger LOGGER = LoggerFactory.getLogger(QuestionAnswerPanel.class);
 
-    protected MainPanel parentPane;
+    protected MainPanel parentPanel;
     protected QuestionIterator questionIterator;
     protected QuestionPanel questionPanel;
     protected AnswerPanel answerPanel;
 
-    public QuestionAnswerPanel(MainPanel parentPane) {
-        this.parentPane = parentPane;
+    public QuestionAnswerPanel(MainPanel parentPanel) {
+        this.parentPanel = parentPanel;
         init();
     }
 
@@ -40,6 +40,6 @@ public class QuestionAnswerPanel extends JPanel implements Localizable {
 
     @Override
     public String localizedText(String id) {
-        return parentPane.localizedText(id);
+        return parentPanel.localizedText(id);
     }
 }

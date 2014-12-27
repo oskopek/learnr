@@ -6,19 +6,19 @@ import java.awt.*;
 /**
  * Created by oskopek on 12/3/14.
  */
-public class LearnrUI {
+public class LearnrFrame {
 
-    private LearnrPane learnrPane;
+    private LearnrPanel learnrPanel;
 
-    public LearnrUI() {
-        learnrPane = new LearnrPane();
+    public LearnrFrame() {
+        learnrPanel = new LearnrPanel();
     }
 
     private void createAndShowGUI() {
         JFrame learnrFrame = new JFrame("Learnr");
 
         learnrFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        learnrFrame.setContentPane(learnrPane);
+        learnrFrame.setContentPane(learnrPanel);
         learnrFrame.setLocation(100, 100);
 
         learnrFrame.pack();
@@ -26,7 +26,7 @@ public class LearnrUI {
         learnrFrame.setVisible(true);
     }
 
-    public void startUI() {
+    public void showFrame() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
