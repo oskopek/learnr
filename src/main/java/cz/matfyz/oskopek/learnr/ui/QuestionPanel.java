@@ -72,14 +72,11 @@ public class QuestionPanel extends JPanel implements Localizable {
             // Dialog cause guessing:
             if (parentPanel.questionIterator.questionsLeft() == 0) {
                 JOptionPane.showMessageDialog(this, localizedText("finished-questions"));
-            }
-            else if (!parentPanel.questionIterator.getLimitWatcher().isValidSession()) {
+            } else if (!parentPanel.questionIterator.getLimitWatcher().isValidSession()) {
                 JOptionPane.showMessageDialog(this, localizedText("reached-session-lim"));
-            }
-            else if (!parentPanel.questionIterator.getLimitWatcher().isValidDaily()) {
+            } else if (!parentPanel.questionIterator.getLimitWatcher().isValidDaily()) {
                 JOptionPane.showMessageDialog(this, localizedText("reached-daily-lim"));
-            }
-            else {
+            } else {
                 LOGGER.error("Unknown end-of-dataset status!");
                 JOptionPane.showMessageDialog(this, localizedText("unknown-error"), localizedText("error"), JOptionPane.ERROR_MESSAGE);
             }

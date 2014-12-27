@@ -27,29 +27,29 @@ package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.tools.Localizable;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 
 /**
  * Created by oskopek on 12/3/14.
  */
 public class LearnrPanel extends JPanel implements Localizable {
 
+    final private static Logger LOGGER = LoggerFactory.getLogger(LearnrPanel.class);
     protected MainPanel mainPanel;
     protected MenuPanel menuPanel;
-
     private ResourceBundle resourceBundle;
 
     public LearnrPanel() {
         init();
     }
-
-    final private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LearnrPanel.class);
 
     private void init() {
         languageChange(Locale.forLanguageTag("en-US")); // default en-US

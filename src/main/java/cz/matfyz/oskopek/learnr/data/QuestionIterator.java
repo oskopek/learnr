@@ -108,8 +108,9 @@ public class QuestionIterator implements Iterator<Question> {
             answer = checkAnswer(currentQuestion, answer);
             currentQuestion = updateWeight(currentQuestion, answer);
             currentQuestion.getStatistics().submitAnswer(answer);
+        } else {
+            LOGGER.warn("Called submitAnswer when currentQuestion was null.");
         }
-        else LOGGER.warn("Called submitAnswer when currentQuestion was null.");
     }
 
     private Answer checkAnswer(Question question, Answer answer) {
@@ -147,8 +148,7 @@ public class QuestionIterator implements Iterator<Question> {
             for (Question question : dataset.getQuestionSet()) {
                 question.setWeight(newWeight);
             }
-        }
-        else {
+        } else {
             LOGGER.error("Dataset is null, cannot reset weight to \'{}\'.", newWeight);
         }
     }

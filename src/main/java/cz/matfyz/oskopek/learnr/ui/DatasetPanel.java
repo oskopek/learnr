@@ -45,10 +45,9 @@ import java.io.IOException;
  */
 public class DatasetPanel extends JPanel implements Localizable {
 
-    final private Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
-
-    protected MainPanel parentPanel;
     final private static String currentDirectory = "."; //"./prog1/zapoctak_learnr/data/";
+    final private Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
+    protected MainPanel parentPanel;
 
     public DatasetPanel(MainPanel parentPanel) {
         this.parentPanel = parentPanel;

@@ -65,7 +65,7 @@ public class Answer extends AbstractPersistable {
     }
 
     public boolean checkAnswer(Question question, Dataset.AnswerCheckType type) {
-        switch(type) {
+        switch (type) {
             case CASE_INSENSITIVE: {
                 String val = value.toLowerCase().trim();
                 for (Answer a : question.getAnswerList()) {

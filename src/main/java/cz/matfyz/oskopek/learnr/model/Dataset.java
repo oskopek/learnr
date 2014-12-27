@@ -36,6 +36,7 @@ import java.util.TreeSet;
 @XStreamAlias("Dataset")
 public class Dataset extends AbstractPersistable {
 
+    public enum AnswerCheckType {CASE_SENSITIVE, CASE_INSENSITIVE, EXACT}
     private TreeSet<Question> questionSet;
     private TreeSet<Question> finishedSet;
     private String name;
@@ -43,7 +44,6 @@ public class Dataset extends AbstractPersistable {
     private String author;
     private long createdDate;
     private Limits limits;
-    public enum AnswerCheckType {CASE_SENSITIVE, CASE_INSENSITIVE, EXACT}
     private AnswerCheckType answerCheckType;
     private int goodAnswerPenalty;
     private int badAnswerPenalty;

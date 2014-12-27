@@ -40,6 +40,16 @@ public class LimitWatcher {
         this.limits = limits;
     }
 
+    private static boolean isSameDay(long loggedDay, long currentDay) {
+        Calendar loggedCal = Calendar.getInstance();
+        Calendar currentCal = Calendar.getInstance();
+        loggedCal.setTimeInMillis(loggedDay);
+        currentCal.setTimeInMillis(currentDay);
+        return (loggedCal.get(Calendar.YEAR) == currentCal.get(Calendar.YEAR)) &&
+                (loggedCal.get(Calendar.MONTH) == currentCal.get(Calendar.MONTH)) &&
+                (loggedCal.get(Calendar.DAY_OF_MONTH) == currentCal.get(Calendar.DAY_OF_MONTH));
+    }
+
     public void resetAll() {
         resetSession();
         resetDaily();
@@ -86,16 +96,6 @@ public class LimitWatcher {
             limits.setDailyCounter(0);
         }
         return limits.getDailyCounter() < limits.getDaily();
-    }
-
-    private static boolean isSameDay(long loggedDay, long currentDay) {
-        Calendar loggedCal = Calendar.getInstance();
-        Calendar currentCal = Calendar.getInstance();
-        loggedCal.setTimeInMillis(loggedDay);
-        currentCal.setTimeInMillis(currentDay);
-        return  (loggedCal.get(Calendar.YEAR) == currentCal.get(Calendar.YEAR)) &&
-                (loggedCal.get(Calendar.MONTH) == currentCal.get(Calendar.MONTH)) &&
-                (loggedCal.get(Calendar.DAY_OF_MONTH) == currentCal.get(Calendar.DAY_OF_MONTH));
     }
 
     public int getSessionCounter() {

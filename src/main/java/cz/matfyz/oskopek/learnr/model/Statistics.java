@@ -39,17 +39,15 @@ import java.util.List;
 @XStreamAlias("Statistics")
 public class Statistics extends AbstractPersistable {
 
+    private long lastAsked;
+    private List<Answer> answeredList;
+    private int goodAnswerCount;
+
     public Statistics() {
         answeredList = new ArrayList<>();
         goodAnswerCount = 0;
         lastAsked = 0;
     }
-
-    private long lastAsked;
-
-    private List<Answer> answeredList;
-
-    private int goodAnswerCount;
 
     public void submitAnswer(Answer answer) {
         answeredList.add(answer);

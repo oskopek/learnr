@@ -38,12 +38,10 @@ import java.util.TreeSet;
  */
 public class StatsCalculator { //TODO: Localize this
 
-    private Dataset dataset;
-
     private final static String[] totalColumns = {"Statistic", "Value"};
-
     private final static String[] generalColumns = {"Question", "# Good Ans.", "# Bad Ans.", "# Total Ans.",
             "% Good Ans.", "Avg. Reaction Time"};
+    private Dataset dataset;
 
     public StatsCalculator(Dataset dataset) {
         this.dataset = dataset;

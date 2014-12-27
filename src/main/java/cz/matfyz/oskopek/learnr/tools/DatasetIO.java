@@ -103,7 +103,7 @@ public class DatasetIO {
         pw.printf("Description: %s\n", dataset.getDescription());
         pw.printf("Author: %s\n", dataset.getAuthor());
         pw.printf("CreatedDate: %d\n", dataset.getCreatedDate());
-        pw.printf("RepetitionCoef: %d\n", dataset.getQuestionSet().size()+dataset.getFinishedSet().size());
+        pw.printf("RepetitionCoef: %d\n", dataset.getQuestionSet().size() + dataset.getFinishedSet().size());
         pw.printf("Limits: %d/%d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession());
         pw.printf("AnswerCheckType: %s\n", dataset.getAnswerCheckType());
         pw.printf("GoodAnswerPenalty: %d\n", dataset.getGoodAnswerPenalty());
@@ -159,7 +159,7 @@ public class DatasetIO {
             q.setWeight(repCoef);
 
             List<Answer> answerList = new ArrayList<>();
-            for(int i = 1; i < split.length; i++) {
+            for (int i = 1; i < split.length; i++) {
                 Answer answer = new Answer();
                 answer.setValue(split[i].trim());
                 answerList.add(answer);
@@ -167,7 +167,7 @@ public class DatasetIO {
             q.setAnswerList(answerList);
 
             LOGGER.debug("Reading question \'{}\'; weight \'{}\'.", q.getText(), q.getWeight());
-            if(!questionSet.add(q)) {
+            if (!questionSet.add(q)) {
                 LOGGER.warn("Question \'{}\' already in dataset, adding as an answer.", q.getText());
                 Iterator<Question> descIter = questionSet.descendingIterator(); // Descending iterator, because it's probably last
                 while (descIter.hasNext()) {
@@ -187,10 +187,10 @@ public class DatasetIO {
     }
 
     public static String convertNanosToHMS(long nanoTime) {
-        long millis = nanoTime/1_000_000l;
+        long millis = nanoTime / 1_000_000l;
         return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-                            TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
-                            TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
+                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
     }
 
 }
