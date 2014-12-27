@@ -35,9 +35,9 @@ import java.awt.*;
  */
 public class MainPanel extends JPanel implements Localizable {
 
-    protected final QuestionAnswerPanel qaPanel;
-    protected final DatasetPanel dataPanel;
-    protected final LearnrPanel parentPanel;
+    final QuestionAnswerPanel qaPanel;
+    final DatasetPanel dataPanel;
+    final LearnrPanel parentPanel;
 
     public MainPanel(LearnrPanel parentPanel) {
         this.parentPanel = parentPanel;

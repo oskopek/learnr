@@ -42,9 +42,9 @@ import java.util.ResourceBundle;
  */
 public class LearnrPanel extends JPanel implements Localizable {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(LearnrPanel.class);
-    protected final MainPanel mainPanel;
-    protected final MenuPanel menuPanel;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LearnrPanel.class);
+    final MainPanel mainPanel;
+    final MenuPanel menuPanel;
     private ResourceBundle resourceBundle;
 
     public LearnrPanel() {

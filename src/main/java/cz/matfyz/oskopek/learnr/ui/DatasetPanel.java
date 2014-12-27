@@ -45,9 +45,9 @@ import java.io.IOException;
  */
 public class DatasetPanel extends JPanel implements Localizable {
 
-    final private static String currentDirectory = "."; //"./prog1/zapoctak_learnr/data/";
-    protected final MainPanel parentPanel;
-    final private Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
+    private static final String currentDirectory = "."; //"./prog1/zapoctak_learnr/data/";
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
+    final MainPanel parentPanel;
 
     public DatasetPanel(MainPanel mainPanel) {
         this.parentPanel = mainPanel;
@@ -81,7 +81,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Export dataset to: {}", chooser.getSelectedFile());
                     try {
-                        DatasetIO.saveXMLDataset(parentPanel.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
+                        DatasetIO.saveXMLDataset(parentPanel.qaPanel.getQuestionIterator().getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
@@ -120,7 +120,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     LOGGER.debug("Export dataset to: {}", chooser.getSelectedFile());
                     try {
-                        DatasetIO.exportTXTDataset(parentPanel.qaPanel.questionIterator.getDataset(), chooser.getSelectedFile().getAbsolutePath());
+                        DatasetIO.exportTXTDataset(parentPanel.qaPanel.getQuestionIterator().getDataset(), chooser.getSelectedFile().getAbsolutePath());
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
@@ -134,8 +134,8 @@ public class DatasetPanel extends JPanel implements Localizable {
     }
 
     private void setDatasetToPanel(Dataset dataset) {
-        parentPanel.qaPanel.questionIterator = new QuestionIterator(dataset);
-        parentPanel.qaPanel.questionIterator.getLimitWatcher().resetSession();
+        parentPanel.qaPanel.setQuestionIterator(new QuestionIterator(dataset));
+        parentPanel.qaPanel.getQuestionIterator().getLimitWatcher().resetSession();
         parentPanel.qaPanel.nextQuestion();
     }
 

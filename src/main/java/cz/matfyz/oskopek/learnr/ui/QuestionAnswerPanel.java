@@ -38,12 +38,12 @@ import java.awt.*;
  */
 public class QuestionAnswerPanel extends JPanel implements Localizable {
 
-    protected final MainPanel parentPanel;
-    protected final LimitCounterPanel limitCounterPanel;
-    protected final QuestionPanel questionPanel;
-    protected final AnswerPanel answerPanel;
-    final private Logger LOGGER = LoggerFactory.getLogger(QuestionAnswerPanel.class);
-    protected QuestionIterator questionIterator;
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuestionAnswerPanel.class);
+    final MainPanel parentPanel;
+    final LimitCounterPanel limitCounterPanel;
+    final QuestionPanel questionPanel;
+    final AnswerPanel answerPanel;
+    private QuestionIterator questionIterator;
 
     public QuestionAnswerPanel(MainPanel parentPanel) {
         this.parentPanel = parentPanel;
@@ -64,6 +64,14 @@ public class QuestionAnswerPanel extends JPanel implements Localizable {
         } else {
             LOGGER.warn("Called nextQuestion() when questionIteratorManager was null.");
         }
+    }
+
+    public QuestionIterator getQuestionIterator() {
+        return questionIterator;
+    }
+
+    public void setQuestionIterator(QuestionIterator questionIterator) {
+        this.questionIterator = questionIterator;
     }
 
     @Override

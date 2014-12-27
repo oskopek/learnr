@@ -29,7 +29,7 @@ import cz.matfyz.oskopek.learnr.model.Answer;
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Limits;
 import cz.matfyz.oskopek.learnr.model.Question;
-import cz.matfyz.oskopek.learnr.tools.DatasetIO;
+import cz.matfyz.oskopek.learnr.tools.ToolsIO;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,7 +116,7 @@ public class QuestionIterator implements Iterator<Question> {
     private Answer checkAnswer(Question question, Answer answer) {
         boolean isGood = answer.checkAnswer(question, dataset.getAnswerCheckType());
         LOGGER.info("Answer of \'{}\' with \'{}\' was {}. ReactionTime: \'{}\'.", question.getText(),
-                answer.getValue(), isGood, DatasetIO.convertNanosToHMS(answer.getReactionTime()));
+                answer.getValue(), isGood, ToolsIO.convertNanosToHMS(answer.getReactionTime()));
         answer.setGood(isGood);
         return answer;
     }
@@ -142,14 +142,10 @@ public class QuestionIterator implements Iterator<Question> {
     }
 
     public void resetWeights(int newWeight) {
-        if (dataset != null) {
-            dataset.getQuestionSet().addAll(dataset.getFinishedSet());
-            dataset.getFinishedSet().clear();
-            for (Question question : dataset.getQuestionSet()) {
-                question.setWeight(newWeight);
-            }
-        } else {
-            LOGGER.error("Dataset is null, cannot reset weight to \'{}\'.", newWeight);
+        dataset.getQuestionSet().addAll(dataset.getFinishedSet());
+        dataset.getFinishedSet().clear();
+        for (Question question : dataset.getQuestionSet()) {
+            question.setWeight(newWeight);
         }
     }
 

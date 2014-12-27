@@ -28,6 +28,7 @@ package cz.matfyz.oskopek.learnr.ui;
 import cz.matfyz.oskopek.learnr.data.StatisticsAggregator;
 import cz.matfyz.oskopek.learnr.model.Limits;
 import cz.matfyz.oskopek.learnr.tools.Localizable;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
@@ -42,9 +43,9 @@ import java.util.Locale;
  */
 public class MenuPanel extends JPanel implements Localizable {
 
-    final private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MenuPanel.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuPanel.class);
 
-    private final LearnrPanel parentPanel;
+    final LearnrPanel parentPanel;
 
     public MenuPanel(LearnrPanel learnrPanel) {
         this.parentPanel = learnrPanel;
@@ -59,11 +60,11 @@ public class MenuPanel extends JPanel implements Localizable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                if (parentPanel.mainPanel.qaPanel.questionIterator == null) {
+                if (parentPanel.mainPanel.qaPanel.getQuestionIterator() == null) {
                     JOptionPane.showMessageDialog(parentPanel, localizedText("error-show-stats"), localizedText("error"),
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    new StatsUI(parentPanel, new StatisticsAggregator(parentPanel.mainPanel.qaPanel.questionIterator.getDataset()));
+                    new StatsUI(parentPanel, new StatisticsAggregator(parentPanel.mainPanel.qaPanel.getQuestionIterator().getDataset()));
                 }
             }
         });
@@ -84,8 +85,8 @@ public class MenuPanel extends JPanel implements Localizable {
                 if (resStr == null) return;
                 try {
                     int res = Integer.parseInt(resStr);
-                    if (parentPanel.mainPanel.qaPanel.questionIterator != null) {
-                        parentPanel.mainPanel.qaPanel.questionIterator.resetWeights(res);
+                    if (parentPanel.mainPanel.qaPanel.getQuestionIterator() != null) {
+                        parentPanel.mainPanel.qaPanel.getQuestionIterator().resetWeights(res);
                         parentPanel.mainPanel.qaPanel.nextQuestion();
                     } else {
                         LOGGER.debug("Trying to set weights with a null questionIterator.");
@@ -119,20 +120,20 @@ public class MenuPanel extends JPanel implements Localizable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                if (parentPanel.mainPanel.qaPanel.questionIterator == null) {
+                if (parentPanel.mainPanel.qaPanel.getQuestionIterator() == null) {
                     LOGGER.debug("Trying to set limits with a null questionIterator.");
                     JOptionPane.showMessageDialog(parentPanel, localizedText("no-dataset-loaded"), localizedText("error"),
                             JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 LimitsDialog limitsDialog = new LimitsDialog(parentPanel);
-                Limits limits = limitsDialog.showDialog(parentPanel.mainPanel.qaPanel.questionIterator.getDataset().getLimits());
+                Limits limits = limitsDialog.showDialog(parentPanel.mainPanel.qaPanel.getQuestionIterator().getDataset().getLimits());
                 if (limits == null) {
                     LOGGER.debug("Cancelled setting limits.");
                 } else {
                     LOGGER.debug("Setting limits to: \'{}\'.", limits);
                     //This will also reset any progress to today's or this session's limit
-                    parentPanel.mainPanel.qaPanel.questionIterator.resetLimits(limits);
+                    parentPanel.mainPanel.qaPanel.getQuestionIterator().resetLimits(limits);
                 }
             }
         });

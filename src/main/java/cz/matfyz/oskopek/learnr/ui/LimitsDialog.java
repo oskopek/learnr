@@ -36,7 +36,7 @@ import java.awt.*;
  */
 public class LimitsDialog implements Localizable {
 
-    private final LearnrPanel parentPanel;
+    final LearnrPanel parentPanel;
 
     public LimitsDialog(LearnrPanel parentPanel) {
         this.parentPanel = parentPanel;

@@ -53,7 +53,7 @@ import java.util.TreeSet;
  */
 public class DatasetIO {
 
-    final static private Logger LOGGER = LoggerFactory.getLogger(DatasetIO.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatasetIO.class);
 
     /**
      * Saves the dataset via XStream.

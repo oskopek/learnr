@@ -33,7 +33,7 @@ public interface Localizable {
     /**
      * Returns the localized text for given string id.
      *
-     * @param id
+     * @param id specifies the text to return
      * @return the localized text represented by <code>id</code>
      */
     public String localizedText(String id);

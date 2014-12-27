@@ -27,7 +27,7 @@ package cz.matfyz.oskopek.learnr.data;
 
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Question;
-import cz.matfyz.oskopek.learnr.tools.DatasetIO;
+import cz.matfyz.oskopek.learnr.tools.ToolsIO;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -69,7 +69,7 @@ public class StatisticsAggregator { //TODO: Localize this
         answerStats[1] = timesAsked;
         answerStats[2] = (double) timesAsked / total;
         answerStats[3] = ((double) timesGood / timesAsked) * 100;
-        answerStats[4] = DatasetIO.convertNanosToHMS(Math.round((double) reactionTimeSum / timesAsked));
+        answerStats[4] = ToolsIO.convertNanosToHMS(Math.round((double) reactionTimeSum / timesAsked));
 
         for (int j = 0; j < answerStats.length; j++) {
             data[j][1] = answerStats[j];
@@ -107,7 +107,7 @@ public class StatisticsAggregator { //TODO: Localize this
         stats[1] = bad;
         stats[2] = good + bad;
         stats[3] = ((double) good / (good + bad)) * 100;
-        stats[4] = DatasetIO.convertNanosToHMS(Math.round((double) question.getStatistics().getReactionTimeSum() / (good + bad)));
+        stats[4] = ToolsIO.convertNanosToHMS(Math.round((double) question.getStatistics().getReactionTimeSum() / (good + bad)));
         return stats;
     }
 

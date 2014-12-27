@@ -36,9 +36,8 @@ import java.awt.*;
  */
 public class StatsUI extends JDialog implements Localizable {
 
+    final LearnrPanel parentPanel;
     private final JTabbedPane tabbedPane;
-    private final LearnrPanel parentPanel;
-
     private final StatisticsAggregator statisticsAggregator;
 
     public StatsUI(LearnrPanel parentPanel, StatisticsAggregator statisticsAggregator) {

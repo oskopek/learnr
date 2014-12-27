@@ -38,9 +38,9 @@ import java.awt.*;
  */
 public class QuestionPanel extends JPanel implements Localizable {
 
-    final private static Logger LOGGER = LoggerFactory.getLogger(QuestionPanel.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuestionPanel.class);
 
-    protected final QuestionAnswerPanel parentPanel;
+    final QuestionAnswerPanel parentPanel;
     private final JLabel text;
 
     public QuestionPanel(QuestionAnswerPanel parentPanel) {
@@ -68,11 +68,11 @@ public class QuestionPanel extends JPanel implements Localizable {
         text.setText("");
         if (showDialog) {
             // Dialog cause guessing:
-            if (parentPanel.questionIterator.questionsLeft() == 0) {
+            if (parentPanel.getQuestionIterator().questionsLeft() == 0) {
                 JOptionPane.showMessageDialog(this, localizedText("finished-questions"));
-            } else if (!parentPanel.questionIterator.getLimitWatcher().isValidSession()) {
+            } else if (!parentPanel.getQuestionIterator().getLimitWatcher().isValidSession()) {
                 JOptionPane.showMessageDialog(this, localizedText("reached-session-lim"));
-            } else if (!parentPanel.questionIterator.getLimitWatcher().isValidDaily()) {
+            } else if (!parentPanel.getQuestionIterator().getLimitWatcher().isValidDaily()) {
                 JOptionPane.showMessageDialog(this, localizedText("reached-daily-lim"));
             } else {
                 LOGGER.error("Unknown end-of-dataset status!");

@@ -40,8 +40,8 @@ import java.awt.event.ActionListener;
  */
 public class AnswerPanel extends JPanel implements Localizable {
 
-    final static private Logger LOGGER = LoggerFactory.getLogger(AnswerPanel.class);
-    protected final QuestionAnswerPanel parentPanel;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AnswerPanel.class);
+    final QuestionAnswerPanel parentPanel;
     private final JTextField textField;
 
     public AnswerPanel(QuestionAnswerPanel parentPanel) {
@@ -77,8 +77,8 @@ public class AnswerPanel extends JPanel implements Localizable {
 
             Answer answer = new Answer();
             answer.setValue(answerPanel.textField.getText());
-            if (answerPanel.parentPanel.questionIterator != null) {
-                answerPanel.parentPanel.questionIterator.submitAnswer(answer);
+            if (answerPanel.parentPanel.getQuestionIterator() != null) {
+                answerPanel.parentPanel.getQuestionIterator().submitAnswer(answer);
                 answerPanel.parentPanel.nextQuestion();
             } else {
                 LOGGER.warn("Submitting answer to null questionIteratorManager.");

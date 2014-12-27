@@ -36,7 +36,7 @@ import java.awt.*;
  */
 public class LimitCounterPanel extends JPanel implements Localizable {
 
-    private final QuestionAnswerPanel parentPanel;
+    final QuestionAnswerPanel parentPanel;
     private final JLabel sessionCount;
     private final JLabel dailyCount;
 
