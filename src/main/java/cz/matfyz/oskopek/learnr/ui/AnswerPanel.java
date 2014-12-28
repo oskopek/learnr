@@ -49,7 +49,8 @@ public class AnswerPanel extends JPanel implements Localizable {
         this.parentPanel = parentPanel;
         SubmitAnswerListener answerListener = new SubmitAnswerListener(this);
 
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(0, 5));
+        add(Box.createHorizontalStrut(0), BorderLayout.PAGE_START);
         textField = new JTextField();
         textField.addActionListener(answerListener);
         add(textField, BorderLayout.CENTER);
