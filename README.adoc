@@ -28,7 +28,7 @@ This project currently resides in it's own https://github.com/oskopek/learnr[rep
 
 If you have an assembled distribution of Learnr (that contains an executable jar), follow these steps to get "up and learning" quickly:
 
-* Download a sample dataset from the https://github.com/oskopek/learnr/data/import_export[GitHub repository's data folder]
+* Download a sample dataset from the https://github.com/oskopek/learnr/tree/master/data/import_export[GitHub repository's data folder]
   and save it in an accessible local folder.
 * Run the executable jar: `java -jar learnr-jar-with-dependencies.jar` or double-click in the file manager.
 * _Optional_: Change to the language of your choice -- click the _Change language_ button.
@@ -76,7 +76,7 @@ These four words have exact (and different) meanings in Learnr:
 == Sample datasets (and where to find them)
 
 The sample datasets are not distributed as a part of this project. You can find them in the `data/import_export` folder in the project root.
-See https://github.com/oskopek/learnr/data[the GitHub repository data] folder for more information.
+See https://github.com/oskopek/learnr/tree/master/data/import_export[the GitHub repository data] folder for more information.
 
 
 
