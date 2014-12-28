@@ -47,7 +47,7 @@ public class LearnrFrame {
         learnrFrame.setLocation(100, 100);
 
         learnrFrame.pack();
-        learnrFrame.setMinimumSize(new Dimension(500, 200));
+        learnrFrame.setMinimumSize(new Dimension(600, 250));
         learnrFrame.setVisible(true);
     }
 

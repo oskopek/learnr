@@ -45,7 +45,7 @@ import java.io.IOException;
  */
 public class DatasetPanel extends JPanel implements Localizable {
 
-    private static final String currentDirectory = "."; //"./prog1/zapoctak_learnr/data/";
+    private static final String currentDirectory = ".";
     private static final Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
     final MainPanel parentPanel;
     private final JButton loadBtt;
@@ -56,7 +56,7 @@ public class DatasetPanel extends JPanel implements Localizable {
     public DatasetPanel(MainPanel mainPanel) {
         this.parentPanel = mainPanel;
 
-        setLayout(new FlowLayout());
+        setLayout(new GridLayout(1, 4, 10, 10));
         loadBtt = new JButton(localizedText("load"));
         loadBtt.addMouseListener(new MouseAdapter() {
             @Override
@@ -73,6 +73,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 }
             }
         });
+        loadBtt.setToolTipText(localizedText("load-tooltip"));
         saveBtt = new JButton(localizedText("save"));
         saveBtt.addMouseListener(new MouseAdapter() {
             @Override
@@ -92,6 +93,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 }
             }
         });
+        saveBtt.setToolTipText(localizedText("save-tooltip"));
         importBtt = new JButton(localizedText("import"));
         importBtt.addMouseListener(new MouseAdapter() {
             @Override
@@ -112,6 +114,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 }
             }
         });
+        importBtt.setToolTipText(localizedText("import-tooltip"));
         exportBtt = new JButton(localizedText("export"));
         exportBtt.addMouseListener(new MouseAdapter() {
             @Override
@@ -131,6 +134,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 }
             }
         });
+        exportBtt.setToolTipText(localizedText("export-tooltip"));
         add(importBtt);
         add(exportBtt);
         add(loadBtt);
@@ -151,8 +155,12 @@ public class DatasetPanel extends JPanel implements Localizable {
     @Override
     public void localizationChanged() {
         loadBtt.setText(localizedText("load"));
+        loadBtt.setToolTipText(localizedText("load-tooltip"));
         saveBtt.setText(localizedText("save"));
+        saveBtt.setToolTipText(localizedText("save-tooltip"));
         importBtt.setText(localizedText("import"));
+        importBtt.setToolTipText(localizedText("import-tooltip"));
         exportBtt.setText(localizedText("export"));
+        exportBtt.setToolTipText(localizedText("export-tooltip"));
     }
 }

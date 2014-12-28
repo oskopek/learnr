@@ -59,6 +59,8 @@ public class MenuPanel extends JPanel implements Localizable {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
+        gbc.ipady = 5;
+        gbc.insets = new Insets(10, 10, 5, 10);
 
         bttStats = new JButton(localizedText("show-stats"));
         bttStats.addMouseListener(new MouseAdapter() {

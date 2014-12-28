@@ -41,15 +41,16 @@ public class QuestionPanel extends JPanel implements Localizable {
     private static final Logger LOGGER = LoggerFactory.getLogger(QuestionPanel.class);
 
     final QuestionAnswerPanel parentPanel;
-    private final JLabel text;
+    private final JTextArea text;
 
     public QuestionPanel(QuestionAnswerPanel parentPanel) {
         this.parentPanel = parentPanel;
 
         setLayout(new BorderLayout());
-        text = new JLabel();
-        text.setHorizontalAlignment(JLabel.CENTER);
-        add(text, BorderLayout.CENTER);
+        text = new JTextArea();
+        text.setEditable(false);
+        text.setLineWrap(true);
+        add(new JScrollPane(text), BorderLayout.CENTER);
 
         showEmptyQuestion(false);
     }

@@ -85,16 +85,6 @@ public class QuestionIterator implements Iterator<Question> {
      */
     @Override
     public Question next() {
-        if (!limitWatcher.isValidAll()) {
-            setNullQuestion();
-            return null;
-        }
-
-        if (questionsLeft() == 0) {
-            setNullQuestion();
-            return null;
-        }
-
         if (currentQuestion != null) {
             dataset.getQuestionSet().pollLast(); //intentionally ignored (we already have it in currentQuestion)
             if (currentQuestion.getWeight() <= 0) {
@@ -109,6 +99,12 @@ public class QuestionIterator implements Iterator<Question> {
             setNullQuestion();
             return null;
         }
+
+        if (!limitWatcher.isValidAll()) {
+            setNullQuestion();
+            return null;
+        }
+
         currentQuestion = dataset.getQuestionSet().last();
         LOGGER.debug("Loading question \'{}\'.", currentQuestion.getText());
         limitWatcher.incAll(); // here because of second hasNext check
