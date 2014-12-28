@@ -9,6 +9,23 @@ AnswerCheckType: CASE_INSENSITIVE
 GoodAnswerPenalty: 3
 BadAnswerPenalty: 1
 QUESTIONS:
-How are you?; Good; Great; Fine
-Do you like Kofola?; Yes
-How many days are there in a week?; 7; Seven
+Translate to German: Eye; Auge
+Translate to German: Hand; Hand
+Translate to German: Nose; Nase
+Translate to German: Book; Buch
+Translate to German: Television set; Fernseher
+Translate to German: Finger; Finger
+Translate to German: Lamp; Lampe
+Translate to German: Cup; Tasse
+Translate to German: Watch; Armbanduhr
+Translate to German: Clock; Uhr
+Translate to German: Keyboard; Tastatur
+Translate to German: Paper; Papier
+Translate to German: Radio station; Radiosender
+Translate to German: Coffee; Kaffee
+Translate to German: Running; Laufen
+Translate to German: Shoe; Schuh
+Translate to German: Shoes; Schuhe
+Translate to German: Pen; Kugelschreiber
+Translate to German: Pencil; Bleistift
+Translate to German: Mail; Post
