@@ -1,9 +1,9 @@
 PREAMBLE:
-Name: Test Dataset #1
-Description: Test Dataset #1 Description
+Name: Test Dataset #2
+Description: Test Dataset #2 Description
 Author: Ondrej Skopek
-CreatedDate: 56832129249418
-RepetitionCoef: 4
+CreatedDate: 1419796800000
+InitialWeight: 4
 Limits: 20/10
 AnswerCheckType: CASE_INSENSITIVE
 GoodAnswerPenalty: 3

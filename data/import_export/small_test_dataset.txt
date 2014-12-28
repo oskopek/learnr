@@ -1,0 +1,15 @@
+PREAMBLE:
+Name: Test Dataset #1
+Description: Test Dataset #1 Description
+Author: Ondrej Skopek
+CreatedDate: 1419418800000
+InitialWeight: 4
+Limits: 20/10
+AnswerCheckType: CASE_INSENSITIVE
+GoodAnswerPenalty: 3
+BadAnswerPenalty: 1
+QUESTIONS:
+How are you?; Good; Great; Fine
+Do you like Kofola?; Yes
+How many days are there in a week?; 7; Seven
+A new, unnanswerable question;

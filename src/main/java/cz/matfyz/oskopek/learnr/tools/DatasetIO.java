@@ -107,7 +107,7 @@ public class DatasetIO {
         pw.printf("Description: %s\n", dataset.getDescription());
         pw.printf("Author: %s\n", dataset.getAuthor());
         pw.printf("CreatedDate: %d\n", dataset.getCreatedDate());
-        pw.printf("RepetitionCoef: %d\n", dataset.getQuestionSet().size() + dataset.getFinishedSet().size());
+        pw.printf("InitialWeight: %d\n", dataset.getGoodAnswerPenalty() + dataset.getBadAnswerPenalty());
         pw.printf("Limits: %d/%d\n", dataset.getLimits().getDaily(), dataset.getLimits().getSession());
         pw.printf("AnswerCheckType: %s\n", dataset.getAnswerCheckType());
         pw.printf("GoodAnswerPenalty: %d\n", dataset.getGoodAnswerPenalty());
@@ -134,6 +134,8 @@ public class DatasetIO {
      * A manual method of importing a dataset from a text file.
      * <p/>
      * Used for plain dataset distribution. Does not import statistics of any kind.
+     * <p/>
+     * <b>Warning:</b> Expects a syntactically perfect dataset according to the TXT dataset format specification! (See documentation).
      *
      * @param filename the filename from which to import
      * @return the imported dataset
@@ -149,7 +151,7 @@ public class DatasetIO {
         dataset.setDescription(br.readLine().split(":")[1].trim());
         dataset.setAuthor(br.readLine().split(":")[1].trim());
         dataset.setCreatedDate(Long.parseLong(br.readLine().split(":")[1].trim()));
-        int repCoef = Integer.parseInt(br.readLine().split(":")[1].trim());
+        int initWeight = Integer.parseInt(br.readLine().split(":")[1].trim());
         String[] limitsStr = br.readLine().split("/");
         Limits limits = new Limits(Integer.parseInt(limitsStr[0].split(":")[1].trim()), Integer.parseInt(limitsStr[1]));
         dataset.setLimits(limits);
@@ -172,7 +174,7 @@ public class DatasetIO {
                 answer.setValue(split[i].trim());
                 answerList.add(answer);
             }
-            Question q = new Question(text, new Statistics(), answerList, repCoef);
+            Question q = new Question(text, new Statistics(), answerList, initWeight);
 
             LOGGER.debug("Reading question \'{}\'; weight \'{}\'.", q.getText(), q.getWeight());
             if (!questionSet.add(q)) {

@@ -1,14 +1,12 @@
-= Learnr: implementation
-Ondrej Skopek <oskopek@matfyz.cz>
+= Learnr -- implementation
 
 == ToDo
-* *Finish UI*
+* *Write UI*
 * *Write algorithm for questions*
 * *Write statistics collection*
 * *Implement statistics view*
 * *Implement limits*
-* Write documentation (aj dataset formátu) + dev doc
-* *Check I/O for bugs*
+* *Write documentation (aj dataset formátu) + dev doc*
 * *Finish UI*
 
 === ToDo Goals

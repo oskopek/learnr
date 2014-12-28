@@ -2,8 +2,8 @@ PREAMBLE:
 Name: QA dataset large
 Description: Large dataset from http://www.ark.cs.cmu.edu/QA-data/
 Author: Noah Smith, Michael Heilman, Rebecca Hwa, Shay Cohen, Kevin Gimpel
-CreatedDate: 56832129249419
-RepetitionCoef: 1
+CreatedDate: 1377252000000
+InitialWeight: 1
 Limits: 20/10
 AnswerCheckType: CASE_INSENSITIVE
 GoodAnswerPenalty: 3

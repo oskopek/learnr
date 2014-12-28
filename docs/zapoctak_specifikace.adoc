@@ -1,4 +1,4 @@
-= Špecifikácia zápočtového programu: Learnr
+= Learnr -- Špecifikácia zápočtového programu
 Ondrej Škopek <oskopek@matfyz.cz>
 
 == Stručne

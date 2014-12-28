@@ -93,6 +93,9 @@ public class Dataset extends AbstractPersistable {
         this.author = author;
     }
 
+    /**
+     * @return the time the dataset was created in milliseconds
+     */
     public long getCreatedDate() {
         return createdDate;
     }

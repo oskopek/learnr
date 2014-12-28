@@ -1,0 +1,157 @@
+= Learnr -- documentation
+
+This document strives to be a balanced mix between an advanced user/beginning developer guide to Learnr.
+
+
+
+
+
+
+== Datasets
+
+Datasets are used in two formats:
+
+* XML -- XStream-generated -- with statistics -- Load/Save
+* TXT -- plain text, manually generated in `DatasetIO` -- without statistics -- Import/Export
+
+The TXT format is way more compact, and usually preferable for a human to read (and possibly edit).
+Note that after a new import of a TXT formatted dataset, all your previous statistics are lost
+(if you didn't save them in XML before).
+
+See the README for the terminological difference between Load/Save and Import/Export.
+
+=== TXT format specification
+
+The dataset consists of two parts: the `PREAMBLE` and the `QUESTIONS`.
+There are to be no blank lines in the dataset in general.
+
+Please note, the `DatasetIO#importTXTDataset()` function expects a syntactically perfect dataset.
+
+==== Preamble
+
+The key and value parts of the preamble are separated by a colon `:`.
+Each pair lies on it's own line.
+
+The preamble contains (in this exact order):
+
+. Name -- String
+. Description -- String
+. Author -- String
+. CreatedDate -- a Long value representing a time in milliseconds
+. InitialWeight -- Integer
+. Limits -- Integers separated by a forward slash: daily limit / session limit
+. AnswerCheckType -- see the enum `Dataset#AnswerCheckType`
+. GoodAnswerPenalty -- Integer
+. BadAnswerPenalty -- Integer
+
+==== Questions
+
+The questions part consists of lines representing questions and good (i.e. correct) answers to them.
+Each line represents exactly one question and it's answers (possibly none) separated by a semi-colon `;`.
+
+Note: Be careful with spaces after questions with no answers.
+(An empty String would be a valid answer, according to the current implementation).
+Otherwise, spaces don't matter.
+
+==== Example
+
+An example dataset with a preamble and one question with two answers:
+
+```
+PREAMBLE:
+Name: Test Dataset #1
+Description: Test Dataset #1 Description
+Author: Ondrej Skopek
+CreatedDate: 1419418800000
+InitialWeight: 4
+Limits: 20/10
+AnswerCheckType: CASE_INSENSITIVE
+GoodAnswerPenalty: 3
+BadAnswerPenalty: 1
+QUESTIONS:
+How many days are there in a week?; 7; Seven
+```
+
+=== XML format specification
+
+We won't get into the details here, see how http://xstream.codehaus.org/[XStream works].
+Note that the format changes every time a change in the fields of a _model_ class is made.
+
+
+
+
+
+
+
+
+
+== Limits
+
+=== How they work
+
+
+
+
+
+
+
+
+== Question presenting algorithm
+
+=== Weights
+
+Penalties.
+
+
+
+
+
+
+== Localization
+
+Learnr is translatable, translations are available in the _Change language_ dialog.
+
+=== Adding translations
+
+All the translatable strings reside in the `src/main/resources/strings/` folder under the project root.
+To add a new translation, simply create a new file that adheres to the existing naming scheme and translate
+all the strings (on the right side of the `=` sign) to the language of your choice.
+
+The added `messages.xx-XX.properties` file must be in valid ISO-8859-1 encoding,
+where `xx-XX` is a valid IETF BCP 47 language tag.
+We use ISO-8859-1 because the `PropertyResourceBundle(InputStream)` constructor can't read UTF-8,
+and we cannot use the `FileReader` constructor variant with the message files inside of a jar.
+(See `LearnrPanel#languageChanged()`).
+
+Characters not encodable in this encoding can be Unicode-escaped as such:
+`\uXXXX` where `XXXX` is a valid Unicode code point.
+
+To add the translation to the _Change language_ dialog, add a line to the `LearnrPanel#getAvailableLanguages()` method,
+and repackage.
+
+=== Localization implementation
+
+Localization in Learnr is implemented with the help of the `Localizable` interface. All elements that want to support
+localization have to implement it. The method `languageChanged()` gets called everytime there is a localization change,
+and the element is expected to redraw itself with the new localized strings. It gets them in the current localization via
+the method `localizedText()`.
+
+Learnr implements this interface in a hierarchical way, where each Localizable object's `localizedText()` calls it's parent,
+until the call arrives at the hierarchical root (i.e. `LearnrPanel`), which manages the ResourceBundle related to the localization
+and returns the correctly localized string.
+
+
+
+
+
+
+
+== Third party libraries
+
+All third party libraries and their licenses are explicitly listed in the `THIRD-PARTY.txt` file in the root of the project.
+The main libraries we use are:
+
+* JUnit -- unit testing
+* XStream -- loading/saving datasets with statistics
+* Apache Commons Lang -- `equals`, `hashCode` and `compareTo` builders
+* Logback -- logging

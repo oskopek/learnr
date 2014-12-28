@@ -66,15 +66,15 @@ public class LearnrPanel extends JPanel implements Localizable {
         }
         LOGGER.debug("Loaded resourceBundle: \'{}\'", locale.toLanguageTag());
         setLocale(locale); //necessary?
-        if(initializeRedraw) {
+        if (initializeRedraw) {
             localizationChanged();
         }
     }
 
     public HashMap<String, String> getAvailableLanguages() {
-        /*
-        //Old version, used while loading only from file system (wouldn't work in exec-able jar)
+        //Old version, used while loading only from file system (wouldn't work in an exec-able jar)
 
+        /*
         File langDir = new File("./prog1/zapoctak_learnr/data/strings/");
         java.util.List<String> availableLanguages = new ArrayList<>();
         for (String filename : langDir.list()) {
