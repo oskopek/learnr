@@ -84,4 +84,9 @@ public class StatisticsDialog extends JDialog implements Localizable {
     public String localizedText(String id) {
         return parentPanel.localizedText(id);
     }
+
+    @Override
+    public void localizationChanged() {
+        // intentionally empty TODO for now
+    }
 }

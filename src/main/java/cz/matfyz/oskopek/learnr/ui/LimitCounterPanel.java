@@ -39,13 +39,15 @@ public class LimitCounterPanel extends JPanel implements Localizable {
     final QuestionAnswerPanel parentPanel;
     private final JLabel sessionCount;
     private final JLabel dailyCount;
+    private final JLabel sessionText;
+    private final JLabel dailyText;
 
     public LimitCounterPanel(QuestionAnswerPanel parentPanel) {
         this.parentPanel = parentPanel;
 
         setLayout(new FlowLayout());
-        JLabel sessionText = new JLabel(localizedText("session") + ":");
-        JLabel dailyText = new JLabel(localizedText("daily") + ":");
+        sessionText = new JLabel(localizedText("session") + ":");
+        dailyText = new JLabel(localizedText("daily") + ":");
         sessionCount = new JLabel("0");
         dailyCount = new JLabel("0");
         add(sessionText);
@@ -72,5 +74,11 @@ public class LimitCounterPanel extends JPanel implements Localizable {
     @Override
     public String localizedText(String id) {
         return parentPanel.localizedText(id);
+    }
+
+    @Override
+    public void localizationChanged() {
+        sessionText.setText(localizedText("session") + ":");
+        dailyText.setText(localizedText("daily") + ":");
     }
 }

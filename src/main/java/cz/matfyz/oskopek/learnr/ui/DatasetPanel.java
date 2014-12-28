@@ -48,12 +48,16 @@ public class DatasetPanel extends JPanel implements Localizable {
     private static final String currentDirectory = "."; //"./prog1/zapoctak_learnr/data/";
     private static final Logger LOGGER = LoggerFactory.getLogger(DatasetPanel.class);
     final MainPanel parentPanel;
+    private final JButton loadBtt;
+    private final JButton saveBtt;
+    private final JButton importBtt;
+    private final JButton exportBtt;
 
     public DatasetPanel(MainPanel mainPanel) {
         this.parentPanel = mainPanel;
 
         setLayout(new FlowLayout());
-        JButton loadBtt = new JButton(localizedText("load"));
+        loadBtt = new JButton(localizedText("load"));
         loadBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -69,7 +73,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 }
             }
         });
-        JButton saveBtt = new JButton(localizedText("save"));
+        saveBtt = new JButton(localizedText("save"));
         saveBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -88,7 +92,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 }
             }
         });
-        JButton importBtt = new JButton(localizedText("import"));
+        importBtt = new JButton(localizedText("import"));
         importBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -108,7 +112,7 @@ public class DatasetPanel extends JPanel implements Localizable {
                 }
             }
         });
-        JButton exportBtt = new JButton(localizedText("export"));
+        exportBtt = new JButton(localizedText("export"));
         exportBtt.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -142,5 +146,13 @@ public class DatasetPanel extends JPanel implements Localizable {
     @Override
     public String localizedText(String id) {
         return parentPanel.localizedText(id);
+    }
+
+    @Override
+    public void localizationChanged() {
+        loadBtt.setText(localizedText("load"));
+        saveBtt.setText(localizedText("save"));
+        importBtt.setText(localizedText("import"));
+        exportBtt.setText(localizedText("export"));
     }
 }

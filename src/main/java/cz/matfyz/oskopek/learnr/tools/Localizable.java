@@ -38,4 +38,9 @@ public interface Localizable {
      */
     public String localizedText(String id);
 
+    /**
+     * Gets called when the localization is changed. Should redraw all localized components.
+     */
+    public void localizationChanged();
+
 }

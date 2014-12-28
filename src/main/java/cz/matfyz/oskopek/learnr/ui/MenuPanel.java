@@ -46,6 +46,11 @@ public class MenuPanel extends JPanel implements Localizable {
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuPanel.class);
 
     final LearnrPanel parentPanel;
+    private final JButton bttStats;
+    private final JButton bttExit;
+    private final JButton bttLang;
+    private final JButton bttLimits;
+    private final JButton bttWeights;
 
     public MenuPanel(LearnrPanel learnrPanel) {
         this.parentPanel = learnrPanel;
@@ -55,7 +60,7 @@ public class MenuPanel extends JPanel implements Localizable {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
 
-        JButton bttStats = new JButton(localizedText("show-stats"));
+        bttStats = new JButton(localizedText("show-stats"));
         bttStats.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -68,7 +73,7 @@ public class MenuPanel extends JPanel implements Localizable {
                 }
             }
         });
-        JButton bttExit = new JButton(localizedText("exit"));
+        bttExit = new JButton(localizedText("exit"));
         bttExit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -76,7 +81,7 @@ public class MenuPanel extends JPanel implements Localizable {
                 System.exit(0);
             }
         });
-        JButton bttWeights = new JButton(localizedText("reset-weights"));
+        bttWeights = new JButton(localizedText("reset-weights"));
         bttWeights.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -100,7 +105,7 @@ public class MenuPanel extends JPanel implements Localizable {
                 }
             }
         });
-        JButton bttLang = new JButton(localizedText("change-lang"));
+        bttLang = new JButton(localizedText("change-lang"));
         bttLang.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -112,10 +117,10 @@ public class MenuPanel extends JPanel implements Localizable {
                         JOptionPane.QUESTION_MESSAGE, null, langArr, langArr[0]);
                 LOGGER.debug("Chose language: \'{}\'", result);
                 if (result == null) return; // Cancel button
-                parentPanel.languageChange(Locale.forLanguageTag(languages.get(result)));
+                parentPanel.languageChange(Locale.forLanguageTag(languages.get(result)), true);
             }
         });
-        JButton bttLimits = new JButton(localizedText("change-lim"));
+        bttLimits = new JButton(localizedText("change-lim"));
         bttLimits.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -153,5 +158,14 @@ public class MenuPanel extends JPanel implements Localizable {
     @Override
     public String localizedText(String id) {
         return parentPanel.localizedText(id);
+    }
+
+    @Override
+    public void localizationChanged() {
+        bttStats.setText(localizedText("show-stats"));
+        bttExit.setText(localizedText("exit"));
+        bttLang.setText(localizedText("change-lang"));
+        bttLimits.setText(localizedText("change-lim"));
+        bttWeights.setText(localizedText("reset-weights"));
     }
 }

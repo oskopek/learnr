@@ -54,4 +54,10 @@ public class MainPanel extends JPanel implements Localizable {
     public String localizedText(String id) {
         return parentPanel.localizedText(id);
     }
+
+    @Override
+    public void localizationChanged() {
+        qaPanel.localizationChanged();
+        dataPanel.localizationChanged();
+    }
 }

@@ -48,23 +48,27 @@ public class LearnrPanel extends JPanel implements Localizable {
     private ResourceBundle resourceBundle;
 
     public LearnrPanel() {
-        languageChange(Locale.forLanguageTag("en-US")); // default en-US
+        languageChange(Locale.forLanguageTag("en-US"), false); // default en-US
         setLayout(new BorderLayout());
         mainPanel = new MainPanel(this);
         menuPanel = new MenuPanel(this);
         add(menuPanel, BorderLayout.LINE_START);
         add(mainPanel, BorderLayout.CENTER);
+        localizationChanged();
     }
 
-    public void languageChange(Locale locale) {
+    public void languageChange(Locale locale, boolean initializeRedraw) {
         try {
             resourceBundle = new PropertyResourceBundle(getClass().getResourceAsStream("/strings/messages." + locale.toLanguageTag() + ".properties"));
         } catch (IOException e) {
             LOGGER.error("No such resourceBundle found: \'{}\'", locale.toLanguageTag());
             e.printStackTrace();
         }
-        LOGGER.debug("Loaded resourceBundle: \'{}\'", locale.toLanguageTag()); //TODO redraw!
+        LOGGER.debug("Loaded resourceBundle: \'{}\'", locale.toLanguageTag());
         setLocale(locale); //necessary?
+        if(initializeRedraw) {
+            localizationChanged();
+        }
     }
 
     public HashMap<String, String> getAvailableLanguages() {
@@ -99,4 +103,9 @@ public class LearnrPanel extends JPanel implements Localizable {
         return resourceBundle.getString(id);
     }
 
+    @Override
+    public void localizationChanged() {
+        mainPanel.localizationChanged();
+        menuPanel.localizationChanged();
+    }
 }

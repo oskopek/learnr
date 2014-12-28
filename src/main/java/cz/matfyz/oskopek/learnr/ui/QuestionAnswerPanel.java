@@ -79,4 +79,11 @@ public class QuestionAnswerPanel extends JPanel implements Localizable {
     public String localizedText(String id) {
         return parentPanel.localizedText(id);
     }
+
+    @Override
+    public void localizationChanged() {
+        questionPanel.localizationChanged();
+        answerPanel.localizationChanged();
+        limitCounterPanel.localizationChanged();
+    }
 }

@@ -43,6 +43,7 @@ public class AnswerPanel extends JPanel implements Localizable {
     private static final Logger LOGGER = LoggerFactory.getLogger(AnswerPanel.class);
     final QuestionAnswerPanel parentPanel;
     private final JTextField textField;
+    private final JButton submitBtt;
 
     public AnswerPanel(QuestionAnswerPanel parentPanel) {
         this.parentPanel = parentPanel;
@@ -53,7 +54,7 @@ public class AnswerPanel extends JPanel implements Localizable {
         textField.addActionListener(answerListener);
         add(textField, BorderLayout.CENTER);
 
-        JButton submitBtt = new JButton(localizedText("submit"));
+        submitBtt = new JButton(localizedText("submit"));
         submitBtt.addActionListener(answerListener);
         add(submitBtt, BorderLayout.LINE_END);
     }
@@ -61,6 +62,12 @@ public class AnswerPanel extends JPanel implements Localizable {
     @Override
     public String localizedText(String id) {
         return parentPanel.localizedText(id);
+    }
+
+    @Override
+    public void localizationChanged() {
+        submitBtt.setText(localizedText("submit"));
+        repaint();
     }
 
     private class SubmitAnswerListener implements ActionListener {
