@@ -69,7 +69,7 @@ public class MenuPanel extends JPanel implements Localizable {
                     JOptionPane.showMessageDialog(parentPanel, localizedText("error-show-stats"), localizedText("error"),
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    new StatisticsDialog(parentPanel, new StatisticsAggregator(parentPanel.mainPanel.qaPanel.getQuestionIterator().getDataset()));
+                    new StatisticsDialog(parentPanel, new StatisticsAggregator(parentPanel.mainPanel.qaPanel.getQuestionIterator().getDataset(), parentPanel));
                 }
             }
         });

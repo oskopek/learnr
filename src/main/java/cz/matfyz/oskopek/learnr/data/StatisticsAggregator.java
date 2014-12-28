@@ -27,6 +27,7 @@ package cz.matfyz.oskopek.learnr.data;
 
 import cz.matfyz.oskopek.learnr.model.Dataset;
 import cz.matfyz.oskopek.learnr.model.Question;
+import cz.matfyz.oskopek.learnr.tools.Localizable;
 import cz.matfyz.oskopek.learnr.tools.ToolsIO;
 
 import java.util.Set;
@@ -35,15 +36,14 @@ import java.util.TreeSet;
 /**
  * A simple class that collects statistics from the dataset and returns column and data arrays to display in a {@link cz.matfyz.oskopek.learnr.ui.StatisticsDialog}
  */
-public class StatisticsAggregator { //TODO: Localize this
+public class StatisticsAggregator implements Localizable {
 
-    private final static String[] totalColumns = {"Statistic", "Value"};
-    private final static String[] generalColumns = {"Question", "# Good Ans.", "# Bad Ans.", "# Total Ans.",
-            "% Good Ans.", "Avg. Reaction Time"};
     private final Dataset dataset;
+    private final Localizable localizationProvider;
 
-    public StatisticsAggregator(Dataset dataset) {
+    public StatisticsAggregator(Dataset dataset, Localizable localizationProvider) {
         this.dataset = dataset;
+        this.localizationProvider = localizationProvider;
     }
 
     /**
@@ -83,8 +83,7 @@ public class StatisticsAggregator { //TODO: Localize this
      * @return total summary data
      */
     public Object[][] totalData() {
-        String[] statColumn = {"# Total questions", "# Times asked total", "# Times repeated average",
-                "% Average good answer", "Total average reaction time"};
+        String[] statColumn = totalStatistics();
         Object[][] data = new Object[statColumn.length][2];
         for (int i = 0; i < statColumn.length; i++) {
             data[i][0] = statColumn[i];
@@ -94,6 +93,21 @@ public class StatisticsAggregator { //TODO: Localize this
         totalSet.addAll(dataset.getFinishedSet());
         generateTotalFromSet(data, totalSet);
         return data;
+    }
+
+    /**
+     * Returns localized statistic names for the total tab.
+     *
+     * @return total statistic names
+     */
+    private String[] totalStatistics() {
+        String[] statColumn = new String[5];
+        statColumn[0] = "# " + localizedText("of-total-questions");
+        statColumn[1] = "# " + localizedText("of-times-asked-total");
+        statColumn[2] = "# " + localizedText("of-times-repeated-average");
+        statColumn[3] = "% " + localizedText("of-good-answer-average");
+        statColumn[4] = localizedText("total-average-reaction-time");
+        return statColumn;
     }
 
 
@@ -144,6 +158,7 @@ public class StatisticsAggregator { //TODO: Localize this
      * @return data for the individual questions
      */
     public Object[][] generalData() {
+        String[] generalColumns = generalColumns();
         Object[][] data = new Object[dataset.getQuestionSet().size() + dataset.getFinishedSet().size()][generalColumns.length];
         int index = generateGeneralFromSet(data, 0, dataset.getQuestionSet());
         generateGeneralFromSet(data, index, dataset.getFinishedSet());
@@ -151,21 +166,40 @@ public class StatisticsAggregator { //TODO: Localize this
     }
 
     /**
-     * Returns header strings for the total (summary) data tab in <code>StatisticsDialog</code>.
+     * Returns localized header strings for the total (summary) data tab in <code>StatisticsDialog</code>.
      *
      * @return headers for the total data
      */
     public String[] totalColumns() {
+        String[] totalColumns = new String[2];
+        totalColumns[0] = localizedText("statistic");
+        totalColumns[1] = localizedText("value");
         return totalColumns;
     }
 
     /**
-     * Returns header strings for the general (individual question) data tab in <code>StatisticsDialog</code>.
+     * Returns localized header strings for the general (individual question) data tab in <code>StatisticsDialog</code>.
      *
      * @return headers for the individual question data
      */
     public String[] generalColumns() {
+        String[] generalColumns = new String[6];
+        generalColumns[0] = localizedText("question");
+        generalColumns[1] = "# " + localizedText("of-good-answers");
+        generalColumns[2] = "# " + localizedText("of-bad-answers");
+        generalColumns[3] = "# " + localizedText("of-total-answers");
+        generalColumns[4] = "% " + localizedText("of-good-answers");
+        generalColumns[5] = localizedText("average-reaction-time");
         return generalColumns;
     }
 
+    @Override
+    public void localizationChanged() {
+        // intentionally empty
+    }
+
+    @Override
+    public String localizedText(String id) {
+        return localizationProvider.localizedText(id);
+    }
 }

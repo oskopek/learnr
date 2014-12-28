@@ -55,6 +55,7 @@ public class StatisticsDialog extends JDialog implements Localizable {
         setContentPane(tabbedPane);
         pack();
         setMinimumSize(new Dimension(500, 400));
+        setModal(true);
         setVisible(true);
     }
 
@@ -87,6 +88,6 @@ public class StatisticsDialog extends JDialog implements Localizable {
 
     @Override
     public void localizationChanged() {
-        // intentionally empty TODO for now
+        // intentionally empty
     }
 }
