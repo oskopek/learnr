@@ -56,6 +56,7 @@ public class StatisticsDialog extends JDialog implements Localizable {
         pack();
         setMinimumSize(new Dimension(500, 400));
         setModal(true);
+        setTitle(localizedText("statistics"));
         setVisible(true);
     }
 
