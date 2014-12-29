@@ -87,7 +87,16 @@ Note that the format changes every time a change in the fields of a _model_ clas
 
 == Limits
 
-=== How they work
+Every dataset has a `Limits` object that specifies the limits set by the dataset creator (or overwritten by the user in the UI)
+and also keeps the counters that count up to the limits.
+
+A `LimitWatcher` object manages the `Limits` object of the dataset (increments the counters, checks for reaching a limit).
+When a limit is reached, the UI presents a dialog informing the user and doesn't show any more questions.
+
+Currently, two types of limits are supported:
+
+* Daily -- how many questions the user can answer in a day
+* Session -- how many questions the user can answer in one "session" (sitting, ...)
 
 
 
@@ -98,11 +107,37 @@ Note that the format changes every time a change in the fields of a _model_ clas
 
 == Question presenting algorithm
 
-=== Weights
+The order in which questions are shown to the user is determined by the question presenting algorithm.
 
-Penalties.
+Questions are held in two separate heap-like structures: _question set_ and _finished set_.
+Every question has an integer value called a _weight_. If the weight is positive, the question
+belongs to the question set, if it is non-positive it belongs to the finished set.
 
+At the beginning, all questions are set an initial weight (specified in the dataset).
+A question that has the highest weight in the question set gets shown.
 
+After the user submits an answer, the question's weight gets updated:
+
+* if the answer was good (correct) the _goodAnswerPenalty_ gets subtracted,
+* if it was bad (incorrect) the _badAnswerPenalty_ gets subtracted.
+
+Both of these penalties are integer values, specified in the dataset.
+
+In case the weight drops to 0 or less, the question is moved from the question set
+to the finished set. If it stays positive, only it's weight gets updated and the question remains in the question set.
+
+The question set reorders itself and a question with the highest weight is shown to the user.
+This repeats, until a limit is reached or the question set runs out of questions.
+
+=== Implementation
+
+The algorithm is implemented in the `QuestionIterator` class.
+Since it resembles the work of an `Iterator` (except for the `remove()` function), therefore it is implemented as such.
+
+Questions are contained in a `TreeSet`, whose order is determined by `Question#compareTo()`.
+The comparing function orders the questions in increasing order by weight, and in case they are equal breaks the tie
+by comparing their `text`s. The TreeSet is always polled from the end, i.e. from the last element, so we always take the
+question with the highest weight.
 
 
 

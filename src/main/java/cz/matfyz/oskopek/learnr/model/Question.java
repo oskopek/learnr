@@ -113,6 +113,6 @@ public class Question extends AbstractPersistable implements Comparable<Question
         int weightCompare = Integer.compare(getWeight(), o.getWeight()); // comparing by weight, for TreeSet comparing
         if (weightCompare != 0) return weightCompare;
 
-        return new CompareToBuilder().append(text, o.text).toComparison(); //TODO rethink this (especially in small datasets)
+        return new CompareToBuilder().append(text, o.text).toComparison();
     }
 }
