@@ -87,6 +87,7 @@ public class AnswerPanel extends JPanel implements Localizable {
             answer.setValue(answerPanel.textField.getText());
             if (answerPanel.parentPanel.getQuestionIterator() != null) {
                 answerPanel.parentPanel.getQuestionIterator().submitAnswer(answer);
+                answerPanel.parentPanel.statusPanel.updateLastAnswerCorectness(answer.isGood()); // TODO move last answer correctness FROM HERE
                 answerPanel.parentPanel.nextQuestion();
             } else {
                 LOGGER.warn("Submitting answer to null questionIteratorManager.");

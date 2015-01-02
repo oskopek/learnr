@@ -32,17 +32,20 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Simple panel for displaying limit counter status.
+ * Simple panel for displaying limit counter and last answer status.
  */
-public class LimitCounterPanel extends JPanel implements Localizable {
+public class StatusPanel extends JPanel implements Localizable {
 
     final QuestionAnswerPanel parentPanel;
     private final JLabel sessionCount;
     private final JLabel dailyCount;
     private final JLabel sessionText;
     private final JLabel dailyText;
+    private final JLabel lastAnswerText;
+    private final JLabel lastAnswerCorectness;
+    private boolean lastAnswerWasGood;
 
-    public LimitCounterPanel(QuestionAnswerPanel parentPanel) {
+    public StatusPanel(QuestionAnswerPanel parentPanel) {
         this.parentPanel = parentPanel;
 
         setLayout(new FlowLayout());
@@ -50,10 +53,14 @@ public class LimitCounterPanel extends JPanel implements Localizable {
         dailyText = new JLabel(localizedText("daily") + ":");
         sessionCount = new JLabel("0");
         dailyCount = new JLabel("0");
+        lastAnswerText = new JLabel(localizedText("last-answer") + ":");
+        lastAnswerCorectness = new JLabel("-");
         add(sessionText);
         add(sessionCount);
         add(dailyText);
         add(dailyCount);
+        add(lastAnswerText);
+        add(lastAnswerCorectness);
     }
 
     public void updateLimitCounters(LimitWatcher limitWatcher) {
@@ -71,6 +78,17 @@ public class LimitCounterPanel extends JPanel implements Localizable {
         }
     }
 
+    public void updateLastAnswerCorectness(boolean lastAnswerWasGood) {
+        this.lastAnswerWasGood = lastAnswerWasGood;
+        if (lastAnswerWasGood) {
+            lastAnswerCorectness.setText(localizedText("good"));
+            lastAnswerCorectness.setForeground(Color.GREEN);
+        } else {
+            lastAnswerCorectness.setText(localizedText("bad"));
+            lastAnswerCorectness.setForeground(Color.RED);
+        }
+    }
+
     @Override
     public String localizedText(String id) {
         return parentPanel.localizedText(id);
@@ -80,5 +98,7 @@ public class LimitCounterPanel extends JPanel implements Localizable {
     public void localizationChanged() {
         sessionText.setText(localizedText("session") + ":");
         dailyText.setText(localizedText("daily") + ":");
+        lastAnswerText.setText(localizedText("last-answer") + ":");
+        updateLastAnswerCorectness(lastAnswerWasGood); // translates the good/bad string
     }
 }
