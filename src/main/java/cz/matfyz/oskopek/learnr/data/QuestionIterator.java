@@ -181,4 +181,8 @@ public class QuestionIterator implements Iterator<Question> {
         limitWatcher = new LimitWatcher(limits);
         limitWatcher.resetAll();
     }
+
+    public Question getCurrentQuestion() {
+        return currentQuestion;
+    }
 }

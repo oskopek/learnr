@@ -51,6 +51,7 @@ public class MenuPanel extends JPanel implements Localizable {
     private final JButton bttLang;
     private final JButton bttLimits;
     private final JButton bttWeights;
+    private final JButton bttGoodAnswersSetting;
 
     public MenuPanel(LearnrPanel learnrPanel) {
         this.parentPanel = learnrPanel;
@@ -144,16 +145,27 @@ public class MenuPanel extends JPanel implements Localizable {
                 }
             }
         });
+        bttGoodAnswersSetting = new JButton(localizedText("show-good-answers"));
+        bttGoodAnswersSetting.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                parentPanel.mainPanel.qaPanel.answerPanel.toggleShowGoodAnswersDialog();
+                JOptionPane.showMessageDialog(parentPanel, localizedText("toggle-show-good-answers"));
+            }
+        });
 
         gbc.gridy = 0;
         add(bttStats, gbc);
         gbc.gridy = 1;
-        add(bttWeights, gbc);
+        add(bttGoodAnswersSetting, gbc);
         gbc.gridy = 2;
-        add(bttLimits, gbc);
+        add(bttWeights, gbc);
         gbc.gridy = 3;
-        add(bttLang, gbc);
+        add(bttLimits, gbc);
         gbc.gridy = 4;
+        add(bttLang, gbc);
+        gbc.gridy = 5;
         add(bttExit, gbc);
     }
 
@@ -169,5 +181,6 @@ public class MenuPanel extends JPanel implements Localizable {
         bttLang.setText(localizedText("change-lang"));
         bttLimits.setText(localizedText("change-lim"));
         bttWeights.setText(localizedText("reset-weights"));
+        bttGoodAnswersSetting.setText(localizedText("show-good-answers"));
     }
 }

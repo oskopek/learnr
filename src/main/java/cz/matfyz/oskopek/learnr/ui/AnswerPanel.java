@@ -26,6 +26,7 @@
 package cz.matfyz.oskopek.learnr.ui;
 
 import cz.matfyz.oskopek.learnr.model.Answer;
+import cz.matfyz.oskopek.learnr.model.Question;
 import cz.matfyz.oskopek.learnr.tools.Localizable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class AnswerPanel extends JPanel implements Localizable {
     final QuestionAnswerPanel parentPanel;
     private final JTextField textField;
     private final JButton submitBtt;
+    private boolean showGoodAnswersDialog;
 
     public AnswerPanel(QuestionAnswerPanel parentPanel) {
         this.parentPanel = parentPanel;
@@ -58,6 +60,8 @@ public class AnswerPanel extends JPanel implements Localizable {
         submitBtt = new JButton(localizedText("submit"));
         submitBtt.addActionListener(answerListener);
         add(submitBtt, BorderLayout.LINE_END);
+
+        showGoodAnswersDialog = false;
     }
 
     @Override
@@ -69,6 +73,19 @@ public class AnswerPanel extends JPanel implements Localizable {
     public void localizationChanged() {
         submitBtt.setText(localizedText("submit"));
         repaint();
+    }
+
+    public void toggleShowGoodAnswersDialog() {
+        this.showGoodAnswersDialog = !this.showGoodAnswersDialog;
+    }
+
+    public void showGoodAnswersDialog(Question question) {
+        String message = localizedText("good-answers") + ": ";
+        for (Answer answer : question.getAnswerList()) {
+            message += answer.getValue() + ", ";
+        }
+        if (question.getAnswerList().size() > 0) message = message.substring(0, message.length() - 2) + ".";
+        JOptionPane.showMessageDialog(parentPanel, message, localizedText("good-answers-title"), JOptionPane.PLAIN_MESSAGE);
     }
 
     private class SubmitAnswerListener implements ActionListener {
@@ -88,6 +105,9 @@ public class AnswerPanel extends JPanel implements Localizable {
             if (answerPanel.parentPanel.getQuestionIterator() != null) {
                 answerPanel.parentPanel.getQuestionIterator().submitAnswer(answer);
                 answerPanel.parentPanel.statusPanel.updateLastAnswerCorectness(answer.isGood()); // TODO move last answer correctness FROM HERE
+                if (showGoodAnswersDialog && !answer.isGood()) { // if the question was badly answered
+                    showGoodAnswersDialog(answerPanel.parentPanel.getQuestionIterator().getCurrentQuestion());
+                }
                 answerPanel.parentPanel.nextQuestion();
             } else {
                 LOGGER.warn("Submitting answer to null questionIteratorManager.");
